@@ -1,5 +1,5 @@
-import { RandomizerFactory } from '../randomizer';
+import { Randomizer } from '../randomizer';
 
 export interface Ecosystem {
-  randomizer: RandomizerFactory;
+  randomizer: Randomizer;
 }
