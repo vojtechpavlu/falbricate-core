@@ -1,3 +1,5 @@
+import { Randomizer } from '../randomizer';
+
 export interface Ecosystem {
-  randomizer: () => number;
+  randomizer: Randomizer;
 }
