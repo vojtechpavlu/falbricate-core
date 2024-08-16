@@ -15,4 +15,4 @@ const randomizer: Randomizer = Math.random;
  */
 export const basicRandomizerFactory: RandomizerFactory = (): Randomizer => {
   return randomizer;
-}
+};

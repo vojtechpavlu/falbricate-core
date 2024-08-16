@@ -11,4 +11,6 @@ export type RandomizerConfiguration = Record<string, unknown>;
 /**
  * Factory function providing a preconfigured {@link Randomizer} instance.
  */
-export type RandomizerFactory = (config?: RandomizerConfiguration) => Randomizer;
+export type RandomizerFactory = (
+  config?: RandomizerConfiguration,
+) => Randomizer;
