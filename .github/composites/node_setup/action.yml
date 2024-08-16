@@ -1,0 +1,24 @@
+name: Node Setup
+description: Sets up the Node.js and installs the dependencies
+
+inputs:
+  node_version:
+    description: Version of Node.js to be used
+    required: false
+    default: '20'
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Setup Node.js ${{ inputs.node_version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+        cache: npm
+        cache-dependency-path: ./lambda/package-lock.json
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ./lambda
+      run: npm install

@@ -1,0 +1,38 @@
+name: Static tests
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  formatting:
+    name: Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Test Formatting
+        run: npm run test:format
+
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Test Linting
+        run: npm run test:lint
