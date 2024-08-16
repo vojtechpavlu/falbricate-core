@@ -16,9 +16,8 @@ runs:
       with:
         node-version: ${{ inputs.node_version }}
         cache: npm
-        cache-dependency-path: ./lambda/package-lock.json
+        cache-dependency-path: package-lock.json
 
     - name: Install dependencies
       shell: bash
-      working-directory: ./lambda
       run: npm install
