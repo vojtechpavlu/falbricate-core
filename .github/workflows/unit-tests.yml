@@ -1,0 +1,24 @@
+name: Unit tests
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Test Formatting
+        run: npm run test:unit
