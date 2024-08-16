@@ -13,7 +13,7 @@ const randomizer: Randomizer = Math.random;
  * @returns {Randomizer} Basic randomizer for generating quick
  * pseudo-random numbers within a range of `[0, 1]`
  */
-export const basicRandomizerFactory: RandomizerFactory<
+export const basicRandomizer: RandomizerFactory<
   RandomizerConfiguration
 > = (): Randomizer => {
   return randomizer;
