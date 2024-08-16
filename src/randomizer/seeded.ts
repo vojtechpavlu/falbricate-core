@@ -1,4 +1,4 @@
-import { RandomizerConfiguration, RandomizerFactory } from './base';
+import { Randomizer, RandomizerConfiguration, RandomizerFactory } from './base';
 
 /** Simple configuration for seeded randomizer */
 export interface SeededRandomizerConfiguration extends RandomizerConfiguration {
@@ -11,14 +11,16 @@ export interface SeededRandomizerConfiguration extends RandomizerConfiguration {
  *
  * @param {SeededRandomizerConfiguration} config Configuration specifying
  * the seed to be used by the deterministic randomizer.
+ *
+ * @returns {Randomizer} Deterministic randomizer following the internal seed
  */
 export const seededRandomizer: RandomizerFactory<
   SeededRandomizerConfiguration
-> = (config?: SeededRandomizerConfiguration) => {
+> = (config?: SeededRandomizerConfiguration): Randomizer => {
   let { seed } = config ?? { seed: 1 };
 
   return () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
+    seed = (seed * 9301 + 49_297) % 233_280;
+    return seed / 233_280;
   };
 };
