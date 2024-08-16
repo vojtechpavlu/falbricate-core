@@ -12,9 +12,9 @@ export interface SeededRandomizerConfiguration extends RandomizerConfiguration {
  * @param {SeededRandomizerConfiguration} config Configuration specifying
  * the seed to be used by the deterministic randomizer.
  */
-export const seededRandomizer: RandomizerFactory<SeededRandomizerConfiguration> = (
-  config?: SeededRandomizerConfiguration
-) => {
+export const seededRandomizer: RandomizerFactory<
+  SeededRandomizerConfiguration
+> = (config?: SeededRandomizerConfiguration) => {
   let { seed } = config ?? { seed: 1 };
 
   return () => {
