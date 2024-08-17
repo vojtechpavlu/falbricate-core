@@ -13,6 +13,6 @@ export interface RandomizerConfiguration {
 /**
  * Factory function providing a preconfigured {@link Randomizer} instance.
  */
-export type RandomizerFactory<T extends RandomizerConfiguration> = (
+export type RandomizerFactory = <T extends RandomizerConfiguration>(
   config?: T,
 ) => Randomizer;

@@ -1,4 +1,4 @@
-import { Randomizer, RandomizerConfiguration, RandomizerFactory } from './base';
+import { Randomizer, RandomizerFactory } from './base';
 
 /**
  * Simple randomizer for quick and simple pseudo-randoms
@@ -13,8 +13,6 @@ const randomizer: Randomizer = Math.random;
  * @returns {Randomizer} Basic randomizer for generating quick
  * pseudo-random numbers within a range of `[0, 1]`
  */
-export const basicRandomizer: RandomizerFactory<
-  RandomizerConfiguration
-> = (): Randomizer => {
+export const basicRandomizer: RandomizerFactory = () => {
   return randomizer;
 };
