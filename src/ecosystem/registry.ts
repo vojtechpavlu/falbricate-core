@@ -20,6 +20,27 @@ export class Registry<T> {
   };
 
   /**
+   * Tries to retrieve an item with the given name.
+   *
+   * @template T Type of the record's item
+   *
+   * @param {string} name of the item to be retrieved
+   *
+   * @returns {T} Item assigned to this name
+   *
+   * @throws {Error} When no such item was found
+   */
+  public get = (name: string): T => {
+    const item = this.records[name];
+
+    if (!item) {
+      throw new Error(`No item '${name}' found in registry ${this.registryType}`);
+    }
+
+    return item;
+  };
+
+  /**
    * Tries to register the given item under a given name.
    *
    * @template T Type of the record's item

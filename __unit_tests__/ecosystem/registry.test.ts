@@ -48,4 +48,22 @@ describe('Ecosystem Registry', () => {
 
     expect(registry.has('test')).toBe(false);
   });
+
+  it('should successfully retrieve a registered item', () => {
+    const item: CustomItem = { value: 'success' };
+    const registry = new Registry<CustomItem>('test-registry-type', {
+      test: item,
+    });
+
+    const retrieved = registry.get('test');
+
+    expect(retrieved.value).toBe('success');
+  });
+
+  it('should throw on retrieving an item not registered', () => {
+    const registry = new Registry<CustomItem>('test-registry-type');
+
+    expect(() => registry.get('non-existing'))
+      .toThrow(`No item 'non-existing' found in registry test-registry-type`);
+  });
 });
