@@ -1,6 +1,7 @@
 import {
-  basicRandomizer,
+  Randomizer,
   RandomizerFactory,
+  basicRandomizer,
   seededRandomizer,
 } from '../randomizer';
 
@@ -39,6 +40,15 @@ export class Ecosystem {
     this.registerRandomizers(plugin.randomizers ?? {});
   };
 
+  /**
+   * Retrieves the {@link RandomizerFactory} from the Ecosystem.
+   *
+   * @param {string} name the {@link Randomizer} has
+   *
+   * @returns {RandomizerFactory} Factory for a randomizer
+   *
+   * @throws {Error} When no such randomizer factory is found
+   */
   public getRandomizerFactory = (name: string): RandomizerFactory => {
     return this.randomizers.get(name);
   };
