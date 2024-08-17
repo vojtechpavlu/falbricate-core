@@ -20,6 +20,7 @@ export const integerGenerator: ValueGeneratorFactory = (
     );
   }
 
-  return (context: GenerationContext) =>
-    randomInteger(context.randomizer, min, max);
+  return (context: GenerationContext) => {
+    return randomInteger(context.randomizer, min, max);
+  };
 };
