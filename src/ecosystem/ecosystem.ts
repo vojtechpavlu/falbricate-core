@@ -1,5 +1,15 @@
-import { Randomizer } from '../randomizer';
+import {
+  basicRandomizer,
+  RandomizerFactory,
+  seededRandomizer
+} from '../randomizer';
+import { Registry } from './registry';
 
-export interface Ecosystem {
-  randomizer: Randomizer;
+export class Ecosystem {
+  private randomizers = new Registry<RandomizerFactory>(
+    'randomizer', {
+      basic: basicRandomizer,
+      seeded: seededRandomizer
+    });
+
 }
