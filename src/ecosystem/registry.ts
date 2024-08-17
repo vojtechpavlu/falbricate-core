@@ -34,7 +34,7 @@ export class Registry<T> {
     if (this.has(name)) {
       throw new Error(
         `Can't register '${name}' into ${this.registryType} registry` +
-        ` - already exists`
+          ` - already exists`,
       );
     }
 
