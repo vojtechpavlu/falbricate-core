@@ -63,7 +63,8 @@ describe('Ecosystem Registry', () => {
   it('should throw on retrieving an item not registered', () => {
     const registry = new Registry<CustomItem>('test-registry-type');
 
-    expect(() => registry.get('non-existing'))
-      .toThrow(`No item 'non-existing' found in registry test-registry-type`);
+    expect(() => registry.get('non-existing')).toThrow(
+      `No item 'non-existing' found in registry test-registry-type`,
+    );
   });
 });

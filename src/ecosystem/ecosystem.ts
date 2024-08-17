@@ -39,8 +39,7 @@ export class Ecosystem {
     this.registerRandomizers(plugin.randomizers ?? {});
   };
 
-
   public getRandomizerFactory = (name: string): RandomizerFactory => {
     return this.randomizers.get(name);
-  }
+  };
 }

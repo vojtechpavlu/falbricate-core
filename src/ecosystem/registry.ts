@@ -34,7 +34,9 @@ export class Registry<T> {
     const item = this.records[name];
 
     if (!item) {
-      throw new Error(`No item '${name}' found in registry ${this.registryType}`);
+      throw new Error(
+        `No item '${name}' found in registry ${this.registryType}`,
+      );
     }
 
     return item;

@@ -8,18 +8,21 @@ describe('Ecosystem handling Plugins', () => {
       randomizers: {
         'custom-test-randomizer': () => {
           return () => -50;
-        }
-      }
+        },
+      },
     };
 
     ecosystem.register(plugin);
 
-    expect(() => ecosystem.getRandomizerFactory('custom-test-randomizer'))
-      .not.toThrow();
+    expect(() =>
+      ecosystem.getRandomizerFactory('custom-test-randomizer'),
+    ).not.toThrow();
 
-    const randomizerFactory = ecosystem.getRandomizerFactory('custom-test-randomizer');
+    const randomizerFactory = ecosystem.getRandomizerFactory(
+      'custom-test-randomizer',
+    );
     const randomizer = randomizerFactory();
 
-    expect(randomizer()).toBe(-50)
+    expect(randomizer()).toBe(-50);
   });
 });
