@@ -1,7 +1,18 @@
+/**
+ * Basic generic map-based container for named entities.
+ */
 export class Registry<T> {
   private readonly registryType: string;
   private records: Record<string, T>;
 
+  /**
+   * Constructor requiring the name of the registry.
+   *
+   * @param {string} registryType Name of the registry. Can't be changed later.
+   * @param {Record<string, T>} initials Optional initial input.
+   *
+   * @template T Type of the record's item
+   */
   constructor(registryType: string, initials: Record<string, T> = {}) {
     this.records = initials;
     this.registryType = registryType;
