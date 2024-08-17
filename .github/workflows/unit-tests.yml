@@ -20,5 +20,5 @@ jobs:
       - name: Setup Node
         uses: ./.github/composites/node_setup
 
-      - name: Test Formatting
+      - name: Start Unit tests
         run: npm run test:unit
