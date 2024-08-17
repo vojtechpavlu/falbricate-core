@@ -16,5 +16,5 @@ export type NullabilityConfiguration = {
    * This value should always be in range of `[0, 1]`, while `0` means never
    * and `1` means always null.
    */
-  probability: number
+  probability: number;
 };

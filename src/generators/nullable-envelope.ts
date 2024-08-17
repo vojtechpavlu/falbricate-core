@@ -20,7 +20,7 @@ type Callback<T> = () => T;
 export const NullableEnvelope = <T>(
   randomizer: Randomizer,
   callback: Callback<T>,
-  config?: NullabilityConfiguration
+  config?: NullabilityConfiguration,
 ): T | NullLikeValue => {
   if (config) {
     const value: NullLikeValue = config.value;
@@ -28,7 +28,9 @@ export const NullableEnvelope = <T>(
     const actualProbability: number = randomizer();
 
     if (probability > 1 || probability < 0) {
-      throw new Error(`The probability must be within a range of [0, 1] (got ${probability})`);
+      throw new Error(
+        `The probability must be within a range of [0, 1] (got ${probability})`,
+      );
     }
 
     if (probability === 0) {

@@ -13,7 +13,7 @@ import { Randomizer } from '../../randomizer';
 export const randomInteger = (
   randomizer: Randomizer,
   min: number,
-  max: number
+  max: number,
 ): number => {
   if (min > max) {
     throw new Error(
@@ -22,7 +22,7 @@ export const randomInteger = (
   }
 
   return Math.floor(randomizer() * (max - min + 1)) + min;
-}
+};
 
 /**
  * Generates a random float number within a specified range using
@@ -39,7 +39,7 @@ export const randomFloat = (
   randomizer: Randomizer,
   min: number,
   max: number,
-  decimalDigits: number = 2
+  decimalDigits: number = 2,
 ): number => {
   if (min > max) {
     throw new Error(
@@ -53,4 +53,4 @@ export const randomFloat = (
 
   const randomFloat = randomizer() * (max - min) + min;
   return Number.parseFloat(randomFloat.toFixed(decimalDigits));
-}
+};

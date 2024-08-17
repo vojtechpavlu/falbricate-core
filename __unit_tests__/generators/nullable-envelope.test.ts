@@ -6,8 +6,7 @@ describe('Nullable Envelope - Marginal cases', () => {
     const randomizer = Math.random;
 
     for (let index = 0; index < 100; index++) {
-      expect(NullableEnvelope(randomizer, () => "asdf", config))
-        .toBe("asdf");
+      expect(NullableEnvelope(randomizer, () => 'asdf', config)).toBe('asdf');
     }
   });
 
@@ -16,8 +15,9 @@ describe('Nullable Envelope - Marginal cases', () => {
     const randomizer = Math.random;
 
     for (let index = 0; index < 100; index++) {
-      expect(NullableEnvelope(randomizer, () => "asdf", config))
-        .toBeUndefined();
+      expect(
+        NullableEnvelope(randomizer, () => 'asdf', config),
+      ).toBeUndefined();
     }
   });
 });

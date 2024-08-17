@@ -11,5 +11,5 @@ export type ValueGenerator = (context: GenerationContext) => unknown;
 
 /** Factory for Value Generator */
 export type ValueGeneratorFactory = (
-  config: ValueGeneratorConfiguration
+  config: ValueGeneratorConfiguration,
 ) => ValueGenerator;
