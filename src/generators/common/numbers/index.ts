@@ -1,0 +1,1 @@
+export { integerGenerator } from './integer';
