@@ -28,13 +28,7 @@ export class Ecosystem {
   private registerRandomizers = (
     records: Record<string, RandomizerFactory>,
   ): void => {
-    for (const key of Object.keys(records)) {
-      const randomizerFactory = records[key];
-
-      if (randomizerFactory) {
-        this.randomizers.register(key, randomizerFactory);
-      }
-    }
+    this.randomizers.registerAll(records);
   };
 
   /**
