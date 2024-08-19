@@ -7,11 +7,17 @@ import {
 
 import { Plugin } from '../plugin';
 import { Registry } from './registry';
+import { floatGenerator, integerGenerator, ValueGenerator } from '../generators';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer', {
     basic: basicRandomizer,
     seeded: seededRandomizer,
+  });
+
+  private valueGenerators = new Registry<ValueGenerator>('value-generator', {
+    integer: integerGenerator,
+    float: floatGenerator
   });
 
   /**
