@@ -31,10 +31,10 @@ describe('Ecosystem handling Plugin registration', () => {
     const plugin: Plugin = {
       valueGenerators: {
         'custom-test-value-generator': () => {
-          return "test"
-        }
-      }
-    }
+          return 'test';
+        },
+      },
+    };
 
     ecosystem.register(plugin);
 
@@ -42,8 +42,10 @@ describe('Ecosystem handling Plugin registration', () => {
       ecosystem.getValueGenerator('custom-test-value-generator'),
     ).not.toThrow();
 
-    const valueGenerator = ecosystem.getValueGenerator('custom-test-value-generator');
+    const valueGenerator = ecosystem.getValueGenerator(
+      'custom-test-value-generator',
+    );
 
-    expect(valueGenerator({ randomizer: () => 1 })).toBe("test");
+    expect(valueGenerator({ randomizer: () => 1 })).toBe('test');
   });
 });
