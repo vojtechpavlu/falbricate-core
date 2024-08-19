@@ -1,4 +1,5 @@
 import { RandomizerFactory } from '../randomizer';
+import { ValueGenerator } from '../generators';
 
 /**
  * Basic declaration of plugin containing functionality to be
@@ -6,4 +7,5 @@ import { RandomizerFactory } from '../randomizer';
  */
 export interface Plugin {
   randomizers?: Record<string, RandomizerFactory>;
+  valueGenerators?: Record<string, ValueGenerator>;
 }

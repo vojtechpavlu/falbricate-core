@@ -1,18 +1,12 @@
-import {
-  Randomizer,
-  RandomizerFactory,
-  basicRandomizer,
-  seededRandomizer,
-} from '../randomizer';
+import { Randomizer, RandomizerFactory } from '../randomizer';
 
 import { Plugin } from '../plugin';
 import { Registry } from './registry';
+import { ValueGenerator } from '../generators';
 
 export class Ecosystem {
-  private randomizers = new Registry<RandomizerFactory>('randomizer', {
-    basic: basicRandomizer,
-    seeded: seededRandomizer,
-  });
+  private randomizers = new Registry<RandomizerFactory>('randomizer');
+  private valueGenerators = new Registry<ValueGenerator>('value-generator');
 
   /**
    * Registers all the records from the given map of randomizer factories.
@@ -22,13 +16,18 @@ export class Ecosystem {
   private registerRandomizers = (
     records: Record<string, RandomizerFactory>,
   ): void => {
-    for (const key of Object.keys(records)) {
-      const randomizerFactory = records[key];
+    this.randomizers.registerAll(records);
+  };
 
-      if (randomizerFactory) {
-        this.randomizers.register(key, randomizerFactory);
-      }
-    }
+  /**
+   * Registers all the records from the given map of Value Generator factories.
+   *
+   * @param {Record<string, ValueGenerator>} records Map of Value Generator factories.
+   */
+  private registerValueGenerators = (
+    records: Record<string, ValueGenerator>,
+  ): void => {
+    this.valueGenerators.registerAll(records);
   };
 
   /**
@@ -38,6 +37,7 @@ export class Ecosystem {
    */
   public register = (plugin: Plugin): void => {
     this.registerRandomizers(plugin.randomizers ?? {});
+    this.registerValueGenerators(plugin.valueGenerators ?? {});
   };
 
   /**
@@ -51,5 +51,18 @@ export class Ecosystem {
    */
   public getRandomizerFactory = (name: string): RandomizerFactory => {
     return this.randomizers.get(name);
+  };
+
+  /**
+   * Retrieves the {@link ValueGenerator} from the Ecosystem.
+   *
+   * @param {string} name the {@link ValueGenerator} has
+   *
+   * @returns {ValueGenerator} Factory for a Value Generator
+   *
+   * @throws {Error} When no such Value Generator factory is found
+   */
+  public getValueGenerator = (name: string): ValueGenerator => {
+    return this.valueGenerators.get(name);
   };
 }

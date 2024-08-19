@@ -14,6 +14,10 @@ export class Registry<T> {
    * @template T Type of the record's item
    */
   constructor(registryType: string, initials: Record<string, T> = {}) {
+    if (!registryType) {
+      throw new Error('Registry type must be a non-empty string');
+    }
+
     this.records = initials;
     this.registryType = registryType;
   }
@@ -65,14 +69,36 @@ export class Registry<T> {
    * the given name
    */
   public register = (name: string, item: T): void => {
-    if (this.has(name)) {
+    if (!name) {
+      throw new Error(
+        `Item's name for ${this.registryType} must be a non-empty string ('${name}')`,
+      );
+    } else if (this.has(name)) {
       throw new Error(
         `Can't register '${name}' into ${this.registryType} registry` +
           ` - already exists`,
       );
+    } else if (!item) {
+      throw new Error(
+        `Given item for ${this.registryType} must not be empty value`,
+      );
     }
 
     this.records[name] = item;
+  };
+
+  /**
+   * Tries to register all the given items under its names.
+   *
+   * @param {Record<string, T>} map Map of items assigned to their names
+   *
+   * @template T Type of the record's item
+   */
+  public registerAll = (map: Record<string, T>): void => {
+    for (const key of Object.keys(map)) {
+      const item = map[key] as T;
+      this.register(key, item);
+    }
   };
 
   /**
