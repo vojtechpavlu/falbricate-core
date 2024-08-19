@@ -1,12 +1,28 @@
 import { Randomizer, RandomizerFactory } from '../randomizer';
 
-import { Plugin } from '../plugin';
+import { CorePlugin, Plugin } from '../plugin';
 import { Registry } from './registry';
 import { ValueGenerator } from '../generators';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
   private valueGenerators = new Registry<ValueGenerator>('value-generator');
+
+  /**
+   * Constructor taking the optional plugins to be initialized
+   *
+   * @param {boolean} includeCore Whether should the core plugin be included
+   * @param {Plugin[]} plugins To be registered during the initialization phase
+   */
+  constructor(includeCore: boolean = true, ...plugins: Plugin[]) {
+    if (includeCore) {
+      this.register(CorePlugin);
+    }
+
+    for (const plugin of plugins) {
+      this.register(plugin);
+    }
+  }
 
   /**
    * Registers all the records from the given map of randomizer factories.
@@ -41,6 +57,18 @@ export class Ecosystem {
   };
 
   /**
+   * Returns whether the Ecosystem has a {@link Randomizer} of the given name
+   *
+   * @param {string} name Name by which the randomizer should be searched for
+   *
+   * @returns {boolean} Whether there is or is not a randomizer with
+   * the given name registered.
+   */
+  public hasRandomizerFactory = (name: string): boolean => {
+    return this.randomizers.has(name);
+  }
+
+  /**
    * Retrieves the {@link RandomizerFactory} from the Ecosystem.
    *
    * @param {string} name the {@link Randomizer} has
@@ -52,6 +80,18 @@ export class Ecosystem {
   public getRandomizerFactory = (name: string): RandomizerFactory => {
     return this.randomizers.get(name);
   };
+
+  /**
+   * Returns whether the Ecosystem has a {@link ValueGenerator} of the given name
+   *
+   * @param {string} name Name by which the Value Generator should be searched for
+   *
+   * @returns {boolean} Whether there is or is not a Value Generator with
+   * the given name registered.
+   */
+  public hasValueGenerator = (name: string): boolean => {
+    return this.valueGenerators.has(name);
+  }
 
   /**
    * Retrieves the {@link ValueGenerator} from the Ecosystem.
