@@ -38,12 +38,24 @@ export class Ecosystem {
   };
 
   /**
+   * Registers all the records from the given map of Value Generator factories.
+   *
+   * @param {Record<string, ValueGenerator>} records Map of Value Generator factories.
+   */
+  private registerValueGenerators = (
+    records: Record<string, ValueGenerator>,
+  ): void => {
+    this.valueGenerators.registerAll(records);
+  }
+
+  /**
    * Registers the given plugin into this ecosystem.
    *
    * @param {Plugin} plugin Plugin enriching the functionality to be registered.
    */
   public register = (plugin: Plugin): void => {
     this.registerRandomizers(plugin.randomizers ?? {});
+    this.registerValueGenerators(plugin.valueGenerators ?? {});
   };
 
   /**
