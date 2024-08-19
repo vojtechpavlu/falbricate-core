@@ -12,7 +12,8 @@
     "format": "prettier . --write",
     "test:format": "prettier . --check",
     "test:lint": "eslint",
-    "test:unit": "jest --config=jest.unit.config.js"
+    "test:unit": "jest --config=jest.unit.config.js",
+    "test:integration": "jest --config=jest.integration.config.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
