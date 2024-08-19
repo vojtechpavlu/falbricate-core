@@ -2,15 +2,17 @@ import { floatGenerator, seededRandomizer } from '../../../../src';
 
 describe('Integer Value Generator Factory', () => {
   it('should throw on not given max', () => {
-    expect(() => floatGenerator({}))
-      .toThrow(`Property 'max' is required for float value generator`);
+    expect(() => floatGenerator({})).toThrow(
+      `Property 'max' is required for float value generator`,
+    );
   });
 
   it('should throw on max < min', () => {
     const config = { min: 5, max: 4 };
 
-    expect(() => floatGenerator(config))
-      .toThrow(`Maximum must be greater or equal to minimum for float value generator to work`);
+    expect(() => floatGenerator(config)).toThrow(
+      `Maximum must be greater or equal to minimum for float value generator to work`,
+    );
   });
 
   it('should not throw on missing min property', () => {
@@ -27,11 +29,9 @@ describe('Integer Value Generator', () => {
     const generator = floatGenerator(config);
     const randomizer = seededRandomizer({ seed: 1 });
 
-    expect(typeof generator({ randomizer }))
-      .toBe('number');
+    expect(typeof generator({ randomizer })).toBe('number');
 
-    expect(Number.isInteger(generator({ randomizer })))
-      .toBe(false);
+    expect(Number.isInteger(generator({ randomizer }))).toBe(false);
   });
 
   it('should generate a number within a range', () => {
