@@ -1,24 +1,16 @@
 import {
   Randomizer,
-  RandomizerFactory,
-  basicRandomizer,
-  seededRandomizer,
+  RandomizerFactory
 } from '../randomizer';
 
 import { Plugin } from '../plugin';
 import { Registry } from './registry';
-import { floatGenerator, integerGenerator, ValueGenerator } from '../generators';
+import { ValueGenerator } from '../generators';
 
 export class Ecosystem {
-  private randomizers = new Registry<RandomizerFactory>('randomizer', {
-    basic: basicRandomizer,
-    seeded: seededRandomizer,
-  });
+  private randomizers = new Registry<RandomizerFactory>('randomizer');
 
-  private valueGenerators = new Registry<ValueGenerator>('value-generator', {
-    integer: integerGenerator,
-    float: floatGenerator
-  });
+  private valueGenerators = new Registry<ValueGenerator>('value-generator');
 
   /**
    * Registers all the records from the given map of randomizer factories.
