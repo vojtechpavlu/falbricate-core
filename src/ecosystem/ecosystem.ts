@@ -52,4 +52,17 @@ export class Ecosystem {
   public getRandomizerFactory = (name: string): RandomizerFactory => {
     return this.randomizers.get(name);
   };
+
+  /**
+   * Retrieves the {@link ValueGenerator} from the Ecosystem.
+   *
+   * @param {string} name the {@link ValueGenerator} has
+   *
+   * @returns {ValueGenerator} Factory for a Value Generator
+   *
+   * @throws {Error} When no such Value Generator factory is found
+   */
+  public getValueGenerator = (name: string): ValueGenerator => {
+    return this.valueGenerators.get(name);
+  }
 }
