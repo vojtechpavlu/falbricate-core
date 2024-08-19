@@ -15,13 +15,13 @@ describe('Ecosystem Registry - Initialization', () => {
   });
 
   it('should pass on not giving the initial items', () => {
-    expect(() => new Registry<CustomItem>('test-registry-type'))
-      .not.toThrow();
+    expect(() => new Registry<CustomItem>('test-registry-type')).not.toThrow();
   });
 
   it('should throw when not giving a non-empty registry type', () => {
-    expect(() => new Registry<CustomItem>(''))
-      .toThrow('Registry type must be a non-empty string');
+    expect(() => new Registry<CustomItem>('')).toThrow(
+      'Registry type must be a non-empty string',
+    );
   });
 });
 
@@ -55,8 +55,9 @@ describe('Ecosystem Registry - Registering items', () => {
 
     const item: CustomItem = { value: 'test' };
 
-    expect(() => registry.register('', item))
-      .toThrow(`Item's name for test-registry-type must be a non-empty string ('')`);
+    expect(() => registry.register('', item)).toThrow(
+      `Item's name for test-registry-type must be a non-empty string ('')`,
+    );
   });
 
   it(`should throw on empty item`, () => {
@@ -64,8 +65,9 @@ describe('Ecosystem Registry - Registering items', () => {
 
     // @ts-expect-error should never occur
     // eslint-disable-next-line unicorn/no-useless-undefined
-    expect(() => registry.register('test', undefined))
-      .toThrow(`Given item for test-registry-type must not be empty value`);
+    expect(() => registry.register('test', undefined)).toThrow(
+      `Given item for test-registry-type must not be empty value`,
+    );
   });
 });
 
@@ -86,7 +88,7 @@ describe('Ecosystem Registry - Removing items', () => {
 
     expect(() => registry.remove('test')).not.toThrow();
   });
-})
+});
 
 describe('Ecosystem Registry - Retrieving items', () => {
   it('should successfully retrieve a registered item', () => {

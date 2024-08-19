@@ -1,7 +1,4 @@
-import {
-  Randomizer,
-  RandomizerFactory
-} from '../randomizer';
+import { Randomizer, RandomizerFactory } from '../randomizer';
 
 import { Plugin } from '../plugin';
 import { Registry } from './registry';
@@ -9,7 +6,6 @@ import { ValueGenerator } from '../generators';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
-
   private valueGenerators = new Registry<ValueGenerator>('value-generator');
 
   /**
@@ -32,7 +28,7 @@ export class Ecosystem {
     records: Record<string, ValueGenerator>,
   ): void => {
     this.valueGenerators.registerAll(records);
-  }
+  };
 
   /**
    * Registers the given plugin into this ecosystem.

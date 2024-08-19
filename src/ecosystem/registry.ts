@@ -70,14 +70,18 @@ export class Registry<T> {
    */
   public register = (name: string, item: T): void => {
     if (!name) {
-      throw new Error(`Item's name for ${this.registryType} must be a non-empty string ('${name}')`)
+      throw new Error(
+        `Item's name for ${this.registryType} must be a non-empty string ('${name}')`,
+      );
     } else if (this.has(name)) {
       throw new Error(
         `Can't register '${name}' into ${this.registryType} registry` +
           ` - already exists`,
       );
     } else if (!item) {
-      throw new Error(`Given item for ${this.registryType} must not be empty value`);
+      throw new Error(
+        `Given item for ${this.registryType} must not be empty value`,
+      );
     }
 
     this.records[name] = item;
