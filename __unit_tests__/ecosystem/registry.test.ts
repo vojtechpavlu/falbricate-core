@@ -49,6 +49,24 @@ describe('Ecosystem Registry - Registering items', () => {
       `Can't register 'test' into test-registry-type registry - already exists`,
     );
   });
+
+  it(`should throw on empty item's name`, () => {
+    const registry = new Registry<CustomItem>('test-registry-type');
+
+    const item: CustomItem = { value: 'test' };
+
+    expect(() => registry.register('', item))
+      .toThrow(`Item's name for test-registry-type must be a non-empty string ('')`);
+  });
+
+  it(`should throw on empty item`, () => {
+    const registry = new Registry<CustomItem>('test-registry-type');
+
+    // @ts-expect-error should never occur
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    expect(() => registry.register('test', undefined))
+      .toThrow(`Given item for test-registry-type must not be empty value`);
+  });
 });
 
 describe('Ecosystem Registry - Removing items', () => {
