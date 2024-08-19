@@ -41,7 +41,9 @@ describe('Ecosystem handling Plugin registration', () => {
 
     ecosystem.register(plugin);
 
-    expect(ecosystem.hasValueGenerator('custom-test-value-generator')).toBe(true);
+    expect(ecosystem.hasValueGenerator('custom-test-value-generator')).toBe(
+      true,
+    );
 
     expect(() =>
       ecosystem.getValueGenerator('custom-test-value-generator'),

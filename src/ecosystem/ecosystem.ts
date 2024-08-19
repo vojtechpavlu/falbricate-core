@@ -66,7 +66,7 @@ export class Ecosystem {
    */
   public hasRandomizerFactory = (name: string): boolean => {
     return this.randomizers.has(name);
-  }
+  };
 
   /**
    * Retrieves the {@link RandomizerFactory} from the Ecosystem.
@@ -91,7 +91,7 @@ export class Ecosystem {
    */
   public hasValueGenerator = (name: string): boolean => {
     return this.valueGenerators.has(name);
-  }
+  };
 
   /**
    * Retrieves the {@link ValueGenerator} from the Ecosystem.
