@@ -64,5 +64,5 @@ export class Ecosystem {
    */
   public getValueGenerator = (name: string): ValueGenerator => {
     return this.valueGenerators.get(name);
-  }
+  };
 }
