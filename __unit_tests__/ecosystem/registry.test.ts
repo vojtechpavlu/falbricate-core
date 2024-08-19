@@ -4,7 +4,7 @@ type CustomItem = {
   value: string;
 };
 
-describe('Ecosystem Registry', () => {
+describe('Ecosystem Registry - Initialization', () => {
   it('should consume the initial items', () => {
     const item: CustomItem = { value: 'test' };
     const registry = new Registry<CustomItem>('test-registry-type', {
@@ -14,6 +14,18 @@ describe('Ecosystem Registry', () => {
     expect(registry.has('test')).toBe(true);
   });
 
+  it('should pass on not giving the initial items', () => {
+    expect(() => new Registry<CustomItem>('test-registry-type'))
+      .not.toThrow();
+  });
+
+  it('should throw when not giving a non-empty registry type', () => {
+    expect(() => new Registry<CustomItem>(''))
+      .toThrow('Registry type must be a non-empty string');
+  });
+});
+
+describe('Ecosystem Registry - Registering items', () => {
   it('should consume the registered item', () => {
     const registry = new Registry<CustomItem>('test-registry-type');
 
@@ -37,7 +49,9 @@ describe('Ecosystem Registry', () => {
       `Can't register 'test' into test-registry-type registry - already exists`,
     );
   });
+});
 
+describe('Ecosystem Registry - Removing items', () => {
   it('should remove the registered item', () => {
     const item: CustomItem = { value: 'test' };
     const registry = new Registry<CustomItem>('test-registry-type', {
@@ -49,6 +63,14 @@ describe('Ecosystem Registry', () => {
     expect(registry.has('test')).toBe(false);
   });
 
+  it('should not fail on removing non-existing item', () => {
+    const registry = new Registry<CustomItem>('test-registry-type');
+
+    expect(() => registry.remove('test')).not.toThrow();
+  });
+})
+
+describe('Ecosystem Registry - Retrieving items', () => {
   it('should successfully retrieve a registered item', () => {
     const item: CustomItem = { value: 'success' };
     const registry = new Registry<CustomItem>('test-registry-type', {
