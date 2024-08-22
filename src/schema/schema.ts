@@ -6,7 +6,7 @@ import { RandomizerFactory } from '../randomizer';
 export interface SchemaInput {
   randomizer?: {
     name?: string;
-    config?: Record<string, unknown>
+    config?: Record<string, unknown>;
   };
   fields: {
     [name: string]: FieldDefinition;

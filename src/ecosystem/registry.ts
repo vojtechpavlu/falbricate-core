@@ -69,7 +69,9 @@ export class Registry<T> {
     const keys = this.getKeys();
 
     if (keys.length === 0) {
-      throw new Error(`Can't return a first item, because the registry ${this.registryType} is empty`);
+      throw new Error(
+        `Can't return a first item, because the registry ${this.registryType} is empty`,
+      );
     } else {
       return this.get(keys[0] as string);
     }
@@ -82,7 +84,7 @@ export class Registry<T> {
    */
   public getKeys = (): string[] => {
     return Object.keys(this.records);
-  }
+  };
 
   /**
    * Tries to register the given item under a given name.
