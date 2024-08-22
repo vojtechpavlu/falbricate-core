@@ -82,6 +82,16 @@ export class Ecosystem {
   };
 
   /**
+   * Removes a {@link Randomizer} with the given name. When no such found,
+   * it simply skips it.
+   *
+   * @param {string} name Name under which the randomizer is being stored
+   */
+  public removeRandomizer = (name: string): void => {
+    this.randomizers.remove(name);
+  };
+
+  /**
    * Returns whether the Ecosystem has a {@link ValueGenerator} of the given name
    *
    * @param {string} name Name by which the Value Generator should be searched for
@@ -104,5 +114,15 @@ export class Ecosystem {
    */
   public getValueGenerator = (name: string): ValueGenerator => {
     return this.valueGenerators.get(name);
+  };
+
+  /**
+   * Removes a {@link ValueGenerator} with the given name. When no such found,
+   * it simply skips it.
+   *
+   * @param {string} name Name under which the Value Generator is being stored
+   */
+  public removeValueGenerator = (name: string): void => {
+    this.valueGenerators.remove(name);
   };
 }
