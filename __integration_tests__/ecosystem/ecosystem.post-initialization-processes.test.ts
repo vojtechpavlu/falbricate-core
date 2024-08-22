@@ -62,8 +62,7 @@ describe('Ecosystem post-initialization processes', () => {
       // Initial test whether it's not registered
       expect(ecosystem.hasRandomizerFactory('non-existing')).toBe(false);
 
-      expect(() => ecosystem.removeRandomizer('non-existing'))
-        .not.toThrow();
+      expect(() => ecosystem.removeRandomizer('non-existing')).not.toThrow();
     });
   });
 
@@ -96,8 +95,9 @@ describe('Ecosystem post-initialization processes', () => {
     it('should throw on non-existing value generator', () => {
       const ecosystem = new Ecosystem(false, plugin);
 
-      expect(() => ecosystem.getValueGenerator('non-existing'))
-        .toThrow(`No item 'non-existing' found in registry value-generator`);
+      expect(() => ecosystem.getValueGenerator('non-existing')).toThrow(
+        `No item 'non-existing' found in registry value-generator`,
+      );
     });
 
     it('should remove a registered value generator', () => {
@@ -119,8 +119,9 @@ describe('Ecosystem post-initialization processes', () => {
       // Initial test whether it's not registered
       expect(ecosystem.hasValueGenerator('non-existing')).toBe(false);
 
-      expect(() => ecosystem.removeValueGenerator('non-existing'))
-        .not.toThrow();
+      expect(() =>
+        ecosystem.removeValueGenerator('non-existing'),
+      ).not.toThrow();
     });
   });
 });
