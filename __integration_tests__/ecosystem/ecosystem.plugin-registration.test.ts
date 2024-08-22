@@ -41,9 +41,9 @@ describe('Ecosystem handling Plugin registration', () => {
 
     ecosystem.register(plugin);
 
-    expect(ecosystem.hasValueGeneratorFactory('custom-test-value-generator')).toBe(
-      true,
-    );
+    expect(
+      ecosystem.hasValueGeneratorFactory('custom-test-value-generator'),
+    ).toBe(true);
 
     expect(() =>
       ecosystem.getValueGeneratorFactory('custom-test-value-generator'),
@@ -53,8 +53,8 @@ describe('Ecosystem handling Plugin registration', () => {
       'custom-test-value-generator',
     );
 
-    const valueGenerator = valueGeneratorFactory({})
+    const valueGenerator = valueGeneratorFactory({});
 
-    expect(valueGenerator({randomizer: () => 1})).toBe('test');
+    expect(valueGenerator({ randomizer: () => 1 })).toBe('test');
   });
 });
