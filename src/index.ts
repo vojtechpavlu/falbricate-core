@@ -6,3 +6,4 @@ export * from './generators';
 
 export * from './plugin';
 export * from './ecosystem';
+export * from './schema';
