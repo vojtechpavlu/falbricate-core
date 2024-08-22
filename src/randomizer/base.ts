@@ -6,13 +6,11 @@ export type Randomizer = () => number;
 /**
  * Configuration used for {@link Randomizer} generation.
  */
-export interface RandomizerConfiguration {
-  [key: string]: unknown;
-}
+export type RandomizerConfiguration = Record<string, unknown>;
 
 /**
  * Factory function providing a preconfigured {@link Randomizer} instance.
  */
-export type RandomizerFactory = <T extends RandomizerConfiguration>(
-  config?: T,
+export type RandomizerFactory = (
+  config?: RandomizerConfiguration,
 ) => Randomizer;

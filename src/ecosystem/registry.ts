@@ -58,6 +58,35 @@ export class Registry<T> {
   };
 
   /**
+   * Returns a first registered item.
+   *
+   * @returns {T} First item in the registry.
+   * @throws {Error} When the registry is empty
+   *
+   * @template T Type of items that are being stored wihin this registry
+   */
+  public getFirst = (): T => {
+    const keys = this.getKeys();
+
+    if (keys.length === 0) {
+      throw new Error(
+        `Can't return a first item, because the registry ${this.registryType} is empty`,
+      );
+    } else {
+      return this.get(keys[0] as string);
+    }
+  };
+
+  /**
+   * Returns all registered names.
+   *
+   * @returns {string[]} Array of registered names within this registry
+   */
+  public getKeys = (): string[] => {
+    return Object.keys(this.records);
+  };
+
+  /**
    * Tries to register the given item under a given name.
    *
    * @template T Type of the record's item

@@ -34,24 +34,26 @@ describe('Ecosystem handling Plugin registration', () => {
     const plugin: Plugin = {
       valueGenerators: {
         'custom-test-value-generator': () => {
-          return 'test';
+          return () => 'test';
         },
       },
     };
 
     ecosystem.register(plugin);
 
-    expect(ecosystem.hasValueGenerator('custom-test-value-generator')).toBe(
-      true,
-    );
+    expect(
+      ecosystem.hasValueGeneratorFactory('custom-test-value-generator'),
+    ).toBe(true);
 
     expect(() =>
-      ecosystem.getValueGenerator('custom-test-value-generator'),
+      ecosystem.getValueGeneratorFactory('custom-test-value-generator'),
     ).not.toThrow();
 
-    const valueGenerator = ecosystem.getValueGenerator(
+    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
       'custom-test-value-generator',
     );
+
+    const valueGenerator = valueGeneratorFactory({});
 
     expect(valueGenerator({ randomizer: () => 1 })).toBe('test');
   });
