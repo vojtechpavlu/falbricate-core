@@ -154,11 +154,11 @@ export class Ecosystem {
 
     return {
       generate: () => {
-        const randomizer = schema.randomizerFactory();
+        const randomizer = schema.randomizerFactory(schema.randomizerConfig);
         return generateFalsum(schema, randomizer, {});
       },
       generateMany: (n: number) => {
-        const randomizer = schema.randomizerFactory();
+        const randomizer = schema.randomizerFactory(schema.randomizerConfig);
         const items = [];
 
         for (let index = 0; index < n; index++) {

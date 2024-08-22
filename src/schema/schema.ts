@@ -15,6 +15,7 @@ export interface SchemaInput {
 
 export interface Schema {
   randomizerFactory: RandomizerFactory;
+  randomizerConfig: Record<string, unknown>;
   fields: {
     [name: string]: ValueGenerator;
   };
@@ -42,6 +43,9 @@ export const compileSchemaInput = (
   input: SchemaInput,
   ecosystem: Ecosystem,
 ): Schema => {
+  const randomizerConfig: Record<string, unknown> =
+    input.randomizer?.config ?? {};
+
   const randomizerFactory = compileRandomizerFactory(
     ecosystem,
     input.randomizer?.name,
@@ -54,5 +58,9 @@ export const compileSchemaInput = (
     fields[fieldName] = compileFieldDefinition(ecosystem, definition);
   }
 
-  return { randomizerFactory, fields };
+  return {
+    randomizerConfig,
+    randomizerFactory,
+    fields,
+  };
 };
