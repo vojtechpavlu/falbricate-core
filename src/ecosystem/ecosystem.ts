@@ -1,12 +1,16 @@
 import { Randomizer, RandomizerFactory } from '../randomizer';
-
 import { CorePlugin, Plugin } from '../plugin';
 import { Registry } from './registry';
-import { ValueGenerator } from '../generators';
+import { ValueGeneratorFactory } from '../generators';
+import { Falbricator, generateFalsum } from '../falbricator';
+import { compileSchemaInput, SchemaInput } from '../schema';
+import { Falsum } from '../falsum';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
-  private valueGenerators = new Registry<ValueGenerator>('value-generator');
+  private valueGenerators = new Registry<ValueGeneratorFactory>(
+    'value-generator',
+  );
 
   /**
    * Constructor taking the optional plugins to be initialized
@@ -38,10 +42,10 @@ export class Ecosystem {
   /**
    * Registers all the records from the given map of Value Generator factories.
    *
-   * @param {Record<string, ValueGenerator>} records Map of Value Generator factories.
+   * @param {Record<string, ValueGeneratorFactory>} records Map of Value Generator factories.
    */
-  private registerValueGenerators = (
-    records: Record<string, ValueGenerator>,
+  private registerValueGeneratorFactories = (
+    records: Record<string, ValueGeneratorFactory>,
   ): void => {
     this.valueGenerators.registerAll(records);
   };
@@ -53,7 +57,7 @@ export class Ecosystem {
    */
   public register = (plugin: Plugin): void => {
     this.registerRandomizers(plugin.randomizers ?? {});
-    this.registerValueGenerators(plugin.valueGenerators ?? {});
+    this.registerValueGeneratorFactories(plugin.valueGenerators ?? {});
   };
 
   /**
@@ -82,6 +86,17 @@ export class Ecosystem {
   };
 
   /**
+   * Returns a default randomizer registered in this ecosystem.
+   *
+   * @returns {RandomizerFactory} for default randomizer
+   *
+   * @throws {Error} When there is no randomizer registered
+   */
+  public getDefaultRandomizer = (): RandomizerFactory => {
+    return this.randomizers.getFirst();
+  };
+
+  /**
    * Removes a {@link Randomizer} with the given name. When no such found,
    * it simply skips it.
    *
@@ -92,11 +107,11 @@ export class Ecosystem {
   };
 
   /**
-   * Returns whether the Ecosystem has a {@link ValueGenerator} of the given name
+   * Returns whether the Ecosystem has a {@link ValueGeneratorFactory} of the given name
    *
-   * @param {string} name Name by which the Value Generator should be searched for
+   * @param {string} name Name by which the Value Generator factory should be searched for
    *
-   * @returns {boolean} Whether there is or is not a Value Generator with
+   * @returns {boolean} Whether there is or is not a Value Generator factory with
    * the given name registered.
    */
   public hasValueGenerator = (name: string): boolean => {
@@ -104,25 +119,54 @@ export class Ecosystem {
   };
 
   /**
-   * Retrieves the {@link ValueGenerator} from the Ecosystem.
+   * Retrieves the {@link ValueGeneratorFactory} from the Ecosystem.
    *
-   * @param {string} name the {@link ValueGenerator} has
+   * @param {string} name the {@link ValueGeneratorFactory} has
    *
-   * @returns {ValueGenerator} Factory for a Value Generator
+   * @returns {ValueGeneratorFactory} Factory for a Value Generator
    *
    * @throws {Error} When no such Value Generator factory is found
    */
-  public getValueGenerator = (name: string): ValueGenerator => {
+  public getValueGenerator = (name: string): ValueGeneratorFactory => {
     return this.valueGenerators.get(name);
   };
 
   /**
-   * Removes a {@link ValueGenerator} with the given name. When no such found,
+   * Removes a {@link ValueGeneratorFactory} with the given name. When no such found,
    * it simply skips it.
    *
-   * @param {string} name Name under which the Value Generator is being stored
+   * @param {string} name Name under which the Value Generator factory is being stored
    */
   public removeValueGenerator = (name: string): void => {
     this.valueGenerators.remove(name);
+  };
+
+  /**
+   * Compiles the given schema into a Falbricator instance being able to generate items.
+   *
+   * @param {SchemaInput} schemaInput Input declaring how should the desired
+   * {@link Falsum} object look like.
+   *
+   * @returns {Falbricator} Falbricator used to generate Falsa.
+   */
+  public compile = (schemaInput: SchemaInput): Falbricator => {
+    const schema = compileSchemaInput(schemaInput, this);
+
+    return {
+      generate: () => {
+        const randomizer = schema.randomizerFactory();
+        return generateFalsum(schema, randomizer, {});
+      },
+      generateMany: (n: number) => {
+        const randomizer = schema.randomizerFactory();
+        const items = [];
+
+        for (let index = 0; index < n; index++) {
+          items.push(generateFalsum(schema, randomizer, {}));
+        }
+
+        return items;
+      },
+    };
   };
 }
