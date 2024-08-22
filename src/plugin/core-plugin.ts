@@ -1,5 +1,9 @@
 import { Plugin } from './plugin';
-import { basicRandomizer, constantRandomizer, seededRandomizer } from '../randomizer';
+import {
+  basicRandomizer,
+  constantRandomizer,
+  seededRandomizer,
+} from '../randomizer';
 import { floatGenerator, integerGenerator } from '../generators';
 
 export const CorePlugin: Plugin = {
