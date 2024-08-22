@@ -34,7 +34,7 @@ const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
 ): ValueGenerator => {
-  const valueGeneratorFactory = ecosystem.getValueGenerator(field.type);
+  const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field.type);
 
   return valueGeneratorFactory(field.config ?? {});
 };

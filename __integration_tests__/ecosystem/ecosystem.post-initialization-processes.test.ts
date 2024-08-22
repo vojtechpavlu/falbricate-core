@@ -7,7 +7,9 @@ const plugin: Plugin = {
     },
   },
   valueGenerators: {
-    'test-value-generator': () => 'some-random-value',
+    'test-value-generator': () => {
+      return () => 'some-random-value'
+    },
   },
 };
 
@@ -69,19 +71,19 @@ describe('Ecosystem post-initialization processes', () => {
   describe('Value Generator tests', () => {
     it('should return whether it has existing value generator', () => {
       const ecosystem = new Ecosystem(false, plugin);
-      expect(ecosystem.hasValueGenerator('test-value-generator')).toBe(true);
+      expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(true);
     });
 
     it('should return false it has non-existing value generator', () => {
       const ecosystem = new Ecosystem(false, plugin);
-      expect(ecosystem.hasValueGenerator('non-existing-value-generator')).toBe(
+      expect(ecosystem.hasValueGeneratorFactory('non-existing-value-generator')).toBe(
         false,
       );
     });
 
     it('should return expected value generator', () => {
       const ecosystem = new Ecosystem(false, plugin);
-      const valueGenerator = ecosystem.getValueGenerator(
+      const valueGenerator = ecosystem.getValueGeneratorFactory(
         'test-value-generator',
       );
 
@@ -89,13 +91,13 @@ describe('Ecosystem post-initialization processes', () => {
         randomizer: () => -1, // Irrelevant in this case
       });
 
-      expect(generatedValue).toBe('some-random-value');
+      expect(generatedValue({randomizer: Math.random})).toBe('some-random-value');
     });
 
     it('should throw on non-existing value generator', () => {
       const ecosystem = new Ecosystem(false, plugin);
 
-      expect(() => ecosystem.getValueGenerator('non-existing')).toThrow(
+      expect(() => ecosystem.getValueGeneratorFactory('non-existing')).toThrow(
         `No item 'non-existing' found in registry value-generator`,
       );
     });
@@ -104,23 +106,23 @@ describe('Ecosystem post-initialization processes', () => {
       const ecosystem = new Ecosystem(false, plugin);
 
       // Initial test whether it's registered
-      expect(ecosystem.hasValueGenerator('test-value-generator')).toBe(true);
+      expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(true);
 
       // Remove the item
-      ecosystem.removeValueGenerator('test-value-generator');
+      ecosystem.removeValueGeneratorFactory('test-value-generator');
 
       // Test it removed the item successfully
-      expect(ecosystem.hasValueGenerator('test-value-generator')).toBe(false);
+      expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(false);
     });
 
     it('should not throw on removing non-existing randomizer', () => {
       const ecosystem = new Ecosystem(false, plugin);
 
       // Initial test whether it's not registered
-      expect(ecosystem.hasValueGenerator('non-existing')).toBe(false);
+      expect(ecosystem.hasValueGeneratorFactory('non-existing')).toBe(false);
 
       expect(() =>
-        ecosystem.removeValueGenerator('non-existing'),
+        ecosystem.removeValueGeneratorFactory('non-existing'),
       ).not.toThrow();
     });
   });

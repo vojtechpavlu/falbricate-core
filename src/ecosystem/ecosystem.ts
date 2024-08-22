@@ -114,7 +114,7 @@ export class Ecosystem {
    * @returns {boolean} Whether there is or is not a Value Generator factory with
    * the given name registered.
    */
-  public hasValueGenerator = (name: string): boolean => {
+  public hasValueGeneratorFactory = (name: string): boolean => {
     return this.valueGenerators.has(name);
   };
 
@@ -127,7 +127,7 @@ export class Ecosystem {
    *
    * @throws {Error} When no such Value Generator factory is found
    */
-  public getValueGenerator = (name: string): ValueGeneratorFactory => {
+  public getValueGeneratorFactory = (name: string): ValueGeneratorFactory => {
     return this.valueGenerators.get(name);
   };
 
@@ -137,7 +137,7 @@ export class Ecosystem {
    *
    * @param {string} name Name under which the Value Generator factory is being stored
    */
-  public removeValueGenerator = (name: string): void => {
+  public removeValueGeneratorFactory = (name: string): void => {
     this.valueGenerators.remove(name);
   };
 
