@@ -1,1 +1,1 @@
-export * from "./booleans";
+export { constantTrue, constantFalse, randomBoolean } from './booleans';
