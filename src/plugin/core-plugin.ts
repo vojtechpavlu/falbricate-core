@@ -17,6 +17,8 @@ import {
   undefinedGenerator,
   nullGenerator,
   constantGenerator,
+  pickingGenerator,
+  samplingGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -45,5 +47,9 @@ export const CorePlugin: Plugin = {
     tens: tensGenerator,
     hundreds: hundredsGenerator,
     thousands: thousandsGenerator,
+
+    // Arrays
+    pick: pickingGenerator,
+    sample: samplingGenerator,
   },
 };
