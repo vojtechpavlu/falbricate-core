@@ -1,3 +1,5 @@
+import { Randomizer } from '../randomizer';
+
 /** Possible null-lie values */
 export type NullLikeValue = undefined | null | 'n/a' | 'N/A' | string | number;
 
@@ -7,7 +9,10 @@ export type NullLikeValue = undefined | null | 'n/a' | 'N/A' | string | number;
  * value it should be.
  */
 export type NullabilityConfiguration = {
-  /** Which {@link NullLikeValue} should be used */
+  /**
+   * Which {@link NullLikeValue} should be used instead of generated value.
+   * When not specified, `undefined` will be used.
+   */
   value?: NullLikeValue;
 
   /**

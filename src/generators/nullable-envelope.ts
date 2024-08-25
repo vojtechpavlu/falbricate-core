@@ -1,5 +1,7 @@
 import { Randomizer } from '../randomizer';
 import { NullabilityConfiguration, NullLikeValue } from './nullability';
+import { ValueGenerator } from './base';
+import { GenerationContext } from './context';
 
 type Callback<T> = () => T;
 
@@ -49,3 +51,30 @@ export const NullableEnvelope = <T>(
     return callback();
   }
 };
+
+export const nullabilityEnvelope = (
+  randomizer: Randomizer,
+  callback: ValueGenerator,
+  probability: number,
+  value?: unknown
+): ValueGenerator => {
+
+  if (probability > 1 || probability < 0) {
+    throw new Error(
+      `The probability must be within a range of [0, 1] (got ${probability})`,
+    );
+  }
+
+  return (context: GenerationContext) => {
+    const actualProbability: number = randomizer();
+
+    // Never null-like value
+    if (probability === 0) return callback(context);
+
+    // Always null-like value
+    if (probability === 1) return value;
+
+    // When higher probability of null-like value
+    return probability > actualProbability ? value : callback(context);
+  }
+}

@@ -1,5 +1,5 @@
 import { FieldDefinition } from './field-definition';
-import { ValueGenerator } from '../generators';
+import { nullabilityEnvelope, ValueGenerator } from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
@@ -33,6 +33,7 @@ const compileRandomizerFactory = (
 const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
+  randomizerFactory: RandomizerFactory
 ): ValueGenerator => {
   if (typeof field === 'string') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
@@ -41,6 +42,22 @@ const compileFieldDefinition = (
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
       field.type,
     );
+
+    if (field.config?.nullability) {
+      const { value, probability } = field.config.nullability;
+
+      if (!probability && probability !== 0) {
+        throw new Error(`Nullability is specified but is missing 'probability'`)
+      }
+
+      return nullabilityEnvelope(
+        randomizerFactory(),
+        valueGeneratorFactory(field.config ?? {}),
+        probability,
+        value
+      )
+    }
+
     return valueGeneratorFactory(field.config ?? {});
   } else {
     throw new TypeError(
@@ -65,7 +82,12 @@ export const compileSchemaInput = (
 
   for (const fieldName of Object.keys(input.fields)) {
     const definition = input.fields[fieldName] as FieldDefinition;
-    fields[fieldName] = compileFieldDefinition(ecosystem, definition);
+
+    fields[fieldName] = compileFieldDefinition(
+      ecosystem,
+      definition,
+      randomizerFactory
+    );
   }
 
   return {
