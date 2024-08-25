@@ -7,7 +7,10 @@ export type NullLikeValue = undefined | null | 'n/a' | 'N/A' | string | number;
  * value it should be.
  */
 export type NullabilityConfiguration = {
-  /** Which {@link NullLikeValue} should be used */
+  /**
+   * Which {@link NullLikeValue} should be used instead of generated value.
+   * When not specified, `undefined` will be used.
+   */
   value?: NullLikeValue;
 
   /**
