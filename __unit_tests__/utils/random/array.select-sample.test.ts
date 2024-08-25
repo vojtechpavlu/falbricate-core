@@ -27,6 +27,22 @@ describe('selectSample', () => {
     }
   });
 
+  it('should reach the upper bound', () => {
+    const array: number[] = [1, 2, 3, 4];
+
+    let reached: number = 0;
+
+    for (let index = 0; index < 100; index++) {
+      const sample = selectSample(randomizer, array, 3, 1);
+      if (sample.length === 3) {
+        reached += 1;
+      }
+    }
+
+    // It reached the upper bound at least once
+    expect(reached).toBeGreaterThan(0);
+  });
+
   it('should throw on undefined', () => {
     const array = undefined;
 
