@@ -24,11 +24,12 @@ export const nullabilityClojure = (
   randomizer: Randomizer,
   callback: ValueGenerator,
   probability: number,
-  nullLikeValue?: unknown
+  nullLikeValue?: unknown,
 ): ValueGenerator => {
-
   if (!probability && probability !== 0) {
-    throw new Error(`Probability is a required parameter for Nullability Clojure`);
+    throw new Error(
+      `Probability is a required parameter for Nullability Clojure`,
+    );
   }
 
   if (probability > 1 || probability < 0) {
@@ -51,5 +52,5 @@ export const nullabilityClojure = (
 
     // When higher probability of null-like value
     return probability > actualProbability ? nullLikeValue : callback(context);
-  }
-}
+  };
+};
