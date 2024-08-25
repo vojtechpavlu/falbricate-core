@@ -4,7 +4,13 @@ import {
   constantRandomizer,
   seededRandomizer,
 } from '../randomizer';
-import { floatGenerator, integerGenerator } from '../generators';
+import {
+  floatGenerator,
+  integerGenerator,
+  constantTrue,
+  constantFalse,
+  randomBoolean
+} from '../generators';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -15,5 +21,8 @@ export const CorePlugin: Plugin = {
   valueGenerators: {
     integer: integerGenerator,
     float: floatGenerator,
+    boolean: randomBoolean,
+    true: constantTrue,
+    false: constantFalse
   },
 };
