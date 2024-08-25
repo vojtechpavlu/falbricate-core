@@ -7,6 +7,9 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import pluginPromise from 'eslint-plugin-promise';
 
 export default [
+  // Ignore all JavaScript files globally
+  { ignores: ['**/*.js'] },
+
   // Include TypeScript files only
   { files: ['**/*.ts'] },
   { languageOptions: { globals: globals.browser } },
