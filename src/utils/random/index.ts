@@ -1,2 +1,2 @@
 export { randomInteger, randomFloat } from './number';
-export { pickRandomItem } from './array';
+export { pickRandomItem, shuffleArray, selectSample } from './array';
