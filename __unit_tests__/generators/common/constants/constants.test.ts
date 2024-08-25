@@ -13,10 +13,10 @@ describe('constants value generator', () => {
 
   it('should make a deep copy', () => {
     const value = {
-        nested: {
-          nestedAgain: 'test-value',
-        }
-      };
+      nested: {
+        nestedAgain: 'test-value',
+      },
+    };
 
     const generator = constantGenerator({ value });
 
