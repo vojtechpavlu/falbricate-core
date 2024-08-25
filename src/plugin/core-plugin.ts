@@ -22,11 +22,14 @@ export const CorePlugin: Plugin = {
     seeded: seededRandomizer,
   },
   valueGenerators: {
-    integer: integerGenerator,
-    float: floatGenerator,
+    // Booleans
     boolean: randomBoolean,
     true: constantTrue,
     false: constantFalse,
+
+    // Numerics
+    integer: integerGenerator,
+    float: floatGenerator,
     units: unitsGenerator,
     tens: unitsGenerator,
     hundreds: hundredsGenerator,
