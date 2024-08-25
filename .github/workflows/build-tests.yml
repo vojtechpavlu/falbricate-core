@@ -1,0 +1,24 @@
+name: Build tests
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  build_tests:
+    name: Build Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Build project
+        run: npm run build

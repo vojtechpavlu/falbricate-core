@@ -1,0 +1,17 @@
+# Source
+src
+
+# Tests
+__integration_tests__
+__unit_tests__
+jest.*.js
+
+# Building
+rollup.config.js
+tsconfig.json
+
+# Misc
+.gitignore
+.github
+.prettierrc
+eslint.config.js
