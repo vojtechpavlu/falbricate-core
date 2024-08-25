@@ -12,7 +12,7 @@ describe('Hundreds Value Generator', () => {
     const generator = hundredsGenerator({});
     const value = generator({ randomizer });
 
-    expect(value).toBeGreaterThan(100);
+    expect(value).toBeGreaterThanOrEqual(100);
     expect(value).toBeLessThanOrEqual(999);
   });
 });

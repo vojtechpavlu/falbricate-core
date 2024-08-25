@@ -12,7 +12,7 @@ describe('Tens Value Generator', () => {
     const generator = tensGenerator({});
     const value = generator({ randomizer });
 
-    expect(value).toBeGreaterThan(10);
+    expect(value).toBeGreaterThanOrEqual(10);
     expect(value).toBeLessThanOrEqual(99);
   });
 });
