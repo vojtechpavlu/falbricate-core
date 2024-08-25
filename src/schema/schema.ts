@@ -34,9 +34,19 @@ const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
 ): ValueGenerator => {
-  const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field.type);
-
-  return valueGeneratorFactory(field.config ?? {});
+  if (typeof field === 'string') {
+    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
+    return valueGeneratorFactory({});
+  } else if (typeof field === 'object') {
+    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
+      field.type,
+    );
+    return valueGeneratorFactory(field.config ?? {});
+  } else {
+    throw new TypeError(
+      `Unexpected field definition format - ${JSON.stringify(field)}`,
+    );
+  }
 };
 
 export const compileSchemaInput = (
