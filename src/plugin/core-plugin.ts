@@ -12,7 +12,8 @@ import {
   randomBoolean,
   unitsGenerator,
   hundredsGenerator,
-  thousandsGenerator, tensGenerator
+  thousandsGenerator,
+  tensGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {

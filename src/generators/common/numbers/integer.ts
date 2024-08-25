@@ -37,7 +37,6 @@ export const unitsGenerator: ValueGeneratorFactory = (): ValueGenerator =>
     max: 9,
   });
 
-
 /**
  * Factory for a {@link ValueGenerator} providing a random value within
  * a range of `[10, 99]`

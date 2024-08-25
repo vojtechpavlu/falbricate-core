@@ -21,12 +21,12 @@ import { GenerationContext } from '../../context';
 export const randomBoolean: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
-  let probability = (config.probability) as number | undefined;
+  let probability = config.probability as number | undefined;
 
   if (typeof probability !== 'number' && probability !== undefined) {
     throw new TypeError(
       `Probability must be a number for random boolean ` +
-      `value generator (${typeof probability})`
+        `value generator (${typeof probability})`,
     );
   }
 

@@ -30,14 +30,14 @@ describe('randomBoolean Value Generator', () => {
   it('should throw on a probability > 1', () => {
     expect(() => randomBoolean({ probability: 5 })).toThrow(
       `Specified probability for random boolean value generator can't ` +
-      `be greater than 1 (5)`
+        `be greater than 1 (5)`,
     );
   });
 
   it('should throw on a probability < 0', () => {
     expect(() => randomBoolean({ probability: -7 })).toThrow(
       `Specified probability for random boolean value generator can't ` +
-      `be less than 0 (-7)`
+        `be less than 0 (-7)`,
     );
   });
 

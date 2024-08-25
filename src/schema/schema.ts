@@ -38,11 +38,13 @@ const compileFieldDefinition = (
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
     return valueGeneratorFactory({});
   } else if (typeof field === 'object') {
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field.type);
+    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
+      field.type,
+    );
     return valueGeneratorFactory(field.config ?? {});
   } else {
     throw new TypeError(
-      `Unexpected field definition format - ${JSON.stringify(field)}`
+      `Unexpected field definition format - ${JSON.stringify(field)}`,
     );
   }
 };
