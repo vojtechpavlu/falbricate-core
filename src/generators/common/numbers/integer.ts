@@ -6,6 +6,19 @@ import {
 } from '../../base';
 import { randomInteger } from '../../../utils';
 
+/**
+ * Generates a random integer within a configured range.
+ *
+ * @param {ValueGeneratorConfiguration} config Configuration object
+ * specifying the `min` (optional) and `max` (required) bounds of
+ * a desired range. When `min` is missing, `min=0` is used.
+ *
+ * @returns {ValueGenerator} Being able to generate an integer
+ * within the range
+ *
+ * @throws {Error} When `max` is missing
+ * @throws {Error} When `max` < `min`
+ */
 export const integerGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
