@@ -12,7 +12,7 @@ describe('Units Value Generator', () => {
     const generator = unitsGenerator({});
     const value = generator({ randomizer });
 
-    expect(value).toBeGreaterThan(0);
+    expect(value).toBeGreaterThanOrEqual(0);
     expect(value).toBeLessThanOrEqual(9);
   });
 });
