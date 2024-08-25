@@ -13,7 +13,9 @@ import {
   unitsGenerator,
   hundredsGenerator,
   thousandsGenerator,
-  tensGenerator, undefinedGenerator, nullGenerator
+  tensGenerator,
+  undefinedGenerator,
+  nullGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
