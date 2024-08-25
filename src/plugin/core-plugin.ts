@@ -9,7 +9,10 @@ import {
   integerGenerator,
   constantTrue,
   constantFalse,
-  randomBoolean
+  randomBoolean,
+  unitsGenerator,
+  hundredsGenerator,
+  thousandsGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -23,6 +26,10 @@ export const CorePlugin: Plugin = {
     float: floatGenerator,
     boolean: randomBoolean,
     true: constantTrue,
-    false: constantFalse
+    false: constantFalse,
+    units: unitsGenerator,
+    tens: unitsGenerator,
+    hundreds: hundredsGenerator,
+    thousands: thousandsGenerator,
   },
 };
