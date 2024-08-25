@@ -30,7 +30,6 @@ type ObjectDefinition = {
   config?: ValueGeneratorConfiguration;
 };
 
-
 /**
  * Global field definition being either a full descriptive object
  * declaration or a simple string (usually for standard values only).
