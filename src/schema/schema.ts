@@ -1,5 +1,5 @@
 import { FieldDefinition } from './field-definition';
-import { nullabilityEnvelope, ValueGenerator } from '../generators';
+import { nullabilityClojure, ValueGenerator } from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
@@ -50,7 +50,7 @@ const compileFieldDefinition = (
         throw new Error(`Nullability is specified but is missing 'probability'`)
       }
 
-      return nullabilityEnvelope(
+      return nullabilityClojure(
         randomizerFactory(),
         valueGeneratorFactory(field.config ?? {}),
         probability,
