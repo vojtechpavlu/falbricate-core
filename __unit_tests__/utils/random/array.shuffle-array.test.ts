@@ -13,7 +13,7 @@ describe('shuffleArray', () => {
 
     const shuffled = shuffleArray(randomizer, array);
 
-    array[0] = 100
+    array[0] = 100;
 
     expect(shuffled[0]).toBe(1);
   });
