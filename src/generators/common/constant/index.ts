@@ -1,0 +1,1 @@
+export { constantGenerator } from './constant';

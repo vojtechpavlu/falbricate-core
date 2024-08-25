@@ -16,6 +16,7 @@ import {
   tensGenerator,
   undefinedGenerator,
   nullGenerator,
+  constantGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -28,6 +29,9 @@ export const CorePlugin: Plugin = {
     // Empty values
     undefined: undefinedGenerator,
     null: nullGenerator,
+
+    // Constant value
+    constant: constantGenerator,
 
     // Booleans
     boolean: randomBoolean,
