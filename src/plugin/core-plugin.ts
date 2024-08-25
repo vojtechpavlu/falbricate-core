@@ -13,7 +13,7 @@ import {
   unitsGenerator,
   hundredsGenerator,
   thousandsGenerator,
-  tensGenerator,
+  tensGenerator, undefinedGenerator, nullGenerator
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -23,6 +23,10 @@ export const CorePlugin: Plugin = {
     seeded: seededRandomizer,
   },
   valueGenerators: {
+    // Empty values
+    undefined: undefinedGenerator,
+    null: nullGenerator,
+
     // Booleans
     boolean: randomBoolean,
     true: constantTrue,
