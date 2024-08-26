@@ -153,16 +153,16 @@ export class Ecosystem {
     const schema = compileSchemaInput(schemaInput, this);
 
     return {
-      generate: () => {
+      generate: (context?: Record<string, unknown>) => {
         const randomizer = schema.randomizerFactory(schema.randomizerConfig);
-        return generateFalsum(schema, randomizer, {});
+        return generateFalsum(schema, randomizer, context ?? {}, 0);
       },
-      generateMany: (n: number) => {
+      generateMany: (n: number, context?: Record<string, unknown>) => {
         const randomizer = schema.randomizerFactory(schema.randomizerConfig);
         const items = [];
 
         for (let index = 0; index < n; index++) {
-          items.push(generateFalsum(schema, randomizer, {}));
+          items.push(generateFalsum(schema, randomizer, context ?? {}, index));
         }
 
         return items;

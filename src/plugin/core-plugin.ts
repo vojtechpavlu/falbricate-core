@@ -19,6 +19,7 @@ import {
   constantGenerator,
   pickingGenerator,
   samplingGenerator,
+  nestedObject
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -51,5 +52,8 @@ export const CorePlugin: Plugin = {
     // Arrays
     pick: pickingGenerator,
     sample: samplingGenerator,
+
+    // Objects
+    nested: nestedObject,
   },
 };

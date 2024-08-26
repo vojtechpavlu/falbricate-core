@@ -1,0 +1,1 @@
+export { nestedObject } from './nested';
