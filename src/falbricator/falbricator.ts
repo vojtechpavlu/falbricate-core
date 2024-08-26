@@ -23,7 +23,7 @@ export const generateFalsum = (
   schema: Schema,
   randomizer: Randomizer,
   context: Record<string, unknown>,
-  index: number
+  index: number,
 ): Falsum => {
   const falsum: Falsum = {};
 
@@ -33,8 +33,8 @@ export const generateFalsum = (
       randomizer: randomizer,
       currentField: field,
       clientContext: deepCopy(context),
-      currentFalsum: falsum
-    }
+      currentFalsum: falsum,
+    };
 
     const valueGenerator = schema.fields[field] as ValueGenerator;
     falsum[field] = valueGenerator(fullContext);

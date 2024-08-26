@@ -1,5 +1,9 @@
 import { FieldDefinition } from './field-definition';
-import { nullabilityClojure, ValueGenerator, ValueGeneratorConfiguration } from '../generators';
+import {
+  nullabilityClojure,
+  ValueGenerator,
+  ValueGeneratorConfiguration,
+} from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
@@ -45,7 +49,7 @@ const compileFieldDefinition = (
 
     const config: ValueGeneratorConfiguration = {
       ...field.config,
-      ecosystem
+      ecosystem,
     };
 
     if (config.nullability) {

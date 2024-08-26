@@ -19,7 +19,7 @@ import {
   constantGenerator,
   pickingGenerator,
   samplingGenerator,
-  nestedObject
+  nestedObject,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
