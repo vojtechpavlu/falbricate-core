@@ -31,6 +31,8 @@ describe('generateFalsum function', () => {
     const falsum = generateFalsum(
       schema,
       schema.randomizerFactory(schema.randomizerConfig),
+      {},
+      0,
     );
 
     expect(Object.keys(falsum).length).toBe(2);
@@ -42,6 +44,8 @@ describe('generateFalsum function', () => {
     const falsum = generateFalsum(
       schema,
       schema.randomizerFactory(schema.randomizerConfig),
+      {},
+      0,
     );
 
     expect(falsum.age1).toBe(50);

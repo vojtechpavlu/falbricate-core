@@ -1,5 +1,9 @@
 import { FieldDefinition } from './field-definition';
-import { nullabilityClojure, ValueGenerator } from '../generators';
+import {
+  nullabilityClojure,
+  ValueGenerator,
+  ValueGeneratorConfiguration,
+} from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
@@ -37,14 +41,19 @@ const compileFieldDefinition = (
 ): ValueGenerator => {
   if (typeof field === 'string') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
-    return valueGeneratorFactory({});
+    return valueGeneratorFactory({ ecosystem });
   } else if (typeof field === 'object') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
       field.type,
     );
 
-    if (field.config?.nullability) {
-      const { value, probability } = field.config.nullability;
+    const config: ValueGeneratorConfiguration = {
+      ...field.config,
+      ecosystem,
+    };
+
+    if (config.nullability) {
+      const { value, probability } = config.nullability;
 
       if (!probability && probability !== 0) {
         throw new Error(
@@ -54,13 +63,13 @@ const compileFieldDefinition = (
 
       return nullabilityClojure(
         randomizerFactory(),
-        valueGeneratorFactory(field.config ?? {}),
+        valueGeneratorFactory(config),
         probability,
         value,
       );
     }
 
-    return valueGeneratorFactory(field.config ?? {});
+    return valueGeneratorFactory(config);
   } else {
     throw new TypeError(
       `Unexpected field definition format - ${JSON.stringify(field)}`,
