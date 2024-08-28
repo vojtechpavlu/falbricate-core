@@ -62,6 +62,14 @@ export const parseToDate = (value: unknown): Date => {
  */
 export const parseToDesiredFormat = (value: number, as: As): unknown => {
   const processor = processors[as] as Processor;
+
+  if (!processor) {
+    throw new Error(
+      `Unrecognized option for processing timestamp into format: '${as}'. ` +
+      `Use some of these: ${Object.keys(processors)}`
+    );
+  }
+
   return processor(value);
 }
 
@@ -101,7 +109,8 @@ export const timestampGenerator: ValueGeneratorFactory = (
 
   if (!Object.keys(processors).includes(as)) {
     throw new Error(
-      `Can't generate a timestamp - unrecognized option of 'as' - '${as}'. Try some of [${Object.keys(processors)}]`,
+      `Can't generate a timestamp - unrecognized option of 'as' - '${as}'. ` +
+      `Try some of these: ${Object.keys(processors)}`,
     );
   }
 
@@ -122,6 +131,10 @@ export const timestampGenerator: ValueGeneratorFactory = (
  * @param {ValueGeneratorConfiguration} config Configuration object
  * containing optional `as` property (of type {@link As}) - when not
  * provided, `isoDatetime` is used.
+ *
+ * @returns {ValueGenerator} Value generator returning a current moment.
+ *
+ * @throws {Error} When given unrecognized `as` option.
  */
 export const nowGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration
@@ -129,7 +142,8 @@ export const nowGenerator: ValueGeneratorFactory = (
   const as = (config.as ?? 'isoDatetime') as As;
   if (!Object.keys(processors).includes(as)) {
     throw new Error(
-      `Can't generate a now timestamp - unrecognized option of 'as' - '${as}'. Try some of [${Object.keys(processors)}]`,
+      `Can't generate a now timestamp - unrecognized option of 'as' - '${as}'. ` +
+      `Try some of these: ${Object.keys(processors)}`,
     );
   }
 
