@@ -16,10 +16,39 @@ const processors: { [index in As]: Processor } = {
   isoDatetime: (value: number) => new Date(value).toISOString(),
 
   /* Turns the given value into `YYYY-MM-DD` string format */
-  isoDate: (value: number) => new Date(value).toISOString().split('T')[0],
+  isoDate: (value: number) => {
+    // Create a Date object using the provided timestamp
+    const date = new Date(value);
+
+    // Extract the year, month, and day in UTC with leading zeros where needed
+    const [year, month, day] = [
+      date.getUTCFullYear(),
+
+      // Months are zero-based in JS, so add 1
+      String(date.getUTCMonth() + 1).padStart(2, '0'),
+      String(date.getUTCDate()).padStart(2, '0'),
+    ];
+
+    // Combine into a date string
+    return `${year}-${month}-${day}`;
+  },
 
   /* Turns the given value into `HH:MM:SS.sss` string format */
-  isoTime: (value: number) => new Date(value).toISOString().split('T')[1],
+  isoTime: (value: number) => {
+    // Create a Date object using the provided timestamp
+    const date = new Date(value);
+
+    // Extract the hours, minutes, seconds and milliseconds with leading zeros
+    const [hours, minutes, seconds, milliseconds] = [
+      String(date.getUTCHours()).padStart(2, '0'),
+      String(date.getUTCMinutes()).padStart(2, '0'),
+      String(date.getUTCSeconds()).padStart(2, '0'),
+      String(date.getUTCMilliseconds()).padStart(3, '0'),
+    ];
+
+    // Combine into a time string
+    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  },
 
   /* Simply returns the timestamp as a number */
   timestamp: (value: number) => value,
@@ -41,7 +70,7 @@ export const parseToDate = (value: unknown): Date => {
     return new Date(value);
   }
 
-  throw new Error(`Can't parse the given date: ${value}`);
+  throw new Error(`Can't parse the given date: ${JSON.stringify(value)}`);
 };
 
 /**
@@ -57,13 +86,13 @@ export const parseToDesiredFormat = (value: number, as: As): unknown => {
 
   if (!processor) {
     throw new Error(
-      `Unrecognized option for processing timestamp into format: '${as}'. ` +
-      `Use some of these: ${Object.keys(processors)}`
+      `Unrecognized option for processing timestamp into format '${as}'. ` +
+        `Use some of these: ${Object.keys(processors).join(", ")}`,
     );
   }
 
   return processor(value);
-}
+};
 
 /**
  * Returns a list of available date time processors/formatters.
@@ -72,4 +101,13 @@ export const parseToDesiredFormat = (value: number, as: As): unknown => {
  */
 export const availableTimestampProcessors = (): As[] => {
   return Object.keys(processors) as As[];
-}
+};
+
+export const getTimestampProcessor = (name: As): Processor => {
+  const processor = processors[name] as Processor;
+  if (!processor) {
+    throw new Error(`Timestamp Processor with name '${name}' not found`);
+  }
+
+  return processor;
+};
