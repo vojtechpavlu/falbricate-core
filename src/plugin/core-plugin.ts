@@ -19,7 +19,9 @@ import {
   constantGenerator,
   pickingGenerator,
   samplingGenerator,
-  nestedObject, timestampGenerator, nowGenerator
+  nestedObject,
+  timestampGenerator,
+  nowGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {

@@ -87,7 +87,7 @@ export const parseToDesiredFormat = (value: number, as: As): unknown => {
   if (!processor) {
     throw new Error(
       `Unrecognized option for processing timestamp into format '${as}'. ` +
-        `Use some of these: ${Object.keys(processors).join(", ")}`,
+        `Use some of these: ${Object.keys(processors).join(', ')}`,
     );
   }
 
