@@ -115,3 +115,25 @@ export const timestampGenerator: ValueGeneratorFactory = (
     return parseToDesiredFormat(generatedTimestamp, as);
   };
 };
+
+/**
+ * Generates a current date time formatted as configured.
+ *
+ * @param {ValueGeneratorConfiguration} config Configuration object
+ * containing optional `as` property (of type {@link As}) - when not
+ * provided, `isoDatetime` is used.
+ */
+export const nowGenerator: ValueGeneratorFactory = (
+  config: ValueGeneratorConfiguration
+): ValueGenerator => {
+  const as = (config.as ?? 'isoDatetime') as As;
+  if (!Object.keys(processors).includes(as)) {
+    throw new Error(
+      `Can't generate a now timestamp - unrecognized option of 'as' - '${as}'. Try some of [${Object.keys(processors)}]`,
+    );
+  }
+
+  return () => {
+    return parseToDesiredFormat(Date.now(), as);
+  }
+}
