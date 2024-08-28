@@ -19,7 +19,7 @@ import {
   constantGenerator,
   pickingGenerator,
   samplingGenerator,
-  nestedObject,
+  nestedObject, timestampGenerator, nowGenerator
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -48,6 +48,10 @@ export const CorePlugin: Plugin = {
     tens: tensGenerator,
     hundreds: hundredsGenerator,
     thousands: thousandsGenerator,
+
+    // Timestamps
+    datetime: timestampGenerator,
+    now: nowGenerator,
 
     // Arrays
     pick: pickingGenerator,
