@@ -30,13 +30,13 @@ describe('parseToDate utility function', () => {
     const timestamp: number = 953_039_515_777;
 
     // Totally f*cked up behaviour of JS' date library...
-    expect(parseToDate(timestamp).getFullYear()).toBe(2000);
-    expect(parseToDate(timestamp).getMonth()).toBe(2);
-    expect(parseToDate(timestamp).getDate()).toBe(14);
-    expect(parseToDate(timestamp).getHours()).toBe(14);
-    expect(parseToDate(timestamp).getMinutes()).toBe(11);
-    expect(parseToDate(timestamp).getSeconds()).toBe(55);
-    expect(parseToDate(timestamp).getMilliseconds()).toBe(777);
+    expect(parseToDate(timestamp).getUTCFullYear()).toBe(2000);
+    expect(parseToDate(timestamp).getUTCMonth()).toBe(2);
+    expect(parseToDate(timestamp).getUTCDate()).toBe(14);
+    expect(parseToDate(timestamp).getUTCHours()).toBe(13);
+    expect(parseToDate(timestamp).getUTCMinutes()).toBe(11);
+    expect(parseToDate(timestamp).getUTCSeconds()).toBe(55);
+    expect(parseToDate(timestamp).getUTCMilliseconds()).toBe(777);
   });
 
   it('should throw on undefined', () => {
