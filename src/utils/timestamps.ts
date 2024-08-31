@@ -1,3 +1,90 @@
+/** Recognized time directions */
+export type TimeDirection = "BEFORE" | "AFTER";
+
+/** Recognized time units */
+export type TimeUnit =
+  | 'MILLISECOND'
+  | 'SECOND'
+  | 'MINUTE'
+  | 'HOUR'
+  | 'DAY'
+  | 'WEEK'
+  | 'MONTH'
+  | 'YEAR'
+  | 'CENTURY';
+
+/** Registry of all time conversion coefficients from a unit to milliseconds */
+const TimeConversion: {[u in TimeUnit]: number} = {
+  MILLISECOND: 1,
+  SECOND: 1000,
+  MINUTE: 60 * 1000,
+  HOUR: 60 * 60 * 1000,
+  DAY: 24 * 60 * 60 * 1000,
+  WEEK: 7 * 24 * 60 * 60 * 1000,
+  MONTH: 30 * 24 * 60 * 60 * 1000,
+  YEAR: 365 * 24 * 60 * 60 * 1000,
+  CENTURY: 100 * 365 * 24 * 60 * 60 * 1000,
+}
+
+/**
+ * Tries to find an expected time conversion by the specified name.
+ *
+ * @param {TimeUnit} name Name of the unit
+ *
+ * @returns {number} Numeric conversion from the unit to milliseconds.
+ *
+ * @throws {Error} When no such conversion coefficient is found.
+ */
+export const getTimeConversion = (name: TimeUnit): number => {
+  const conversion = TimeConversion[name];
+
+  if (!conversion) {
+    throw new Error(`Unrecognized time conversion name: '${name}'`);
+  }
+
+  return conversion;
+};
+
+/**
+ * Adjusts the given timestamp for the specified number of units in a given
+ * direction.
+ *
+ * @param {TimeDirection} direction Direction in which should the date be switched
+ * @param {number | Date} origin Original date that should be modified
+ * @param {TimeUnit} timeUnit Time unit in which the `n` is being calculated in
+ * @param {number} n Number of time units for which should the given original timestamp
+ * be moved for
+ *
+ * @returns {Date} New instance of `Date` representing switched point in time
+ *
+ * @throws {Error} When the `direction` is not a recognized {@link TimeDirection}
+ * @throws {Error} When the given `date` is not to be parsed into a date
+ */
+export const deltaTime = (
+  direction: TimeDirection,
+  origin: number | Date,
+  timeUnit: TimeUnit,
+  n: number,
+): Date => {
+  const numericDate = new Date(origin).getTime();
+  const timeConversion = getTimeConversion(timeUnit);
+  let coefficient = 0;
+
+  if (direction === "BEFORE") {
+    coefficient = -1
+  } else if (direction === "AFTER") {
+    coefficient = 1
+  } else {
+    throw new Error(
+      `Unrecognized direction: '${direction}' - allowed values are 'BEFORE' and 'AFTER'`
+    );
+  }
+
+  return new Date(
+    numericDate + (coefficient * n * timeConversion)
+  );
+}
+
 /** Options in which the timestamp can be transformed into */
 export type As = 'date' | 'isoDatetime' | 'isoDate' | 'isoTime' | 'timestamp';
 
