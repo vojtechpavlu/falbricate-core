@@ -7,9 +7,10 @@ import { GenerationContext } from '../../context';
 import {
   As,
   availableTimestampProcessors,
+  deltaTime,
   parseToDate,
   parseToDesiredFormat,
-  randomInteger,
+  randomInteger, TimeDirection, TimeUnit
 } from '../../../utils';
 
 /**
@@ -89,5 +90,37 @@ export const nowGenerator: ValueGeneratorFactory = (
 
   return () => {
     return parseToDesiredFormat(Date.now(), as);
+  };
+};
+
+
+export const genericGenerator = (
+  direction: TimeDirection,
+  unit: TimeUnit,
+  n: number = 1,
+): ValueGeneratorFactory => {
+  return (
+    config: ValueGeneratorConfiguration,
+  ): ValueGenerator => {
+    const as = (config.as ?? 'isoDatetime') as As;
+
+    if (!availableTimestampProcessors().includes(as)) {
+      throw new Error(
+        `Can't generate a timestamp - unrecognized option of 'as' - '${as}'. ` +
+        `Try some of these: ${availableTimestampProcessors()}`,
+      );
+    }
+
+    return (context: GenerationContext) => {
+      const now = new Date();
+      const adjusted = deltaTime(direction, now, unit, n);
+
+      const from = adjusted.getTime() > now.getTime() ? now.getTime() : adjusted.getTime();
+      const to = adjusted.getTime() > now.getTime() ? adjusted.getTime() : now.getTime();
+
+      const generatedTimestamp = randomInteger(context.randomizer, from, to);
+
+      return parseToDesiredFormat(generatedTimestamp, as);
+    };
   };
 };
