@@ -7,6 +7,8 @@ import {
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
+const REFERENCE_PREFIX = '!ref-';
+
 export interface SchemaInput {
   randomizer?: {
     name?: string;
@@ -40,6 +42,12 @@ const compileFieldDefinition = (
   randomizerFactory: RandomizerFactory,
 ): ValueGenerator => {
   if (typeof field === 'string') {
+    if (field.startsWith(REFERENCE_PREFIX)) {
+      const path = field.slice(REFERENCE_PREFIX.length);
+      const factory = ecosystem.getValueGeneratorFactory('reference');
+      return factory({ ecosystem, path })
+    }
+
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
     return valueGeneratorFactory({ ecosystem });
   } else if (typeof field === 'object') {
