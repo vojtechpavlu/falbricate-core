@@ -1,1 +1,6 @@
-export { timestampGenerator, nowGenerator } from './timestamps';
+export {
+  timestampGenerator,
+  nowGenerator,
+  genericGenerator,
+  relativeTimestampWithMargin,
+} from './timestamps';

@@ -22,11 +22,10 @@ import {
   nestedObject,
   timestampGenerator,
   nowGenerator,
-} from '../generators';
-import {
+  referencerGenerator,
   genericGenerator,
   relativeTimestampWithMargin,
-} from '../generators/common/timestamps/timestamps';
+} from '../generators';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -124,5 +123,6 @@ export const CorePlugin: Plugin = {
 
     // Objects
     nested: nestedObject,
+    reference: referencerGenerator,
   },
 };
