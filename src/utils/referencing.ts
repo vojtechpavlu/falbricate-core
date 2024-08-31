@@ -1,12 +1,24 @@
+/** Type of entities that can be referenced within */
 type Referencable = Record<string, unknown>;
 
+/**
+ * Function to reference in an {@link Referencable} contents.
+ *
+ * @param {Referencable} referencable Entity this function will drill down in
+ * @param {string} path Path through the given referencable
+ * @param {boolean} onEmptyThrow Whether the function should overcome
+ * Null-pointer issues by returning `undefined` or to throw corresponding exception
+ * @param {string} separator Separator to be used; by default it's a dot (`.`) operator
+ *
+ * @returns {unknown} Value stored on the specified path within the given referencable
+ */
 export const reference = (
-  object: Referencable,
+  referencable: Referencable,
   path: string,
   onEmptyThrow: boolean = true,
-  separator: string = '.'
+  separator: string = '.',
 ): unknown => {
-  if (!object) {
+  if (!referencable) {
     if (onEmptyThrow) {
       throw new Error(`Can't reference - Object not defined`);
     } else {
@@ -17,21 +29,21 @@ export const reference = (
   const splitPath = path.split(separator);
 
   if (splitPath.length === 1) {
-    return object[splitPath[0] as string];
+    return referencable[splitPath[0] as string];
   } else if (splitPath.length > 1) {
     // More item specified in path
     return reference(
       // Use the nested object
-      object[splitPath[0] as string] as Referencable,
+      referencable[splitPath[0] as string] as Referencable,
 
       // Use the rest of the path
       splitPath.slice(1).join(separator),
 
       // Use default values
       onEmptyThrow,
-      separator
+      separator,
     );
   } else {
-    throw new Error(`Can't reference - Not suitable path '${path}'`)
+    throw new Error(`Can't reference - Not suitable path '${path}'`);
   }
-}
+};
