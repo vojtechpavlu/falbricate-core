@@ -23,7 +23,10 @@ import {
   timestampGenerator,
   nowGenerator,
 } from '../generators';
-import { genericGenerator } from '../generators/common/timestamps/timestamps';
+import {
+  genericGenerator,
+  relativeTimestampWithMargin,
+} from '../generators/common/timestamps/timestamps';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -54,6 +57,7 @@ export const CorePlugin: Plugin = {
 
     // Timestamps
     datetime: timestampGenerator,
+    datetimeWithMargin: relativeTimestampWithMargin,
     now: nowGenerator,
 
     // Past Timestamp units
