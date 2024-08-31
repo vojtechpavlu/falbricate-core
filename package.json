@@ -1,10 +1,17 @@
 {
   "name": "@falbricate/core",
-  "version": "0.0.1",
-  "description": "",
-  "keywords": [],
+  "version": "0.0.2",
+  "description": "Core framework for Falbricate - tool for Falsa fabrication",
+  "keywords": [
+    "mocking",
+    "falbricate"
+  ],
   "author": "vojtechpavlu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vojtechpavlu/falbricate-core.git"
+  },
   "main": "./dist/bundle.cjs.js",
   "module": "./dist/bundle.esm.js",
   "files": [
