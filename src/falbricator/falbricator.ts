@@ -33,7 +33,7 @@ export const generateFalsum = (
       randomizer: randomizer,
       currentField: field,
       clientContext: deepCopy(context),
-      currentFalsum: falsum,
+      currentFalsum: deepCopy(falsum),
     };
 
     const valueGenerator = schema.fields[field] as ValueGenerator;
