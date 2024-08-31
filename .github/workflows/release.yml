@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  # On push to master branch and only if the package.json has changed
+  push:
+    paths:
+      - package.json
+    branches:
+      - master
+
+env:
+  NODE_VERSION: 20
+  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+jobs:
+  release:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Run Unit tests
+        run: npm run test:unit
+
+      - name: Run Integration tests
+        run: npm run test:integration
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ env.NPM_AUTH_TOKEN }}
