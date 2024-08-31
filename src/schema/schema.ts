@@ -51,7 +51,9 @@ const compileStandard = (
     try {
       // Try to parse the value; might not be possible
       value = JSON.parse(value as string);
-    } catch { /* intentionally empty */ }
+    } catch {
+      /* intentionally empty */
+    }
 
     const factory = ecosystem.getValueGeneratorFactory('constant');
     return factory({ ecosystem, value });
