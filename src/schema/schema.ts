@@ -36,20 +36,27 @@ const compileRandomizerFactory = (
     : ecosystem.getDefaultRandomizer();
 };
 
+const compileStandard = (
+  ecosystem: Ecosystem,
+  field: string,
+): ValueGenerator => {
+  if (field.startsWith(REFERENCE_PREFIX)) {
+    const path = field.slice(REFERENCE_PREFIX.length);
+    const factory = ecosystem.getValueGeneratorFactory('reference');
+    return factory({ ecosystem, path });
+  }
+
+  const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
+  return valueGeneratorFactory({ ecosystem });
+};
+
 const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
   randomizerFactory: RandomizerFactory,
 ): ValueGenerator => {
   if (typeof field === 'string') {
-    if (field.startsWith(REFERENCE_PREFIX)) {
-      const path = field.slice(REFERENCE_PREFIX.length);
-      const factory = ecosystem.getValueGeneratorFactory('reference');
-      return factory({ ecosystem, path });
-    }
-
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
-    return valueGeneratorFactory({ ecosystem });
+    return compileStandard(ecosystem, field);
   } else if (typeof field === 'object') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
       field.type,
