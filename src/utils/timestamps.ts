@@ -1,5 +1,5 @@
 /** Recognized time directions */
-export type TimeDirection = "BEFORE" | "AFTER";
+export type TimeDirection = 'BEFORE' | 'AFTER';
 
 /** Recognized time units */
 export type TimeUnit =
@@ -14,7 +14,7 @@ export type TimeUnit =
   | 'CENTURY';
 
 /** Registry of all time conversion coefficients from a unit to milliseconds */
-const TimeConversion: {[u in TimeUnit]: number} = {
+const TimeConversion: { [u in TimeUnit]: number } = {
   MILLISECOND: 1,
   SECOND: 1000,
   MINUTE: 60 * 1000,
@@ -24,7 +24,7 @@ const TimeConversion: {[u in TimeUnit]: number} = {
   MONTH: 30 * 24 * 60 * 60 * 1000,
   YEAR: 365 * 24 * 60 * 60 * 1000,
   CENTURY: 100 * 365 * 24 * 60 * 60 * 1000,
-}
+};
 
 /**
  * Tries to find an expected time conversion by the specified name.
@@ -70,20 +70,18 @@ export const deltaTime = (
   const timeConversion = getTimeConversion(timeUnit);
   let coefficient = 0;
 
-  if (direction === "BEFORE") {
-    coefficient = -1
-  } else if (direction === "AFTER") {
-    coefficient = 1
+  if (direction === 'BEFORE') {
+    coefficient = -1;
+  } else if (direction === 'AFTER') {
+    coefficient = 1;
   } else {
     throw new Error(
-      `Unrecognized direction: '${direction}' - allowed values are 'BEFORE' and 'AFTER'`
+      `Unrecognized direction: '${direction}' - allowed values are 'BEFORE' and 'AFTER'`,
     );
   }
 
-  return new Date(
-    numericDate + (coefficient * n * timeConversion)
-  );
-}
+  return new Date(numericDate + coefficient * n * timeConversion);
+};
 
 /** Options in which the timestamp can be transformed into */
 export type As = 'date' | 'isoDatetime' | 'isoDate' | 'isoTime' | 'timestamp';

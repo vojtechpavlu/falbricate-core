@@ -3,7 +3,6 @@ import { deltaTime } from '../../src';
 const TWO_HOURS_IN_MILLISECONDS = 2 * 3600 * 1000;
 
 describe('getTimeConversion function', () => {
-
   it('should return a switched date two hours in past', () => {
     const now = new Date();
     const adjusted = deltaTime('BEFORE', now, 'HOUR', 2);
@@ -23,7 +22,7 @@ describe('getTimeConversion function', () => {
 
     // @ts-expect-error Unrecognized direction
     expect(() => deltaTime('INVALID', now, 'HOUR', 2)).toThrow(
-      `Unrecognized direction: 'INVALID' - allowed values are 'BEFORE' and 'AFTER'`
+      `Unrecognized direction: 'INVALID' - allowed values are 'BEFORE' and 'AFTER'`,
     );
   });
 });

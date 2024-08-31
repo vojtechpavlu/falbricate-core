@@ -16,7 +16,7 @@ describe('getTimeConversion function', () => {
   it('should throw on unexpected value', () => {
     // @ts-expect-error Not a valid unit
     expect(() => getTimeConversion('not a unit')).toThrow(
-      `Unrecognized time conversion name: 'not a unit'`
+      `Unrecognized time conversion name: 'not a unit'`,
     );
   });
 });
