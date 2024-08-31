@@ -1,12 +1,19 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../base';
+import {
+  ValueGenerator,
+  ValueGeneratorConfiguration,
+  ValueGeneratorFactory,
+} from '../../base';
 import { GenerationContext } from '../../context';
 import { reference } from '../../../utils';
 
 export const referencerGenerator: ValueGeneratorFactory = (
-  config: ValueGeneratorConfiguration
+  config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
   const path = config.path as string;
-  const onEmptyThrow = config.onEmptyThrow === undefined ? false : config.onEmptyThrow as boolean;
+  const onEmptyThrow =
+    config.onEmptyThrow === undefined
+      ? false
+      : (config.onEmptyThrow as boolean);
   const separator = (config.separator as string) ?? '.';
 
   if (!path) {
@@ -16,4 +23,4 @@ export const referencerGenerator: ValueGeneratorFactory = (
   return (context: GenerationContext) => {
     return reference(context, path, onEmptyThrow, separator);
   };
-}
+};

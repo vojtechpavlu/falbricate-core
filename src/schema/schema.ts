@@ -45,7 +45,7 @@ const compileFieldDefinition = (
     if (field.startsWith(REFERENCE_PREFIX)) {
       const path = field.slice(REFERENCE_PREFIX.length);
       const factory = ecosystem.getValueGeneratorFactory('reference');
-      return factory({ ecosystem, path })
+      return factory({ ecosystem, path });
     }
 
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
