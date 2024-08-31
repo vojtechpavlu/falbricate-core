@@ -8,6 +8,7 @@ import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 
 const REFERENCE_PREFIX = '!ref-';
+const CONSTANT_PREFIX = '!const-';
 
 export interface SchemaInput {
   randomizer?: {
@@ -36,20 +37,39 @@ const compileRandomizerFactory = (
     : ecosystem.getDefaultRandomizer();
 };
 
+const compileStandard = (
+  ecosystem: Ecosystem,
+  field: string,
+): ValueGenerator => {
+  if (field.startsWith(REFERENCE_PREFIX)) {
+    const path = field.slice(REFERENCE_PREFIX.length);
+    const factory = ecosystem.getValueGeneratorFactory('reference');
+    return factory({ ecosystem, path });
+  } else if (field.startsWith(CONSTANT_PREFIX)) {
+    let value: unknown = field.slice(CONSTANT_PREFIX.length);
+
+    try {
+      // Try to parse the value; might not be possible
+      value = JSON.parse(value as string);
+    } catch {
+      /* intentionally empty */
+    }
+
+    const factory = ecosystem.getValueGeneratorFactory('constant');
+    return factory({ ecosystem, value });
+  }
+
+  const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
+  return valueGeneratorFactory({ ecosystem });
+};
+
 const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
   randomizerFactory: RandomizerFactory,
 ): ValueGenerator => {
   if (typeof field === 'string') {
-    if (field.startsWith(REFERENCE_PREFIX)) {
-      const path = field.slice(REFERENCE_PREFIX.length);
-      const factory = ecosystem.getValueGeneratorFactory('reference');
-      return factory({ ecosystem, path });
-    }
-
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
-    return valueGeneratorFactory({ ecosystem });
+    return compileStandard(ecosystem, field);
   } else if (typeof field === 'object') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
       field.type,
