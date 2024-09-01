@@ -26,4 +26,11 @@ export type GenerationContext = Record<string, unknown> & {
 
   /** So far generated {@link Falsum} */
   currentFalsum?: Falsum;
+
+  /**
+   * Profiles; i.e. fields that are generated but won't be part of the
+   * fabricated {@link Falsum} object. These are meant just as a single point of
+   * shared truth the {@link ValueGenerator}s are expected to refer to.
+   */
+  profiles?: Record<string, unknown>;
 };

@@ -32,6 +32,7 @@ describe('generateFalsum function', () => {
       schema,
       schema.randomizerFactory(schema.randomizerConfig),
       {},
+      {},
       0,
     );
 
@@ -44,6 +45,7 @@ describe('generateFalsum function', () => {
     const falsum = generateFalsum(
       schema,
       schema.randomizerFactory(schema.randomizerConfig),
+      {},
       {},
       0,
     );

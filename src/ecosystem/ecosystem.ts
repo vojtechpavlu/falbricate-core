@@ -2,7 +2,7 @@ import { Randomizer, RandomizerFactory } from '../randomizer';
 import { CorePlugin, Plugin } from '../plugin';
 import { Registry } from './registry';
 import { ValueGeneratorFactory } from '../generators';
-import { Falbricator, generateFalsum } from '../falbricator';
+import { Falbricator, generateFalsum, generateProfiles } from '../falbricator';
 import { compileSchemaInput, SchemaInput } from '../schema';
 import { Falsum } from '../falsum';
 
@@ -155,14 +155,23 @@ export class Ecosystem {
     return {
       generate: (context?: Record<string, unknown>) => {
         const randomizer = schema.randomizerFactory(schema.randomizerConfig);
-        return generateFalsum(schema, randomizer, context ?? {}, 0);
+
+        context = context ?? {};
+
+        const profiles = generateProfiles(schema, randomizer, context, 0);
+        return generateFalsum(schema, randomizer, context, profiles, 0);
       },
       generateMany: (n: number, context?: Record<string, unknown>) => {
         const randomizer = schema.randomizerFactory(schema.randomizerConfig);
         const items = [];
 
+        context = context ?? {};
+
         for (let index = 0; index < n; index++) {
-          items.push(generateFalsum(schema, randomizer, context ?? {}, index));
+          const profiles = generateProfiles(schema, randomizer, context, 0);
+          items.push(
+            generateFalsum(schema, randomizer, context, profiles, index),
+          );
         }
 
         return items;
