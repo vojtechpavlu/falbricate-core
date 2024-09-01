@@ -45,6 +45,7 @@ describe('generateFalsum function', () => {
       schema,
       schema.randomizerFactory(schema.randomizerConfig),
       {},
+      {},
       0,
     );
 
