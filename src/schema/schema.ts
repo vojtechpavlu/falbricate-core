@@ -27,6 +27,16 @@ export interface SchemaInput {
     config?: Record<string, unknown>;
   };
 
+  /**
+   * Profiles to be universally used during the Falsum fabrication.
+   * Fields defined in here won't be part of the result Falsum; although
+   * they are expected to be used as a single source of truth for
+   * {@link ValueGenerator}s of {@link SchemaInput#fields}.
+   */
+  profiles?: {
+    [name: string]: FieldDefinition;
+  };
+
   /** Fields the generated Falsum should consist of */
   fields: {
     [name: string]: FieldDefinition;
@@ -40,6 +50,9 @@ export interface SchemaInput {
 export interface Schema {
   randomizerFactory: RandomizerFactory;
   randomizerConfig: Record<string, unknown>;
+  profiles: {
+    [name: string]: ValueGenerator;
+  };
   fields: {
     [name: string]: ValueGenerator;
   };
@@ -99,6 +112,40 @@ const compileStandard = (
   // Standard returning a standard type of value
   const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
   return valueGeneratorFactory({ ecosystem });
+};
+
+/**
+ * Function to compile {@link FieldDefinition}s into {@link ValueGenerator}s
+ *
+ * @param {Ecosystem} ecosystem Ecosystem holding the functionalities
+ * @param {RandomizerFactory} randomizerFactory Factory for randomizer function
+ * @param {{ [name: string]: FieldDefinition }} fields Field definitions to be compiled
+ *
+ * @returns {{ [name: string]: ValueGenerator }} Object consisting of
+ * compiled {@link ValueGenerator}s
+ */
+const compileFieldsObject = (
+  ecosystem: Ecosystem,
+  randomizerFactory: RandomizerFactory,
+  fields?: { [name: string]: FieldDefinition },
+): { [name: string]: ValueGenerator } => {
+  if (!fields) {
+    return {} as { [name: string]: ValueGenerator };
+  }
+
+  const result: { [name: string]: ValueGenerator } = {};
+
+  for (const fieldName of Object.keys(fields)) {
+    const definition = fields[fieldName] as FieldDefinition;
+
+    result[fieldName] = compileFieldDefinition(
+      ecosystem,
+      definition,
+      randomizerFactory,
+    );
+  }
+
+  return result;
 };
 
 /**
@@ -176,22 +223,24 @@ export const compileSchemaInput = (
     input.randomizer?.name,
   );
 
-  const fields: { [name: string]: ValueGenerator } = {};
+  // Compile profile fields
+  const profiles = compileFieldsObject(
+    ecosystem,
+    randomizerFactory,
+    input.profiles,
+  );
 
-  // Turn each field definition from the input into a ValueGenerator
-  for (const fieldName of Object.keys(input.fields)) {
-    const definition = input.fields[fieldName] as FieldDefinition;
-
-    fields[fieldName] = compileFieldDefinition(
-      ecosystem,
-      definition,
-      randomizerFactory,
-    );
-  }
+  // Compile Falsum fields
+  const fields = compileFieldsObject(
+    ecosystem,
+    randomizerFactory,
+    input.fields,
+  );
 
   return {
     randomizerConfig,
     randomizerFactory,
+    profiles,
     fields,
   };
 };
