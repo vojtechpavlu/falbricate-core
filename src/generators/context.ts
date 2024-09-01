@@ -32,5 +32,5 @@ export type GenerationContext = Record<string, unknown> & {
    * fabricated {@link Falsum} object. These are meant just as a single point of
    * shared truth the {@link ValueGenerator}s are expected to refer to.
    */
-  profiles?: Record<string, unknown>
+  profiles?: Record<string, unknown>;
 };

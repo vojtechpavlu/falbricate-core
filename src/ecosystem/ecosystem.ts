@@ -169,7 +169,9 @@ export class Ecosystem {
 
         for (let index = 0; index < n; index++) {
           const profiles = generateProfiles(schema, randomizer, context, 0);
-          items.push(generateFalsum(schema, randomizer, context, profiles, index));
+          items.push(
+            generateFalsum(schema, randomizer, context, profiles, index),
+          );
         }
 
         return items;

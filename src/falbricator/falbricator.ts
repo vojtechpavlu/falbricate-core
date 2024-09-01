@@ -31,7 +31,7 @@ export const generateProfiles = (
   }
 
   return profiles;
-}
+};
 
 /**
  * Function responsible for creating the actual {@link Falsum}.
