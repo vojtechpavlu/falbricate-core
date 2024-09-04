@@ -43,4 +43,10 @@ describe('randomString function', () => {
       `The charset must consist of at least one item`,
     );
   });
+
+  it('should throw on non-charset', () => {
+    expect(() => randomString(randomizer, 3, ['not', 'a', 'charset'])).toThrow(
+      `Given value is not a charset (must be array of single-character strings)`,
+    );
+  });
 });

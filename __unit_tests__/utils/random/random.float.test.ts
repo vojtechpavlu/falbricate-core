@@ -12,7 +12,7 @@ describe('randomFloat function', () => {
   });
 
   it('should generate a float number', () => {
-    const value = randomFloat(randomizer, 0, 5);
+    const value = randomFloat(randomizer, 0, 1);
 
     expect(typeof value).toBe('number');
     expect(Number.isInteger(value)).toBe(false);
