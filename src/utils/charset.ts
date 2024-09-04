@@ -13,12 +13,12 @@ export const isCharset = (array: unknown): boolean => {
   }
 
   for (const item of array) {
-    if (typeof item !== "string") {
-       return false;
+    if (typeof item !== 'string') {
+      return false;
     } else if (item.length !== 1) {
-       return false;
+      return false;
     }
   }
 
   return true;
-}
+};
