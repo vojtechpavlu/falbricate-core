@@ -1,6 +1,7 @@
 import { pickRandomItem } from './array';
 import { Randomizer } from '../../randomizer';
 import { randomInteger } from './number';
+import { isCharset } from '../charset';
 
 export const randomString = (
   randomizer: Randomizer,
@@ -11,6 +12,8 @@ export const randomString = (
     throw new Error(`The length of a string can't be negative (${length})`);
   } else if (!charset || charset.length === 0) {
     throw new Error(`The charset must consist of at least one item`);
+  } else if (!isCharset(charset)) {
+    throw new Error(`Given value is not a charset (must be array of single-character strings)`)
   }
 
   if (length === 0) {
