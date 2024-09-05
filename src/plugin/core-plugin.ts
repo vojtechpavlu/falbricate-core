@@ -26,12 +26,31 @@ import {
   genericGenerator,
   relativeTimestampWithMargin,
 } from '../generators';
+import { randomStringGenerator } from '../generators/common/strings/random-strings';
 
 export const CorePlugin: Plugin = {
   randomizers: {
     basic: basicRandomizer,
     constant: constantRandomizer,
     seeded: seededRandomizer,
+  },
+  charsets: {
+    lowercases: [...'abcdefghijklmnopqrstuvwxyz'],
+    uppercases: [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    numbers: [...'0123456789'],
+    specials: [...String.raw`?!.+-*%#_`],
+    letters: [...'abcdefghijklmnopqrstuvwxyz', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
+    alphanumerics: [
+      ...'abcdefghijklmnopqrstuvwxyz',
+      ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      ...'0123456789',
+    ],
+    characters: [
+      ...'abcdefghijklmnopqrstuvwxyz',
+      ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      ...'0123456789',
+      ...String.raw`?!.+-*%#_`
+    ],
   },
   valueGenerators: {
     // Empty values
@@ -53,6 +72,9 @@ export const CorePlugin: Plugin = {
     tens: tensGenerator,
     hundreds: hundredsGenerator,
     thousands: thousandsGenerator,
+
+    // Strings
+    stringOfLength: randomStringGenerator,
 
     // Timestamps
     datetime: timestampGenerator,

@@ -5,12 +5,14 @@ import { ValueGeneratorFactory } from '../generators';
 import { Falbricator, generateFalsum, generateProfiles } from '../falbricator';
 import { compileSchemaInput, SchemaInput } from '../schema';
 import { Falsum } from '../falsum';
+import { Charset } from '../utils';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
   private valueGenerators = new Registry<ValueGeneratorFactory>(
     'value-generator',
   );
+  private charsets = new Registry<Charset>('charset');
 
   /**
    * Constructor taking the optional plugins to be initialized
@@ -51,6 +53,15 @@ export class Ecosystem {
   };
 
   /**
+   * Registers all the records from the given map of {@link Charset}s.
+   *
+   * @param {Record<string, Charset>} records Map of charsets.
+   */
+  private registerCharsets = (records: Record<string, Charset>): void => {
+    this.charsets.registerAll(records);
+  };
+
+  /**
    * Registers the given plugin into this ecosystem.
    *
    * @param {Plugin} plugin Plugin enriching the functionality to be registered.
@@ -58,6 +69,7 @@ export class Ecosystem {
   public register = (plugin: Plugin): void => {
     this.registerRandomizers(plugin.randomizers ?? {});
     this.registerValueGeneratorFactories(plugin.valueGenerators ?? {});
+    this.registerCharsets(plugin.charsets ?? {});
   };
 
   /**
@@ -139,6 +151,41 @@ export class Ecosystem {
    */
   public removeValueGeneratorFactory = (name: string): void => {
     this.valueGenerators.remove(name);
+  };
+
+  /**
+   * Returns whether the Ecosystem has a {@link Charset} of the given name
+   *
+   * @param {string} name Name by which the Charset should be searched for
+   *
+   * @returns {boolean} Whether there is or is not a Charset with
+   * the given name registered.
+   */
+  public hasCharset = (name: string): boolean => {
+    return this.charsets.has(name);
+  };
+
+  /**
+   * Retrieves the {@link Charset} from the Ecosystem.
+   *
+   * @param {string} name the {@link Charset} has
+   *
+   * @returns {Charset} Registered Charset with such name
+   *
+   * @throws {Error} When no such Charset is found
+   */
+  public getCharset = (name: string): Charset => {
+    return this.charsets.get(name);
+  };
+
+  /**
+   * Removes a {@link ValueGeneratorFactory} with the given name. When no such found,
+   * it simply skips it.
+   *
+   * @param {string} name Name under which the Value Generator factory is being stored
+   */
+  public removeCharset = (name: string): void => {
+    this.charsets.remove(name);
   };
 
   /**
