@@ -25,8 +25,8 @@ import {
   referencerGenerator,
   genericGenerator,
   relativeTimestampWithMargin,
+  randomStringGenerator,
 } from '../generators';
-import { randomStringGenerator } from '../generators/common/strings/random-strings';
 
 export const CorePlugin: Plugin = {
   randomizers: {
