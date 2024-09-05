@@ -7,7 +7,6 @@ import { Charset, isCharset } from '../../../utils';
 import { GenerationContext } from '../../context';
 import { randomString } from '../../../utils';
 
-
 /**
  * Generates a string of a specified length and consisting only of characters of
  * specified {@link Charset}.
@@ -40,11 +39,15 @@ export const randomStringGenerator: ValueGeneratorFactory = (
 
   if (typeof charset === 'string') {
     if (!config.ecosystem) {
-      throw new Error(`Can't generate a random string - Charset is defined by its name ('${charset}') but ecosystem is not defined`)
+      throw new Error(
+        `Can't generate a random string - Charset is defined by its name ('${charset}') but ecosystem is not defined`,
+      );
     } else if (config.ecosystem?.hasCharset(charset)) {
       charset = config.ecosystem?.getCharset(charset) as Charset;
     } else {
-      throw new Error(`Can't generate a random string - Charset called '${charset}' not found`)
+      throw new Error(
+        `Can't generate a random string - Charset called '${charset}' not found`,
+      );
     }
   }
 
@@ -60,5 +63,5 @@ export const randomStringGenerator: ValueGeneratorFactory = (
 
   return (context: GenerationContext) => {
     return randomString(context.randomizer, length, charset as Charset);
-  }
+  };
 };

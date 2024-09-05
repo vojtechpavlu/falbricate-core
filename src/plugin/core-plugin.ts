@@ -49,7 +49,7 @@ export const CorePlugin: Plugin = {
       ...'abcdefghijklmnopqrstuvwxyz',
       ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
       ...'0123456789',
-      ...String.raw`?!.+-*%#_`
+      ...String.raw`?!.+-*%#_`,
     ],
   },
   valueGenerators: {
