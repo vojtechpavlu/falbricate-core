@@ -27,6 +27,7 @@ import {
   relativeTimestampWithMargin,
   randomStringGenerator,
   randomStringGeneratorOfRandomLength,
+  nestedArrayGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -144,9 +145,10 @@ export const CorePlugin: Plugin = {
     // Arrays
     pick: pickingGenerator,
     sample: samplingGenerator,
+    array: nestedArrayGenerator,
 
     // Objects
-    nested: nestedObject,
+    object: nestedObject,
     reference: referencerGenerator,
   },
 };

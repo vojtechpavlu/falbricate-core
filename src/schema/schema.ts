@@ -118,7 +118,6 @@ const compileStandard = (
  * Function to compile {@link FieldDefinition}s into {@link ValueGenerator}s
  *
  * @param {Ecosystem} ecosystem Ecosystem holding the functionalities
- * @param {RandomizerFactory} randomizerFactory Factory for randomizer function
  * @param {{ [name: string]: FieldDefinition }} fields Field definitions to be compiled
  *
  * @returns {{ [name: string]: ValueGenerator }} Object consisting of
@@ -126,7 +125,6 @@ const compileStandard = (
  */
 const compileFieldsObject = (
   ecosystem: Ecosystem,
-  randomizerFactory: RandomizerFactory,
   fields?: { [name: string]: FieldDefinition },
 ): { [name: string]: ValueGenerator } => {
   if (!fields) {
@@ -138,11 +136,7 @@ const compileFieldsObject = (
   for (const fieldName of Object.keys(fields)) {
     const definition = fields[fieldName] as FieldDefinition;
 
-    result[fieldName] = compileFieldDefinition(
-      ecosystem,
-      definition,
-      randomizerFactory,
-    );
+    result[fieldName] = compileFieldDefinition(ecosystem, definition);
   }
 
   return result;
@@ -153,15 +147,13 @@ const compileFieldsObject = (
  *
  * @param {Ecosystem} ecosystem Ecosystem providing a functionality context
  * @param {FieldDefinition} field Field being compiled (turned into a {@link ValueGenerator}
- * @param {RandomizerFactory} randomizerFactory Randomizer to be given to the {@link ValueGenerator}
  *
  * @returns {ValueGenerator} Value generator providing a value for a future field
  * within a generated Falsum
  */
-const compileFieldDefinition = (
+export const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
-  randomizerFactory: RandomizerFactory,
 ): ValueGenerator => {
   if (typeof field === 'string') {
     return compileStandard(ecosystem, field);
@@ -185,7 +177,6 @@ const compileFieldDefinition = (
       }
 
       return nullabilityClojure(
-        randomizerFactory(),
         valueGeneratorFactory(config),
         probability,
         value,
@@ -224,18 +215,10 @@ export const compileSchemaInput = (
   );
 
   // Compile profile fields
-  const profiles = compileFieldsObject(
-    ecosystem,
-    randomizerFactory,
-    input.profiles,
-  );
+  const profiles = compileFieldsObject(ecosystem, input.profiles);
 
   // Compile Falsum fields
-  const fields = compileFieldsObject(
-    ecosystem,
-    randomizerFactory,
-    input.fields,
-  );
+  const fields = compileFieldsObject(ecosystem, input.fields);
 
   return {
     randomizerConfig,

@@ -1,4 +1,3 @@
-import { Randomizer } from '../randomizer';
 import { NullLikeValue } from './nullability';
 import { ValueGenerator } from './base';
 import { GenerationContext } from './context';
@@ -8,7 +7,6 @@ import { GenerationContext } from './context';
  * deciding whether to return a {@link NullLikeValue} or to generate
  * a value by the given callback.
  *
- * @param {Randomizer} randomizer Randomizer to be used to generate a random number
  * @param {ValueGenerator} callback Callback generating a value
  * @param {number} probability Probability with which the value should be null-like
  * @param {unknown} nullLikeValue the callback's value or a {@link NullLikeValue}.
@@ -21,7 +19,6 @@ import { GenerationContext } from './context';
  * @template T Callback return value type
  */
 export const nullabilityClojure = (
-  randomizer: Randomizer,
   callback: ValueGenerator,
   probability: number,
   nullLikeValue?: unknown,
@@ -42,7 +39,7 @@ export const nullabilityClojure = (
   // generator deciding whether to generate a null-like value or
   // to use the given value generator
   return (context: GenerationContext) => {
-    const actualProbability: number = randomizer();
+    const actualProbability: number = context.randomizer();
 
     // Never null-like value
     if (probability === 0) return callback(context);
