@@ -3,7 +3,7 @@ import {
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
 } from '../../base';
-import { Charset, isCharset, randomInteger, randomStringOfRandomLength } from '../../../utils';
+import { Charset, isCharset, randomStringOfRandomLength } from '../../../utils';
 import { GenerationContext } from '../../context';
 import { randomString } from '../../../utils';
 import { Ecosystem } from '../../../ecosystem';
@@ -118,7 +118,7 @@ export const randomStringGeneratorOfRandomLength: ValueGeneratorFactory = (
       context.randomizer,
       charset,
       maxLength,
-      minLength
+      minLength,
     );
   };
 };
