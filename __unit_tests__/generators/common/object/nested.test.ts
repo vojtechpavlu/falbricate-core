@@ -16,7 +16,7 @@ describe('Nested object Value Generator', () => {
     const schemaInput: SchemaInput = {
       fields: {
         nestedField: {
-          type: 'nested',
+          type: 'object',
           config: {
             schema: nestedSchema,
             ecosystem: ecosystem,
