@@ -154,7 +154,7 @@ const compileFieldsObject = (
  * @returns {ValueGenerator} Value generator providing a value for a future field
  * within a generated Falsum
  */
-const compileFieldDefinition = (
+export const compileFieldDefinition = (
   ecosystem: Ecosystem,
   field: FieldDefinition,
 ): ValueGenerator => {
