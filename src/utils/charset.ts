@@ -1,4 +1,4 @@
-/** Charset type definition - as an array of strings */
+/** Charset type definition - as an array of single-character strings */
 export type Charset = string[];
 
 /**

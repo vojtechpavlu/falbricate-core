@@ -8,8 +8,18 @@ import { GenerationContext } from '../../context';
 import { randomString } from '../../../utils';
 import { Ecosystem } from '../../../ecosystem';
 
+/**
+ * Tries to retrieve a {@link Charset} from other possible forms.
+ *
+ * @param {unknown} possibleCharset Value that might or might not be a valid charset
+ * or a name that can be found in the {@link Ecosystem}.
+ *
+ * @param {Ecosystem} ecosystem Used as a store of {@link Charset}s
+ *
+ * @returns {Charset} Charset the given value matches to
+ */
 const ensureCharset = (
-  possibleCharset: Charset | string,
+  possibleCharset: unknown,
   ecosystem?: Ecosystem,
 ): Charset => {
   if (typeof possibleCharset === 'string') {
@@ -31,7 +41,7 @@ const ensureCharset = (
       `Can't generate a random string - charset is empty or is not defined`,
     );
   } else if (isCharset(possibleCharset)) {
-    return possibleCharset;
+    return possibleCharset as Charset;
   } else {
     throw new Error(
       `Can't generate a random string - charset must be an array of single-character strings`,
