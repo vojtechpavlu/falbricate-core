@@ -1,3 +1,6 @@
+/** Charset type definition - as an array of single-character strings */
+export type Charset = string[];
+
 /**
  * Returns whether the given value is a valid charset (i.e. an array
  * of single-character strings).
