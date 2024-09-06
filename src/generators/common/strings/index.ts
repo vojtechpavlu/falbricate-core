@@ -1,1 +1,4 @@
-export { randomStringGenerator } from './random-strings';
+export {
+  randomStringGenerator,
+  randomStringGeneratorOfRandomLength,
+} from './random-strings';

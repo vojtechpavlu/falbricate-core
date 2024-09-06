@@ -26,6 +26,7 @@ import {
   genericGenerator,
   relativeTimestampWithMargin,
   randomStringGenerator,
+  randomStringGeneratorOfRandomLength,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -75,6 +76,7 @@ export const CorePlugin: Plugin = {
 
     // Strings
     stringOfLength: randomStringGenerator,
+    stringOfRandomLength: randomStringGeneratorOfRandomLength,
 
     // Timestamps
     datetime: timestampGenerator,
