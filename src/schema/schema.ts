@@ -125,7 +125,7 @@ const compileStandard = (
  */
 const compileFieldsObject = (
   ecosystem: Ecosystem,
-  fields?: { [name: string]: FieldDefinition }
+  fields?: { [name: string]: FieldDefinition },
 ): { [name: string]: ValueGenerator } => {
   if (!fields) {
     return {} as { [name: string]: ValueGenerator };
@@ -136,10 +136,7 @@ const compileFieldsObject = (
   for (const fieldName of Object.keys(fields)) {
     const definition = fields[fieldName] as FieldDefinition;
 
-    result[fieldName] = compileFieldDefinition(
-      ecosystem,
-      definition
-    );
+    result[fieldName] = compileFieldDefinition(ecosystem, definition);
   }
 
   return result;
@@ -218,16 +215,10 @@ export const compileSchemaInput = (
   );
 
   // Compile profile fields
-  const profiles = compileFieldsObject(
-    ecosystem,
-    input.profiles,
-  );
+  const profiles = compileFieldsObject(ecosystem, input.profiles);
 
   // Compile Falsum fields
-  const fields = compileFieldsObject(
-    ecosystem,
-    input.fields,
-  );
+  const fields = compileFieldsObject(ecosystem, input.fields);
 
   return {
     randomizerConfig,

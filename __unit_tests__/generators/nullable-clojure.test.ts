@@ -30,11 +30,7 @@ describe('Nullability clojure', () => {
   it('should return expected null-like value', () => {
     const generator = constantTrue({});
 
-    const nullableGenerator = nullabilityClojure(
-      generator,
-      1,
-      'n/a',
-    );
+    const nullableGenerator = nullabilityClojure(generator, 1, 'n/a');
 
     expect(nullableGenerator({ randomizer })).toBe('n/a');
   });

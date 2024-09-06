@@ -18,25 +18,25 @@ describe('picking generator', () => {
 
   it('should throw when given empty array', () => {
     expect(() => pickingGenerator({ array: [] })).toThrow(
-      `Can't pick any item - the given array is empty`
+      `Can't pick any item - the given array is empty`,
     );
   });
 
   it('should throw when given object', () => {
     expect(() => pickingGenerator({ array: {} })).toThrow(
-      `Can't pick any item - the array is not of type array (object)`
+      `Can't pick any item - the array is not of type array (object)`,
     );
   });
 
   it('should throw when given string', () => {
     expect(() => pickingGenerator({ array: 'some-string' })).toThrow(
-      `Can't pick any item - the array is not of type array (string)`
+      `Can't pick any item - the array is not of type array (string)`,
     );
   });
 
   it('should throw when given nothing', () => {
     expect(() => pickingGenerator({})).toThrow(
-      `Can't pick any item - the array is not of type array (undefined)`
+      `Can't pick any item - the array is not of type array (undefined)`,
     );
   });
 });
