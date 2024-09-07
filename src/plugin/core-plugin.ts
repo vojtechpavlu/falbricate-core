@@ -28,6 +28,7 @@ import {
   randomStringGenerator,
   randomStringGeneratorOfRandomLength,
   nestedArrayGenerator,
+  stringTemplateGenerator,
 } from '../generators';
 
 export const CorePlugin: Plugin = {
@@ -78,6 +79,7 @@ export const CorePlugin: Plugin = {
     // Strings
     stringOfLength: randomStringGenerator,
     stringOfRandomLength: randomStringGeneratorOfRandomLength,
+    template: stringTemplateGenerator,
 
     // Timestamps
     datetime: timestampGenerator,
