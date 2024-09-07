@@ -13,6 +13,9 @@ const REFERENCE_PREFIX = '!ref-';
 /** Prefix used to determine the value is a constant */
 const CONSTANT_PREFIX = '!const-';
 
+/** Prefix used to determine the value is a preconfigured definition */
+const PRECONFIGURATION_PREFIX = '!conf-';
+
 /** Schema defined by the client - plain JSON-like object is expected */
 export interface SchemaInput {
   /**
@@ -156,6 +159,13 @@ export const compileFieldDefinition = (
   field: FieldDefinition,
 ): ValueGenerator => {
   if (typeof field === 'string') {
+    // When preconfigured
+    if (field.startsWith(PRECONFIGURATION_PREFIX)) {
+      const configName = field.slice(PRECONFIGURATION_PREFIX.length);
+      const objectDefinition = ecosystem.getPreconfiguration(configName);
+      return compileFieldDefinition(ecosystem, objectDefinition);
+    }
+
     return compileStandard(ecosystem, field);
   } else if (typeof field === 'object') {
     const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(

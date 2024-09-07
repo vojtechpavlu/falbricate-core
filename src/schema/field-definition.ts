@@ -5,7 +5,7 @@ import { ValueGeneratorConfiguration } from '../generators';
  * use further functionality of value generators; some ever requires
  * the further configuration.
  */
-type ObjectDefinition = {
+export type ObjectDefinition = {
   /**
    * Type of the Value generator; must match to any of the
    * imported ones to the Ecosystem
