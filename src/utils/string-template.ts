@@ -35,7 +35,7 @@ const defaults: { [key: string]: DefaultSubstitute } = {
 export const stringTemplate = (
   template: string,
   randomizer: Randomizer,
-  variables?: Variables
+  variables?: Variables,
 ) => {
   let result = template + '';
 

@@ -25,11 +25,11 @@ describe('string template', () => {
 
     const variables = {
       '#': 'hash',
-      '@': 'at'
-    }
+      '@': 'at',
+    };
 
     expect(stringTemplate(template, randomizer, variables)).toMatch(
-      /^hash-at-\d-[A-Z]$/
+      /^hash-at-\d-[A-Z]$/,
     );
   });
 });
