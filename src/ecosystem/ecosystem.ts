@@ -3,16 +3,19 @@ import { CorePlugin, Plugin } from '../plugin';
 import { Registry } from './registry';
 import { ValueGeneratorFactory } from '../generators';
 import { Falbricator, generateFalsum, generateProfiles } from '../falbricator';
-import { compileSchemaInput, SchemaInput } from '../schema';
+import { compileSchemaInput, ObjectDefinition, SchemaInput } from '../schema';
 import { Falsum } from '../falsum';
 import { Charset } from '../utils';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
+  private charsets = new Registry<Charset>('charset');
   private valueGenerators = new Registry<ValueGeneratorFactory>(
     'value-generator',
   );
-  private charsets = new Registry<Charset>('charset');
+  private preconfigurations = new Registry<ObjectDefinition>(
+    'preconfigurations',
+  );
 
   /**
    * Constructor taking the optional plugins to be initialized
@@ -62,6 +65,17 @@ export class Ecosystem {
   };
 
   /**
+   * Registers all the given preconfigurations ({@link ObjectDefinition}s).
+   *
+   * @param {Record<string, ObjectDefinition>} records Map of preconfigurated fields.
+   */
+  private registerPreconfigurations = (
+    records: Record<string, ObjectDefinition>,
+  ): void => {
+    this.preconfigurations.registerAll(records);
+  };
+
+  /**
    * Registers the given plugin into this ecosystem.
    *
    * @param {Plugin} plugin Plugin enriching the functionality to be registered.
@@ -70,6 +84,7 @@ export class Ecosystem {
     this.registerRandomizers(plugin.randomizers ?? {});
     this.registerValueGeneratorFactories(plugin.valueGenerators ?? {});
     this.registerCharsets(plugin.charsets ?? {});
+    this.registerPreconfigurations(plugin.preconfigurations ?? {});
   };
 
   /**
@@ -179,13 +194,48 @@ export class Ecosystem {
   };
 
   /**
-   * Removes a {@link ValueGeneratorFactory} with the given name. When no such found,
+   * Removes a {@link Charset} with the given name. When no such found,
    * it simply skips it.
    *
-   * @param {string} name Name under which the Value Generator factory is being stored
+   * @param {string} name Name under which the Charset is being stored
    */
   public removeCharset = (name: string): void => {
     this.charsets.remove(name);
+  };
+
+  /**
+   * Returns whether the Ecosystem has a {@link ObjectDefinition} of the given name
+   *
+   * @param {string} name Name by which the ObjectDefinition should be searched for
+   *
+   * @returns {boolean} Whether there is or is not a ObjectDefinition with
+   * the given name registered.
+   */
+  public hasPreconfiguration = (name: string): boolean => {
+    return this.preconfigurations.has(name);
+  };
+
+  /**
+   * Retrieves the {@link ObjectDefinition} from the Ecosystem.
+   *
+   * @param {string} name the {@link ObjectDefinition} has
+   *
+   * @returns {ObjectDefinition} Registered field preconfiguration with such name
+   *
+   * @throws {Error} When no such ObjectDefinition is found
+   */
+  public getPreconfiguration = (name: string): ObjectDefinition => {
+    return this.preconfigurations.get(name);
+  };
+
+  /**
+   * Removes a {@link ObjectDefinition} with the given name. When no such found,
+   * it simply skips it.
+   *
+   * @param {string} name Name under which the field preconfiguration is being stored
+   */
+  public removePreconfiguration = (name: string): void => {
+    this.preconfigurations.remove(name);
   };
 
   /**
