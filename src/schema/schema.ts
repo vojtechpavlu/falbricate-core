@@ -6,7 +6,6 @@ import {
 } from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
-import { factory } from 'ts-jest/dist/transformers/hoist-jest';
 
 /** Prefix used to determine the field is referencing a context */
 const REFERENCE_PREFIX = '!ref-';
@@ -160,7 +159,6 @@ export const compileFieldDefinition = (
   field: FieldDefinition,
 ): ValueGenerator => {
   if (typeof field === 'string') {
-
     // When preconfigured
     if (field.startsWith(PRECONFIGURATION_PREFIX)) {
       const configName = field.slice(PRECONFIGURATION_PREFIX.length);

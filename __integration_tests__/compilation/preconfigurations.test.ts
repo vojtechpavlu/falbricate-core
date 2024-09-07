@@ -7,10 +7,10 @@ const testPlugin: Plugin = {
       config: {
         min: -101,
         max: -100,
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 
 describe('Preconfigurations standards', () => {
   it('should be able to register preconfigurations', () => {
@@ -27,9 +27,9 @@ describe('Preconfigurations standards', () => {
 
     const schema: SchemaInput = {
       fields: {
-        val: '!conf-myPreconfiguration'
-      }
-    }
+        val: '!conf-myPreconfiguration',
+      },
+    };
 
     const falbricate = ecosystem.compile(schema);
     const item = falbricate.generate();
