@@ -40,7 +40,7 @@ describe('string template', () => {
 
     const variables = {
       '#': () => {
-        index += 1
+        index += 1;
         return index;
       },
     };
@@ -51,7 +51,7 @@ describe('string template', () => {
     [...processed].forEach((item, index, array) => {
       if (index < array.length - 1) {
         expect(Number.parseInt(item) + 1).toBe(
-          Number.parseInt(array[index + 1] as string)
+          Number.parseInt(array[index + 1] as string),
         );
       }
     });
