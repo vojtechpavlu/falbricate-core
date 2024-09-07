@@ -15,7 +15,7 @@ describe('string template', () => {
 
   it('should use the variable substitutes', () => {
     const template = 'PREFIX-#-#';
-    expect(stringTemplate(template, randomizer, { '#': 'value' })).toBe(
+    expect(stringTemplate(template, randomizer, { '#': () => 'value' })).toBe(
       'PREFIX-value-value',
     );
   });
@@ -24,12 +24,36 @@ describe('string template', () => {
     const template = '#-@-$d-$C';
 
     const variables = {
-      '#': 'hash',
-      '@': 'at',
+      '#': () => 'hash',
+      '@': () => 'at',
     };
 
     expect(stringTemplate(template, randomizer, variables)).toMatch(
       /^hash-at-\d-[A-Z]$/,
     );
+  });
+
+  it('should call variable function multiple times', () => {
+    const template = '######';
+
+    let index = 0;
+
+    const variables = {
+      '#': () => {
+        index += 1
+        return index;
+      },
+    };
+
+    const processed = stringTemplate(template, randomizer, variables);
+
+    // eslint-disable-next-line unicorn/no-array-for-each
+    [...processed].forEach((item, index, array) => {
+      if (index < array.length - 1) {
+        expect(Number.parseInt(item) + 1).toBe(
+          Number.parseInt(array[index + 1] as string)
+        );
+      }
+    });
   });
 });

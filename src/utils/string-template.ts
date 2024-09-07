@@ -2,7 +2,7 @@ import { Randomizer } from '../randomizer';
 import { pickRandomItem } from './random';
 
 type DefaultSubstitute = (randomizer: Randomizer) => string;
-type Variables = { [key: string]: unknown };
+type Variables = { [key: string]: () => unknown };
 
 const defaults: { [key: string]: DefaultSubstitute } = {
   /* Digits with zero */
@@ -37,6 +37,12 @@ export const stringTemplate = (
   randomizer: Randomizer,
   variables?: Variables,
 ) => {
+  if (!template) {
+    throw new Error(
+      `Can't generate a string from a template - got empty template`,
+    );
+  }
+
   let result = template + '';
 
   // Replace defaults
@@ -49,9 +55,9 @@ export const stringTemplate = (
 
   // Replace variables
   for (const key of Object.keys(variables ?? {})) {
-    const substitute = (variables as Variables)[key] as unknown;
+    const substitute = (variables as Variables)[key] as () => unknown;
     while (result.includes(key)) {
-      result = result.replace(key, substitute + '');
+      result = result.replace(key, substitute() + '');
     }
   }
 
