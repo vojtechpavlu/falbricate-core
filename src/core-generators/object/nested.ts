@@ -1,7 +1,7 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
 import { SchemaInput } from '../../schema';
 import { Ecosystem } from '../../ecosystem';
-import { GenerationContext } from '../../generators/context';
+import { GenerationContext } from '../../generators';
 
 /**
  * Value generator for creating a nested object from the configured schema.

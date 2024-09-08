@@ -1,5 +1,5 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
-import { GenerationContext } from '../../generators/context';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
+import { GenerationContext } from '../../generators';
 import {
   As,
   availableTimestampProcessors,

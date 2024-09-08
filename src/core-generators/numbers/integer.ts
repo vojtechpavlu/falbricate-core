@@ -1,5 +1,5 @@
-import { GenerationContext } from '../../generators/context';
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { GenerationContext } from '../../generators';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
 import { randomInteger } from '../../utils';
 
 /**

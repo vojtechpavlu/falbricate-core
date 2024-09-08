@@ -1,6 +1,6 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
 import { Charset, isCharset, randomString, randomStringOfRandomLength } from '../../utils';
-import { GenerationContext } from '../../generators/context';
+import { GenerationContext } from '../../generators';
 import { Ecosystem } from '../../ecosystem';
 
 /**

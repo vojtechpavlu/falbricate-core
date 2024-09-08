@@ -2,8 +2,8 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators/base';
-import { GenerationContext } from '../../generators/context';
+} from '../../generators';
+import { GenerationContext } from '../../generators';
 import { randomFloat } from '../../utils';
 
 export const floatGenerator: ValueGeneratorFactory = (

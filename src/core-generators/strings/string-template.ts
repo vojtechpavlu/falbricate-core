@@ -2,10 +2,10 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators/base';
+} from '../../generators';
 import { Ecosystem } from '../../ecosystem';
 import { compileFieldDefinition, FieldDefinition } from '../../schema';
-import { GenerationContext } from '../../generators/context';
+import { GenerationContext } from '../../generators';
 import { stringTemplate } from '../../utils';
 
 type VariablesDefinitions = { [key: string]: FieldDefinition };

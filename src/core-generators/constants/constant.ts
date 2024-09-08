@@ -1,4 +1,4 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
 import { deepCopy } from '../../utils/deep-copy';
 
 /**
