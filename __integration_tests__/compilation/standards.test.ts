@@ -1,8 +1,8 @@
-import { Ecosystem, SchemaInput } from '../../src';
+import { getDefaultEcosystem, SchemaInput } from '../../src';
 
 describe('Standards', () => {
   it('should be able to deal with standard value generators', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {

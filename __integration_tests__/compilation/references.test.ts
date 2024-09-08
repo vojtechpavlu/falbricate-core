@@ -1,8 +1,8 @@
-import { Ecosystem, SchemaInput } from '../../src';
+import { getDefaultEcosystem, SchemaInput } from '../../src';
 
 describe('Referencing', () => {
   it('should be able to reference to context', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {
@@ -24,7 +24,7 @@ describe('Referencing', () => {
   });
 
   it('should be able to direct-reference to context', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {
