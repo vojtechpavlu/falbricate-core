@@ -1,9 +1,5 @@
-import {
-  ValueGenerator,
-  ValueGeneratorConfiguration,
-  ValueGeneratorFactory,
-} from '../../base';
-import { deepCopy } from '../../../utils/deep-copy';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { deepCopy } from '../../utils/deep-copy';
 
 /**
  * Generates a deep copy of the given constant value.

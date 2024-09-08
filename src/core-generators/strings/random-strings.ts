@@ -1,12 +1,7 @@
-import {
-  ValueGenerator,
-  ValueGeneratorConfiguration,
-  ValueGeneratorFactory,
-} from '../../base';
-import { Charset, isCharset, randomStringOfRandomLength } from '../../../utils';
-import { GenerationContext } from '../../context';
-import { randomString } from '../../../utils';
-import { Ecosystem } from '../../../ecosystem';
+import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators/base';
+import { Charset, isCharset, randomString, randomStringOfRandomLength } from '../../utils';
+import { GenerationContext } from '../../generators/context';
+import { Ecosystem } from '../../ecosystem';
 
 /**
  * Tries to retrieve a {@link Charset} from other possible forms.

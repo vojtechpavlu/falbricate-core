@@ -1,35 +1,36 @@
-import { Plugin } from './plugin';
+import { Plugin } from '../plugin';
 import {
   basicRandomizer,
   constantRandomizer,
   seededRandomizer,
 } from '../randomizer';
 import {
-  floatGenerator,
-  integerGenerator,
-  constantTrue,
   constantFalse,
-  randomBoolean,
-  unitsGenerator,
-  hundredsGenerator,
-  thousandsGenerator,
-  tensGenerator,
-  undefinedGenerator,
-  nullGenerator,
   constantGenerator,
-  pickingGenerator,
-  samplingGenerator,
-  nestedObject,
-  timestampGenerator,
-  nowGenerator,
-  referencerGenerator,
+  constantTrue,
+  floatGenerator,
   genericGenerator,
-  relativeTimestampWithMargin,
+  hundredsGenerator,
+  integerGenerator,
+  nestedArrayGenerator,
+  nestedObject,
+  nowGenerator,
+  nullGenerator,
+  pickingGenerator,
+  randomBoolean,
   randomStringGenerator,
   randomStringGeneratorOfRandomLength,
-  nestedArrayGenerator,
+  referencerGenerator,
+  relativeTimestampWithMargin,
+  samplingGenerator,
   stringTemplateGenerator,
-} from '../generators';
+  tensGenerator,
+  thousandsGenerator,
+  timestampGenerator,
+  undefinedGenerator,
+  unitsGenerator,
+} from '../core-generators';
+import { Ecosystem } from '../ecosystem';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -153,4 +154,15 @@ export const CorePlugin: Plugin = {
     object: nestedObject,
     reference: referencerGenerator,
   },
+};
+
+/**
+ * Returns a default {@link Ecosystem} instance with predefined
+ * core plugin.
+ *
+ * @returns {Ecosystem} Ecosystem with predefined {@link CorePlugin}
+ * functionality - generators, randomizers, etc.
+ */
+export const getDefaultEcosystem = (): Ecosystem => {
+  return new Ecosystem(CorePlugin);
 };

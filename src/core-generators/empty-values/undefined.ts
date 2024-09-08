@@ -1,4 +1,4 @@
-import { ValueGenerator, ValueGeneratorFactory } from '../../base';
+import { ValueGenerator, ValueGeneratorFactory } from '../../generators/base';
 
 /**
  * Generator providing a constant `undefined` value.

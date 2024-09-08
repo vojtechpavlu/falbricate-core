@@ -1,4 +1,4 @@
-import { Ecosystem, SchemaInput, Plugin } from '../../src';
+import { Ecosystem, Plugin, SchemaInput } from '../../src';
 
 const testPlugin: Plugin = {
   preconfigurations: {

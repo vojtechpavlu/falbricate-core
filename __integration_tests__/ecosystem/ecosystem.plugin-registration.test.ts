@@ -1,5 +1,4 @@
-import { Ecosystem } from '../../src';
-import { Plugin } from '../../src';
+import { Ecosystem, Plugin } from '../../src';
 
 describe('Ecosystem handling Plugin registration', () => {
   it('should register all the randomizers', () => {

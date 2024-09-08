@@ -2,9 +2,9 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { GenerationContext } from '../../context';
-import { reference } from '../../../utils';
+} from '../../generators/base';
+import { GenerationContext } from '../../generators/context';
+import { reference } from '../../utils';
 
 export const referencerGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
