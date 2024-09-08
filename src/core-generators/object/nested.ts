@@ -1,4 +1,8 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
+import {
+  ValueGenerator,
+  ValueGeneratorConfiguration,
+  ValueGeneratorFactory,
+} from '../../generators';
 import { SchemaInput } from '../../schema';
 import { Ecosystem } from '../../ecosystem';
 import { GenerationContext } from '../../generators';

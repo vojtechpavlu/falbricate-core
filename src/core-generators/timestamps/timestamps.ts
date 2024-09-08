@@ -1,4 +1,8 @@
-import { ValueGenerator, ValueGeneratorConfiguration, ValueGeneratorFactory } from '../../generators';
+import {
+  ValueGenerator,
+  ValueGeneratorConfiguration,
+  ValueGeneratorFactory,
+} from '../../generators';
 import { GenerationContext } from '../../generators';
 import {
   As,
@@ -9,7 +13,7 @@ import {
   parseToDesiredFormat,
   randomInteger,
   TimeDirection,
-  TimeUnit
+  TimeUnit,
 } from '../../utils';
 
 /**
