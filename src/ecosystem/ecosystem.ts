@@ -62,7 +62,7 @@ export class Ecosystem {
   /**
    * Registers all the given preconfigurations ({@link ObjectDefinition}s).
    *
-   * @param {Record<string, ObjectDefinition>} records Map of preconfigurated fields.
+   * @param {Record<string, ObjectDefinition>} records Map of preconfigured fields.
    */
   private registerPreconfigurations = (
     records: Record<string, ObjectDefinition>,
