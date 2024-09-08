@@ -1,1 +1,1 @@
-export * from './ecosystem';
+export { Ecosystem } from './ecosystem';

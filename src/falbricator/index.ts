@@ -1,1 +1,5 @@
-export * from './falbricator';
+export {
+  type Falbricator,
+  generateProfiles,
+  generateFalsum,
+} from './falbricator';
