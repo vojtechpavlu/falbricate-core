@@ -16,19 +16,19 @@ const plugin: Plugin = {
 describe('Ecosystem post-initialization processes', () => {
   describe('Randomizer tests', () => {
     it('should return whether it has existing randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       expect(ecosystem.hasRandomizerFactory('test-randomizer')).toBe(true);
     });
 
     it('should return false it has non-existing randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       expect(ecosystem.hasRandomizerFactory('non-existing-randomizer')).toBe(
         false,
       );
     });
 
     it('should return expected randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       const randomizerFactory =
         ecosystem.getRandomizerFactory('test-randomizer');
       const randomizer = randomizerFactory();
@@ -37,7 +37,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should throw when no such randomizer is found', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       expect(() =>
         ecosystem.getRandomizerFactory('non-existing-randomizer'),
       ).toThrow(
@@ -46,7 +46,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should remove a registered randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
 
       // Initial test whether it's registered
       expect(ecosystem.hasRandomizerFactory('test-randomizer')).toBe(true);
@@ -59,7 +59,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should not throw on removing non-existing randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
 
       // Initial test whether it's not registered
       expect(ecosystem.hasRandomizerFactory('non-existing')).toBe(false);
@@ -70,21 +70,21 @@ describe('Ecosystem post-initialization processes', () => {
 
   describe('Value Generator tests', () => {
     it('should return whether it has existing value generator', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(
         true,
       );
     });
 
     it('should return false it has non-existing value generator', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       expect(
         ecosystem.hasValueGeneratorFactory('non-existing-value-generator'),
       ).toBe(false);
     });
 
     it('should return expected value generator', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
       const valueGenerator = ecosystem.getValueGeneratorFactory(
         'test-value-generator',
       );
@@ -99,7 +99,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should throw on non-existing value generator', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
 
       expect(() => ecosystem.getValueGeneratorFactory('non-existing')).toThrow(
         `No item 'non-existing' found in registry value-generator`,
@@ -107,7 +107,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should remove a registered value generator', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
 
       // Initial test whether it's registered
       expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(
@@ -124,7 +124,7 @@ describe('Ecosystem post-initialization processes', () => {
     });
 
     it('should not throw on removing non-existing randomizer', () => {
-      const ecosystem = new Ecosystem(false, plugin);
+      const ecosystem = new Ecosystem(plugin);
 
       // Initial test whether it's not registered
       expect(ecosystem.hasValueGeneratorFactory('non-existing')).toBe(false);

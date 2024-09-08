@@ -1,1 +1,1 @@
-export * from './falsum';
+export { type Falsum } from './falsum';

@@ -149,7 +149,7 @@ const compileFieldsObject = (
  * Function trying to compile a {@link FieldDefinition}.
  *
  * @param {Ecosystem} ecosystem Ecosystem providing a functionality context
- * @param {FieldDefinition} field Field being compiled (turned into a {@link ValueGenerator}
+ * @param {FieldDefinition} field Field being compiled (turned into a {@link ValueGenerator})
  *
  * @returns {ValueGenerator} Value generator providing a value for a future field
  * within a generated Falsum

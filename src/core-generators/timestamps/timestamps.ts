@@ -2,8 +2,8 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { GenerationContext } from '../../context';
+} from '../../generators';
+import { GenerationContext } from '../../generators';
 import {
   As,
   availableTimestampProcessors,
@@ -14,7 +14,7 @@ import {
   randomInteger,
   TimeDirection,
   TimeUnit,
-} from '../../../utils';
+} from '../../utils';
 
 /**
  * Generates a random timestamp within a specified range.

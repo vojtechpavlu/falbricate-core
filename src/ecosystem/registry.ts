@@ -28,7 +28,7 @@ export class Registry<T> {
    * @param {string} name by which the records should be searched by
    *
    * @returns {boolean} `true` when there is a record with this name
-   * registered. Otherwise `false`.
+   * registered. Otherwise returns `false`.
    */
   public has = (name: string): boolean => {
     return !!this.records[name];
@@ -63,7 +63,7 @@ export class Registry<T> {
    * @returns {T} First item in the registry.
    * @throws {Error} When the registry is empty
    *
-   * @template T Type of items that are being stored wihin this registry
+   * @template T Type of items that are being stored within this registry
    */
   public getFirst = (): T => {
     const keys = this.getKeys();

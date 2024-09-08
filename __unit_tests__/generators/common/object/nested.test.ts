@@ -1,8 +1,8 @@
-import { Falbricator, Ecosystem, SchemaInput } from '../../../../src';
+import { Falbricator, getDefaultEcosystem, SchemaInput } from '../../../../src';
 
 describe('Nested object Value Generator', () => {
   it('should generate Falsum with the expected nested object', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const nestedSchema: SchemaInput = {
       fields: {

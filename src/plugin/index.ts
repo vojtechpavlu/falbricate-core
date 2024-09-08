@@ -1,2 +1,1 @@
-export * from './plugin';
-export * from './core-plugin';
+export { type Plugin } from './plugin';

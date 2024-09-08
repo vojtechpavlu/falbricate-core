@@ -1,10 +1,10 @@
-import { GenerationContext } from '../../context';
+import { GenerationContext } from '../../generators';
 import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { randomInteger } from '../../../utils';
+} from '../../generators';
+import { randomInteger } from '../../utils';
 
 /**
  * Generates a random integer within a configured range.

@@ -1,8 +1,8 @@
-import { Ecosystem, SchemaInput } from '../../src';
+import { getDefaultEcosystem, SchemaInput } from '../../src';
 
 describe('Constant standards', () => {
   it('should use a string constant standard', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {
@@ -17,7 +17,7 @@ describe('Constant standards', () => {
   });
 
   it('should use a number constant standard (parses it)', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {
@@ -32,7 +32,7 @@ describe('Constant standards', () => {
   });
 
   it('should use an object constant standard (parses it)', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {
@@ -48,7 +48,7 @@ describe('Constant standards', () => {
   });
 
   it('should use an array constant standard (parses it)', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     const schema: SchemaInput = {
       fields: {

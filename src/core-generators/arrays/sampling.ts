@@ -2,9 +2,9 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { GenerationContext } from '../../context';
-import { selectSample } from '../../../utils';
+} from '../../generators';
+import { GenerationContext } from '../../generators';
+import { selectSample } from '../../utils';
 
 export const samplingGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,

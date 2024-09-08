@@ -2,8 +2,8 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { GenerationContext } from '../../context';
+} from '../../generators';
+import { GenerationContext } from '../../generators';
 
 /**
  * Creates a Value Generator fabricating a random boolean value based on

@@ -1,5 +1,10 @@
-import { compileSchemaInput, Ecosystem, Schema, SchemaInput } from '../../src';
-import { generateFalsum } from '../../src/falbricator';
+import {
+  compileSchemaInput,
+  generateFalsum,
+  getDefaultEcosystem,
+  Schema,
+  SchemaInput,
+} from '../../src';
 
 const schemaInput: SchemaInput = {
   randomizer: {
@@ -24,7 +29,7 @@ const schemaInput: SchemaInput = {
   },
 };
 
-const schema: Schema = compileSchemaInput(schemaInput, new Ecosystem());
+const schema: Schema = compileSchemaInput(schemaInput, getDefaultEcosystem());
 
 describe('generateFalsum function', () => {
   it('should generate a falsum of an expected shape', () => {

@@ -1,7 +1,7 @@
-import { Ecosystem, nestedArrayGenerator } from '../../../../src';
+import { getDefaultEcosystem, nestedArrayGenerator } from '../../../../src';
 
 const randomizer = Math.random;
-const ecosystem = new Ecosystem();
+const ecosystem = getDefaultEcosystem();
 const definition = '!const-test';
 
 describe('nested array', () => {

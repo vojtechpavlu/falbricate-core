@@ -1,5 +1,5 @@
 import { Randomizer, RandomizerFactory } from '../randomizer';
-import { CorePlugin, Plugin } from '../plugin';
+import { Plugin } from '../plugin';
 import { Registry } from './registry';
 import { ValueGeneratorFactory } from '../generators';
 import { Falbricator, generateFalsum, generateProfiles } from '../falbricator';
@@ -20,14 +20,9 @@ export class Ecosystem {
   /**
    * Constructor taking the optional plugins to be initialized
    *
-   * @param {boolean} includeCore Whether should the core plugin be included
    * @param {Plugin[]} plugins To be registered during the initialization phase
    */
-  constructor(includeCore: boolean = true, ...plugins: Plugin[]) {
-    if (includeCore) {
-      this.register(CorePlugin);
-    }
-
+  constructor(...plugins: Plugin[]) {
     for (const plugin of plugins) {
       this.register(plugin);
     }
@@ -67,7 +62,7 @@ export class Ecosystem {
   /**
    * Registers all the given preconfigurations ({@link ObjectDefinition}s).
    *
-   * @param {Record<string, ObjectDefinition>} records Map of preconfigurated fields.
+   * @param {Record<string, ObjectDefinition>} records Map of preconfigured fields.
    */
   private registerPreconfigurations = (
     records: Record<string, ObjectDefinition>,

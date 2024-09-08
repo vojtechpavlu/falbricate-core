@@ -2,11 +2,11 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../base';
-import { compileFieldDefinition, FieldDefinition } from '../../../schema';
-import { Ecosystem } from '../../../ecosystem';
-import { GenerationContext } from '../../context';
-import { randomInteger } from '../../../utils';
+} from '../../generators';
+import { compileFieldDefinition, FieldDefinition } from '../../schema';
+import { Ecosystem } from '../../ecosystem';
+import { GenerationContext } from '../../generators';
+import { randomInteger } from '../../utils';
 
 export const nestedArrayGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,

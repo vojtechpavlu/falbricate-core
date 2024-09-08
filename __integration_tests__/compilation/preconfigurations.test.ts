@@ -1,4 +1,4 @@
-import { Ecosystem, SchemaInput, Plugin } from '../../src';
+import { getDefaultEcosystem, Plugin, SchemaInput } from '../../src';
 
 const testPlugin: Plugin = {
   preconfigurations: {
@@ -14,7 +14,7 @@ const testPlugin: Plugin = {
 
 describe('Preconfigurations standards', () => {
   it('should be able to register preconfigurations', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
 
     ecosystem.register(testPlugin);
 
@@ -22,7 +22,7 @@ describe('Preconfigurations standards', () => {
   });
 
   it('should be able to use it', () => {
-    const ecosystem = new Ecosystem();
+    const ecosystem = getDefaultEcosystem();
     ecosystem.register(testPlugin);
 
     const schema: SchemaInput = {
