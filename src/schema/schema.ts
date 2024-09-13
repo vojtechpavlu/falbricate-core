@@ -123,7 +123,8 @@ const compileStandard = (
     const configuration = parseConfigString(configurationString);
 
     // Standard returning a standard type of value
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(valueGeneratorName);
+    const valueGeneratorFactory =
+      ecosystem.getValueGeneratorFactory(valueGeneratorName);
     return valueGeneratorFactory({ ...configuration, ecosystem });
   }
 
