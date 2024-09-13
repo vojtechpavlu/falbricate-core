@@ -29,6 +29,7 @@ import {
   timestampGenerator,
   undefinedGenerator,
   unitsGenerator,
+  xorGenerator,
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
 
@@ -152,7 +153,10 @@ export const CorePlugin: Plugin = {
 
     // Objects
     object: nestedObject,
+
+    // Misc
     reference: referencerGenerator,
+    xor: xorGenerator,
   },
 };
 
