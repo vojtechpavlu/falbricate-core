@@ -2,7 +2,7 @@ import {
   GenerationContext,
   ValueGenerator,
   ValueGeneratorConfiguration,
-  ValueGeneratorFactory
+  ValueGeneratorFactory,
 } from '../../generators';
 import { Ecosystem } from '../../ecosystem';
 import { compileFieldDefinition, FieldDefinition } from '../../schema';
@@ -37,12 +37,9 @@ export const xorGenerator: ValueGeneratorFactory = (
 
   return (context: GenerationContext) => {
     // Randomly pick one of the generators
-    const selectedGenerator = pickRandomItem(
-      context.randomizer,
-      generators
-    );
+    const selectedGenerator = pickRandomItem(context.randomizer, generators);
 
     // Generate the value
     return selectedGenerator(context);
-  }
+  };
 };
