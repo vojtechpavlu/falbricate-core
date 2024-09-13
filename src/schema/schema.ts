@@ -6,6 +6,7 @@ import {
 } from '../generators';
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
+import { parseConfigString } from '../utils';
 
 /** Prefix used to determine the field is referencing a context */
 const REFERENCE_PREFIX = '!ref-';
@@ -110,6 +111,20 @@ const compileStandard = (
 
     const factory = ecosystem.getValueGeneratorFactory('constant');
     return factory({ ecosystem, value });
+  } else if (field.includes('?')) {
+    // When the field definition is an inline configuration
+    // in format 'generator?field1=value1&field2=value2'
+    const index = field.indexOf('?');
+
+    const valueGeneratorName = field.slice(0, Math.max(0, index));
+    const configurationString = field.slice(Math.max(0, index + 1));
+
+    // Parse the configuration string into an object
+    const configuration = parseConfigString(configurationString);
+
+    // Standard returning a standard type of value
+    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(valueGeneratorName);
+    return valueGeneratorFactory({ ...configuration, ecosystem });
   }
 
   // Standard returning a standard type of value
