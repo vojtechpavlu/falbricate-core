@@ -7,13 +7,29 @@ import {
 import { compileFieldDefinition, FieldDefinition } from '../../schema';
 import { Ecosystem } from '../../ecosystem';
 
+/**
+ * This switch expression is comparing a value provided by a defined
+ * {@link ValueGenerator} using a switch-like structure; when it finds a
+ * matching pattern (stringified value matches one between the handlers),
+ * it generates the corresponding value.
+ *
+ * @param {ValueGeneratorConfiguration} config Configuration consisting of:
+ * - `value` - {@link FieldDefinition} representing the Value generator that
+ * should generate the tested value
+ * - `handlers` - Declaration of values with attached Value generators (field
+ * definitions) that should be triggered - of type `Record<string, FieldDefinition>`
+ * - `default` (optional) - Field definition defining what value should be used
+ * when no handler matches the value. When not provided, it will return
+ * `undefined` in this case.
+ *
+ * @returns {ValueGenerator} Value generator being able to decide which value
+ * should be used by the given expression handlers.
+ */
 export const stringSwitchExpression: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
   const ecosystem = config.ecosystem as Ecosystem;
-  const handlersDefinition = config.handlers as {
-    [key: string]: FieldDefinition;
-  };
+  const handlersDefinition = config.handlers as Record<string, FieldDefinition>;
   const valueProviderDefinition = config.value as FieldDefinition;
   const defaultValueProviderDefinition = config.default as
     | FieldDefinition
