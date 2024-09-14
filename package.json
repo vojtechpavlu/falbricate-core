@@ -1,6 +1,6 @@
 {
   "name": "@falbricate/core",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Core framework for Falbricate - tool for Falsa fabrication",
   "keywords": [
     "mocking",

@@ -23,6 +23,7 @@ import {
   referencerGenerator,
   relativeTimestampWithMargin,
   samplingGenerator,
+  stringSwitchExpression,
   stringTemplateGenerator,
   tensGenerator,
   thousandsGenerator,
@@ -153,6 +154,9 @@ export const CorePlugin: Plugin = {
 
     // Objects
     object: nestedObject,
+
+    // Expressions
+    stringSwitch: stringSwitchExpression,
 
     // Misc
     reference: referencerGenerator,
