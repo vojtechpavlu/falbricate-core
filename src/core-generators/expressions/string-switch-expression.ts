@@ -35,13 +35,21 @@ export const stringSwitchExpression: ValueGeneratorFactory = (
     | FieldDefinition
     | undefined;
 
+  if (!ecosystem) {
+    throw new Error(
+      `Can't handle the string switch expression - 'ecosystem' property is required`,
+    );
+  }
+
   if (!handlersDefinition || Object.keys(handlersDefinition).length === 0) {
-    throw new Error(`Can't handle null-like values - no handlers specified`);
+    throw new Error(
+      `Can't handle the string switch expression - no handlers specified`,
+    );
   }
 
   if (!valueProviderDefinition) {
     throw new Error(
-      `Can't handle null-like values - value property is required`,
+      `Can't handle the string switch expression - 'value' property is required`,
     );
   }
 
@@ -60,7 +68,10 @@ export const stringSwitchExpression: ValueGeneratorFactory = (
   let defaultValueProvider: ValueGenerator;
 
   if (defaultValueProviderDefinition) {
-    defaultValueProvider = compileFieldDefinition(ecosystem, defaultValueProviderDefinition);
+    defaultValueProvider = compileFieldDefinition(
+      ecosystem,
+      defaultValueProviderDefinition,
+    );
   }
 
   return (context: GenerationContext) => {
