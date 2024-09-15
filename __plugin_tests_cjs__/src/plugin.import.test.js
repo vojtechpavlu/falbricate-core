@@ -32,9 +32,9 @@ describe('Importing a custom plugin into Ecosystem', () => {
 
     const schema = {
       fields: {
-        testField: 'test-value-generator'
-      }
-    }
+        testField: 'test-value-generator',
+      },
+    };
 
     const falbricate = ecosystem.compile(schema);
     const generated = falbricate.generate();
