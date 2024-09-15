@@ -3,6 +3,8 @@ src
 
 # Tests
 __integration_tests__
+__plugin_tests_cjs__
+__plugin_tests_esm__
 __unit_tests__
 jest.*.js
 
