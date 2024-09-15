@@ -12,8 +12,9 @@
     "type": "git",
     "url": "https://github.com/vojtechpavlu/falbricate-core.git"
   },
-  "main": "./dist/bundle.cjs.js",
-  "module": "./dist/bundle.esm.js",
+  "main": "./dist/bundle.cjs.cjs",
+  "modules": "./dist/bundle.esm.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
