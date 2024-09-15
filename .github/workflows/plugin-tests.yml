@@ -32,3 +32,4 @@ jobs:
 
       - name: Run tests in the test project
         run: npm run test
+        working-directory: ./__plugin_tests_cjs__
