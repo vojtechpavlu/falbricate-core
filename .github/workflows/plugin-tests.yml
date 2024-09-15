@@ -26,6 +26,10 @@ jobs:
       - name: Link to global
         run: npm link
 
+      - name: Install dependencies in the test project
+        run: npm install
+        working-directory: ./__plugin_tests_cjs__
+
       - name: Link in the test project
         run: npm link @falbricate/core
         working-directory: ./__plugin_tests_cjs__
@@ -50,6 +54,10 @@ jobs:
 
       - name: Link to global
         run: npm link
+
+      - name: Install dependencies in the test project
+        run: npm install
+        working-directory: ./__plugin_tests_esm__
 
       - name: Link in the test project
         run: npm link @falbricate/core
