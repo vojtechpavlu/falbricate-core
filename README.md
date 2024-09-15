@@ -5,6 +5,12 @@ for making rich, real-looking data items (_falsa_) for various testing purposes,
 for creating real-looking demos or application prototypes, and to ease the whole
 data model mocking process while enabling versioning of it.
 
+[![Unit tests](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/unit-tests.yml)
+[![Integration tests](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/integration-tests.yml)
+[![Plugin tests](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/plugin-tests.yml/badge.svg)](https://github.com/vojtechpavlu/falbricate-core/actions/workflows/plugin-tests.yml) 
+
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fvojtechpavlu%2Ffalbricate-core%2Fraw%2Fmaster%2Fpackage.json&query=%24.version&style=flat&logo=npm&logoColor=CB3837&label=version&color=purple&cacheSeconds=7200)
+
 ## Example
 
 In this example, you can see how easy it is to create a somewhat real-looking
