@@ -10,7 +10,7 @@ env:
 
 jobs:
   cjs_tests:
-    name: CJS Plugin Tests
+    name: Common JS
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
         working-directory: ./__plugin_tests_cjs__
 
   esm_tests:
-    name: ESM Plugin Tests
+    name: ECMAScript Modules
     runs-on: ubuntu-latest
 
     steps:
