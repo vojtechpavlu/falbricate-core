@@ -1,0 +1,34 @@
+name: Plugin tests
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  cjs_tests:
+    name: CJS Plugin Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/composites/node_setup
+
+      - name: Build @falbricate/core
+        run: npm run build
+
+      - name: Link to global
+        run: npm link
+
+      - name: Link in the test project
+        run: npm link @falbricate/core
+        working-directory: ./__plugin_tests_cjs__
+
+      - name: Run tests in the test project
+        run: npm run test
