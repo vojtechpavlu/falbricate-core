@@ -14,6 +14,19 @@ const LC_TEMPLATE =
 const UC_TEMPLATE =
   '$H$H$H$H$H$H$H$H-$H$H$H$H-{ver}$H$H$H-$H$H$H$H-$H$H$H$H$H$H$H$H$H$H$H$H';
 
+/**
+ * Generator of UUIDs (Universally unique identifiers) in its general form.
+ *
+ * @param {ValueGeneratorConfiguration} config Configuration consisting of
+ * optional fields:
+ * - `version` - represents UUID version (allowed values: `3`, `4` or `5`)
+ * - `uppercase` - boolean value whether the ID should be in uppercase or
+ * lowercase characters
+ *
+ * @returns {ValueGenerator} Value generator being able to generate such UUIDs
+ *
+ * @throws {Error} When the desired version is not between the allowed ones.
+ */
 export const uuidGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
