@@ -9,18 +9,20 @@ import { pickRandomItem } from '../../utils';
 export const pickingGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,
 ): ValueGenerator => {
-  const array = config.array as unknown[];
+  const options = config.options as unknown[];
 
-  if (!Array.isArray(array)) {
+  if (!Array.isArray(options)) {
     throw new TypeError(
-      `Can't pick any item - the array is not of type array (${typeof array})`,
+      `Can't pick any item - the options is not of type array (${typeof options})`,
     );
   }
-  if (array.length === 0) {
-    throw new Error(`Can't pick any item - the given array is empty`);
+  if (options.length === 0) {
+    throw new Error(
+      `Can't pick any item - the given options is an empty array`,
+    );
   }
 
   return (context: GenerationContext) => {
-    return pickRandomItem(context.randomizer, array);
+    return pickRandomItem(context.randomizer, options);
   };
 };
