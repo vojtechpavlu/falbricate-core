@@ -30,6 +30,7 @@ import {
   timestampGenerator,
   undefinedGenerator,
   unitsGenerator,
+  uuidGenerator,
   xorGenerator,
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
@@ -160,6 +161,7 @@ export const CorePlugin: Plugin = {
 
     // Misc
     reference: referencerGenerator,
+    uuid: uuidGenerator,
     xor: xorGenerator,
   },
 };
