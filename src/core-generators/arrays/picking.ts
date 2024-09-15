@@ -17,7 +17,9 @@ export const pickingGenerator: ValueGeneratorFactory = (
     );
   }
   if (options.length === 0) {
-    throw new Error(`Can't pick any item - the given options is an empty array`);
+    throw new Error(
+      `Can't pick any item - the given options is an empty array`,
+    );
   }
 
   return (context: GenerationContext) => {

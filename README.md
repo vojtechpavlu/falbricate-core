@@ -1,7 +1,7 @@
 # Falbricate
 
-Falbricate (combination of words *falsum* and *fabrication*) is a simple tool 
-for making rich, real-looking data items (*falsa*) for various testing purposes, 
+Falbricate (combination of words _falsum_ and _fabrication_) is a simple tool
+for making rich, real-looking data items (_falsa_) for various testing purposes,
 for creating real-looking demos or application prototypes, and to ease the whole
 data model mocking process while enabling versioning of it.
 
@@ -11,7 +11,7 @@ In this example, you can see how easy it is to create a somewhat real-looking
 payment data object generator - with just a tip of the Falbricate features:
 
 ```javascript
-// Start with creating predefined ecosystem with preregistered Core plugin 
+// Start with creating predefined ecosystem with preregistered Core plugin
 const ecosystem = getDefaultEcosystem();
 
 // Define your own schema
@@ -79,6 +79,7 @@ console.log(JSON.stringify(falsum, undefined, 2));
 ```
 
 And here's the result:
+
 ```json
 {
   "paymentId": "36a2b78a-509d-454d-5c49-cfb1ae53ed20",
