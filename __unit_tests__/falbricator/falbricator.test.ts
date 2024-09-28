@@ -39,7 +39,7 @@ describe('generateFalsum function', () => {
       {},
       {},
       0,
-    );
+    ).original;
 
     expect(Object.keys(falsum).length).toBe(2);
     expect(typeof falsum.age1).toBe('number');
@@ -53,7 +53,7 @@ describe('generateFalsum function', () => {
       {},
       {},
       0,
-    );
+    ).original;
 
     expect(falsum.age1).toBe(50);
     expect(falsum.age2).toBe(5);
