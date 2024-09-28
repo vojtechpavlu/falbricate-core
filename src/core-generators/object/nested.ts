@@ -6,6 +6,8 @@ import {
 import { SchemaInput } from '../../schema';
 import { Ecosystem } from '../../ecosystem';
 import { GenerationContext } from '../../generators';
+import { reference } from '../../utils';
+import { FalsumContainer } from '../../falsum';
 
 /**
  * Value generator for creating a nested object from the configured schema.
@@ -14,7 +16,8 @@ import { GenerationContext } from '../../generators';
  *
  * @param {ValueGeneratorConfiguration} config Configuration containing
  * field `schema` (of type {@link SchemaInput}) and field `ecosystem`
- * ({@link Ecosystem})
+ * ({@link Ecosystem}). You can also specify a `path` property which specifies
+ * the path within {@link FalsumContainer} (by default `original` is used).
  *
  * @returns {ValueGenerator} Value Generator being able to generate
  *
@@ -26,6 +29,7 @@ export const nestedObject: ValueGeneratorFactory = (
 ): ValueGenerator => {
   const schema = config.schema as SchemaInput;
   const ecosystem = config.ecosystem as Ecosystem;
+  const path = (config.path as string) ?? 'original';
 
   if (!schema) {
     throw new Error(
@@ -42,6 +46,10 @@ export const nestedObject: ValueGeneratorFactory = (
   const nestedFalbricator = ecosystem.compile(schema);
 
   return (context: GenerationContext) => {
-    return nestedFalbricator.generate(context);
+    const falsumContainer: FalsumContainer = nestedFalbricator.generate(context);
+    return reference(
+      falsumContainer as unknown as Record<string, unknown>,
+      path
+    );
   };
 };
