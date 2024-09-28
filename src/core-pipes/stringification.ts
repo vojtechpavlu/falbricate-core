@@ -22,6 +22,8 @@ export const stringifyPipe: PipeFactory = (config: PipeConfiguration): Pipe => {
       return item.toISOString();
     }
 
-    return indent === 0 ? JSON.stringify(item) : JSON.stringify(item, undefined, indent);
+    return indent === 0
+      ? JSON.stringify(item)
+      : JSON.stringify(item, undefined, indent);
   };
 };
