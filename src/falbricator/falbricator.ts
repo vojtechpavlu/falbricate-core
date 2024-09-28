@@ -74,7 +74,9 @@ export const generateFalsum = (
   const postprocessed: Record<string, unknown> = {};
 
   for (const branch of Object.keys(schema.postprocessing)) {
-    const branchPipeline = schema.postprocessing[branch] as PostprocessingPipeline;
+    const branchPipeline = schema.postprocessing[
+      branch
+    ] as PostprocessingPipeline;
     postprocessed[branch] = branchPipeline(deepCopy(falsum));
   }
 
@@ -86,6 +88,6 @@ export const generateFalsum = (
     },
     schema: schema.input,
     original: falsum,
-    postprocessed
+    postprocessed,
   };
 };
