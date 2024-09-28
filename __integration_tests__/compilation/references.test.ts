@@ -16,7 +16,8 @@ describe('Referencing', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const generatedItems = falbricate.generateMany(5)
+    const generatedItems = falbricate
+      .generateMany(5)
       .map((item) => item.original);
 
     for (const [index, item] of generatedItems.entries()) {
@@ -34,7 +35,8 @@ describe('Referencing', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const generatedItems = falbricate.generateMany(5)
+    const generatedItems = falbricate
+      .generateMany(5)
       .map((item) => item.original);
 
     for (const [index, item] of generatedItems.entries()) {

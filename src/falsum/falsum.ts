@@ -15,7 +15,7 @@ export interface FalsumContainer {
     profiles: Record<string, unknown>;
   };
 
-  schema: SchemaInput
+  schema: SchemaInput;
 
   /** Originally generated {@link Falsum} */
   original: Falsum;

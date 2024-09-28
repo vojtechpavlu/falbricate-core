@@ -3,7 +3,7 @@ import { FalsumContainer, getDefaultEcosystem, SchemaInput } from '../../src';
 const ecosystem = getDefaultEcosystem();
 const schema: SchemaInput = {
   profiles: {
-    profileTest: '!const-profile'
+    profileTest: '!const-profile',
   },
   fields: {
     field: '!const-test',

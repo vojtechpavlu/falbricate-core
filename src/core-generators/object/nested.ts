@@ -46,10 +46,11 @@ export const nestedObject: ValueGeneratorFactory = (
   const nestedFalbricator = ecosystem.compile(schema);
 
   return (context: GenerationContext) => {
-    const falsumContainer: FalsumContainer = nestedFalbricator.generate(context);
+    const falsumContainer: FalsumContainer =
+      nestedFalbricator.generate(context);
     return reference(
       falsumContainer as unknown as Record<string, unknown>,
-      path
+      path,
     );
   };
 };

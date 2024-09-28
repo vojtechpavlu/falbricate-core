@@ -6,7 +6,10 @@ import { deepCopy } from '../utils/deep-copy';
 
 export interface Falbricator {
   generate: (context?: Record<string, unknown>) => FalsumContainer;
-  generateMany: (n: number, context?: Record<string, unknown>) => FalsumContainer[];
+  generateMany: (
+    n: number,
+    context?: Record<string, unknown>,
+  ) => FalsumContainer[];
 }
 
 export const generateProfiles = (
@@ -72,9 +75,9 @@ export const generateFalsum = (
     context: {
       index,
       clientContext: deepCopy(context),
-      profiles: deepCopy(profiles)
+      profiles: deepCopy(profiles),
     },
     schema: schema.input,
-    original: falsum
+    original: falsum,
   };
 };
