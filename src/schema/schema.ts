@@ -52,6 +52,7 @@ export interface SchemaInput {
  * object definition being able to handle Falsum fabrication.
  */
 export interface Schema {
+  input: SchemaInput;
   randomizerFactory: RandomizerFactory;
   randomizerConfig: Record<string, unknown>;
   profiles: {
@@ -247,6 +248,7 @@ export const compileSchemaInput = (
   const fields = compileFieldsObject(ecosystem, input.fields);
 
   return {
+    input,
     randomizerConfig,
     randomizerFactory,
     profiles,

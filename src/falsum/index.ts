@@ -1,1 +1,4 @@
-export { type Falsum } from './falsum';
+export {
+  type Falsum,
+  type FalsumContainer
+} from './falsum';
