@@ -1,5 +1,5 @@
 import { Falsum, FalsumContainer } from '../falsum';
-import { Schema } from '../schema';
+import { PostprocessingPipeline, Schema } from '../schema';
 import { GenerationContext, ValueGenerator } from '../generators';
 import { Randomizer } from '../randomizer';
 import { deepCopy } from '../utils/deep-copy';
@@ -71,6 +71,13 @@ export const generateFalsum = (
     falsum[field] = valueGenerator(fullContext);
   }
 
+  const postprocessed: Record<string, unknown> = {};
+
+  for (const branch of Object.keys(schema.postprocessing)) {
+    const branchPipeline = schema.postprocessing[branch] as PostprocessingPipeline;
+    postprocessed[branch] = branchPipeline(deepCopy(falsum));
+  }
+
   return {
     context: {
       index,
@@ -79,5 +86,6 @@ export const generateFalsum = (
     },
     schema: schema.input,
     original: falsum,
+    postprocessed
   };
 };

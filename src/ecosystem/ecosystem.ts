@@ -6,6 +6,7 @@ import { Falbricator, generateFalsum, generateProfiles } from '../falbricator';
 import { compileSchemaInput, ObjectDefinition, SchemaInput } from '../schema';
 import { Falsum } from '../falsum';
 import { Charset } from '../utils';
+import { PipeFactory } from '../pipes';
 
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizer');
@@ -16,6 +17,7 @@ export class Ecosystem {
   private preconfigurations = new Registry<ObjectDefinition>(
     'preconfigurations',
   );
+  private pipes = new Registry<PipeFactory>('pipes');
 
   /**
    * Constructor taking the optional plugins to be initialized
@@ -71,6 +73,17 @@ export class Ecosystem {
   };
 
   /**
+   * Registers all the given pipes ({@link PipeFactory} functions).
+   *
+   * @param {Record<string, PipeFactory>} records Map of pipes for processing values.
+   */
+  private registerPostprocessingPipes = (
+    records: Record<string, PipeFactory>,
+  ): void => {
+    this.pipes.registerAll(records);
+  };
+
+  /**
    * Registers the given plugin into this ecosystem.
    *
    * @param {Plugin} plugin Plugin enriching the functionality to be registered.
@@ -80,6 +93,7 @@ export class Ecosystem {
     this.registerValueGeneratorFactories(plugin.valueGenerators ?? {});
     this.registerCharsets(plugin.charsets ?? {});
     this.registerPreconfigurations(plugin.preconfigurations ?? {});
+    this.registerPostprocessingPipes(plugin.pipes ?? {});
   };
 
   /**
@@ -231,6 +245,42 @@ export class Ecosystem {
    */
   public removePreconfiguration = (name: string): void => {
     this.preconfigurations.remove(name);
+  };
+
+  /**
+   * Returns whether the Ecosystem has a {@link PipeFactory} of the given name
+   *
+   * @param {string} name Name by which the processing pipe factory should be
+   * searched for
+   *
+   * @returns {boolean} Whether there is or is not a randomizer with
+   * the given name registered.
+   */
+  public hasPipe = (name: string): boolean => {
+    return this.pipes.has(name);
+  };
+
+  /**
+   * Retrieves the {@link PipeFactory} from the Ecosystem.
+   *
+   * @param {string} name the {@link PipeFactory} has
+   *
+   * @returns {PipeFactory} Factory for a processing pipe
+   *
+   * @throws {Error} When no such processing pipe factory is found
+   */
+  public getPipe = (name: string): PipeFactory => {
+    return this.pipes.get(name);
+  };
+
+  /**
+   * Removes a {@link PipeFactory} with the given name. When no such found,
+   * it simply skips it.
+   *
+   * @param {string} name Name under which the processing pipe factory is being stored
+   */
+  public removePipe = (name: string): void => {
+    this.pipes.remove(name);
   };
 
   /**

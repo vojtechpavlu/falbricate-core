@@ -1,4 +1,5 @@
 export * from './randomizer';
+export * from './pipes';
 export * from './utils';
 
 export * from './generators';
