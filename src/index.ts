@@ -12,3 +12,4 @@ export * from './falbricator';
 
 export * from './core-generators';
 export * from './core-plugin';
+export * from './core-pipes';
