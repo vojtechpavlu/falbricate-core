@@ -37,7 +37,7 @@ describe('Importing a custom plugin into Ecosystem', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const generated = falbricate.generate();
+    const generated = falbricate.generate().original;
     expect(generated.testField).toBe('generated-test-value');
   });
 });
