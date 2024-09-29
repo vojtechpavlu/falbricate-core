@@ -35,7 +35,7 @@ import {
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
 import { deepCopy } from '../utils/deep-copy';
-import { stringifyPipe } from '../core-pipes';
+import { orderKeysPipe, stringifyPipe } from '../core-pipes';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -168,18 +168,7 @@ export const CorePlugin: Plugin = {
   },
   pipes: {
     stringify: stringifyPipe,
-    orderKeys: () => {
-      return (item: unknown) => {
-        const sorted = {} as Record<string, unknown>;
-        const keys = Object.keys(item as Record<string, unknown>) as string[];
-
-        for (const key of keys.sort()) {
-          sorted[key] = deepCopy((item as Record<string, unknown>)[key]);
-        }
-
-        return sorted;
-      };
-    },
+    orderKeys: orderKeysPipe,
   },
 };
 
