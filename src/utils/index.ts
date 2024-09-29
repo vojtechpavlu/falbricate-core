@@ -11,10 +11,7 @@ export {
   parseToDate,
   parseToDesiredFormat,
 } from './timestamps';
-export {
-  type Order,
-  orderItems
-} from './ordering';
+export { type Order, orderItems } from './ordering';
 
 export { reference } from './referencing';
 export { type Charset, isCharset } from './charset';

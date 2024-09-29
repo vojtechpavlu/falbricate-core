@@ -34,7 +34,6 @@ import {
   xorGenerator,
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
-import { deepCopy } from '../utils/deep-copy';
 import { orderKeysPipe, stringifyPipe } from '../core-pipes';
 
 export const CorePlugin: Plugin = {

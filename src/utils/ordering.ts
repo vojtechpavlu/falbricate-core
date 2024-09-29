@@ -29,4 +29,4 @@ export const orderItems = <T extends string | number>(
       return order === 'desc' ? -1 : 1;
     }
   });
-}
+};
