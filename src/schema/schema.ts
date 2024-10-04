@@ -7,6 +7,8 @@ import {
 import { Ecosystem } from '../ecosystem';
 import { RandomizerFactory } from '../randomizer';
 import { parseConfigString } from '../utils';
+import { PipelineDefinition, PostprocessingPipeline } from './pipeline';
+import { Pipe, PipeFactory } from '../pipes';
 
 /** Prefix used to determine the field is referencing a context */
 const REFERENCE_PREFIX = '!ref-';
@@ -45,6 +47,10 @@ export interface SchemaInput {
   fields: {
     [name: string]: FieldDefinition;
   };
+
+  postprocess?: {
+    [name: string]: PipelineDefinition;
+  };
 }
 
 /**
@@ -52,6 +58,7 @@ export interface SchemaInput {
  * object definition being able to handle Falsum fabrication.
  */
 export interface Schema {
+  input: SchemaInput;
   randomizerFactory: RandomizerFactory;
   randomizerConfig: Record<string, unknown>;
   profiles: {
@@ -59,6 +66,9 @@ export interface Schema {
   };
   fields: {
     [name: string]: ValueGenerator;
+  };
+  postprocessing: {
+    [name: string]: PostprocessingPipeline;
   };
 }
 
@@ -217,6 +227,65 @@ export const compileFieldDefinition = (
   }
 };
 
+const compilePostprocessors = (
+  ecosystem: Ecosystem,
+  definitions?: { [name: string]: PipelineDefinition },
+): { [name: string]: PostprocessingPipeline } => {
+  if (!definitions) {
+    return {};
+  } else if (Array.isArray(definitions)) {
+    throw new TypeError(
+      `Unexpected type of postprocessors (${typeof definitions})`,
+    );
+  } else if (typeof definitions === 'object') {
+    const compiledPostprocessors = {} as {
+      [name: string]: PostprocessingPipeline;
+    };
+
+    // For each defined postprocessor branch
+    for (const key of Object.keys(definitions)) {
+      // Derive the wanted string-like steps
+      const steps = definitions[key] as PipelineDefinition;
+
+      // Pipe configuration
+      let configuration: Record<string, unknown> = {};
+
+      const pipes: Pipe[] = steps.map((name) => {
+        let pipeName = name;
+
+        if (name.includes('?')) {
+          // When the pipe factory definition is an inline configuration
+          // in format 'generator?field1=value1&field2=value2'
+          const index = name.indexOf('?');
+          pipeName = name.slice(0, Math.max(0, index));
+          const configurationString = name.slice(Math.max(0, index + 1));
+
+          // Parse the configuration string into an object
+          configuration = parseConfigString(configurationString);
+        }
+
+        // Parse the configuration string into an object
+        const pipeFactory: PipeFactory = ecosystem.getPipe(pipeName);
+
+        // Compile Pipe Factory into Pipe
+        return pipeFactory(configuration);
+      });
+
+      // Create the compiled function
+      compiledPostprocessors[key] = (falsum: unknown) => {
+        for (const pipe of pipes) falsum = pipe(falsum);
+        return falsum;
+      };
+    }
+
+    return compiledPostprocessors;
+  } else {
+    throw new TypeError(
+      `Unexpected type of postprocessors (${typeof definitions})`,
+    );
+  }
+};
+
 /**
  * Function compiling the whole given {@link SchemaInput} into {@link Schema}.
  *
@@ -246,10 +315,15 @@ export const compileSchemaInput = (
   // Compile Falsum fields
   const fields = compileFieldsObject(ecosystem, input.fields);
 
+  // Compile postprocessors
+  const postprocessing = compilePostprocessors(ecosystem, input.postprocess);
+
   return {
+    input,
     randomizerConfig,
     randomizerFactory,
     profiles,
     fields,
+    postprocessing,
   };
 };

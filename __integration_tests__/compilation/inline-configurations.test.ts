@@ -11,7 +11,7 @@ describe('Inline configurations', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     expect(typeof item.integer).toBe('number');
     expect(item.integer).toBeGreaterThanOrEqual(15);

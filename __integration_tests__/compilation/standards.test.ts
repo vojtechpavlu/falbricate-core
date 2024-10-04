@@ -12,7 +12,7 @@ describe('Standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const generated = falbricate.generate();
+    const generated = falbricate.generate().original;
 
     expect(generated.testTrue).toBe(true);
     expect(generated.testFalse).toBe(false);

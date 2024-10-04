@@ -26,7 +26,9 @@ describe('Nested object Value Generator', () => {
     };
 
     const falbricator: Falbricator = ecosystem.compile(schemaInput);
-    const generated = falbricator.generate();
+    const generated = falbricator.generate().original;
+
+    console.log(JSON.stringify(generated, undefined, 2));
 
     // @ts-expect-error Generated is intentionally unknown
     expect(generated.nestedField.testField).toBe('test-value');

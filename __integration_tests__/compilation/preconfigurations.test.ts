@@ -32,7 +32,7 @@ describe('Preconfigurations standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     expect(item.val).toBeGreaterThanOrEqual(-101);
     expect(item.val).toBeLessThanOrEqual(-100);

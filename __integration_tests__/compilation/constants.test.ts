@@ -11,7 +11,7 @@ describe('Constant standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     expect(item.val).toBe('test-string');
   });
@@ -26,7 +26,7 @@ describe('Constant standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     expect(item.val).toBe(123);
   });
@@ -41,7 +41,7 @@ describe('Constant standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     // @ts-expect-error Ignore the error
     expect(item.val.k).toBe('v');
@@ -57,7 +57,7 @@ describe('Constant standards', () => {
     };
 
     const falbricate = ecosystem.compile(schema);
-    const item = falbricate.generate();
+    const item = falbricate.generate().original;
 
     // @ts-expect-error Ignore the error
     expect(item.val[0]).toBe('item1');

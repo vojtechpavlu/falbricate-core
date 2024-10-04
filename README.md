@@ -81,7 +81,7 @@ const falbricator: Falbricator = ecosystem.compile(paymentSchema);
 
 // Generate your item with given clientContext
 const falsum = falbricator.generate({ userState: 'UK' });
-console.log(JSON.stringify(falsum, undefined, 2));
+console.log(JSON.stringify(falsum.original, undefined, 2));
 ```
 
 And here's the result:

@@ -1,12 +1,15 @@
-import { Falsum } from '../falsum';
-import { Schema } from '../schema';
+import { Falsum, FalsumContainer } from '../falsum';
+import { PostprocessingPipeline, Schema } from '../schema';
 import { GenerationContext, ValueGenerator } from '../generators';
 import { Randomizer } from '../randomizer';
 import { deepCopy } from '../utils/deep-copy';
 
 export interface Falbricator {
-  generate: (context?: Record<string, unknown>) => Falsum;
-  generateMany: (n: number, context?: Record<string, unknown>) => Falsum[];
+  generate: (context?: Record<string, unknown>) => FalsumContainer;
+  generateMany: (
+    n: number,
+    context?: Record<string, unknown>,
+  ) => FalsumContainer[];
 }
 
 export const generateProfiles = (
@@ -51,7 +54,7 @@ export const generateFalsum = (
   context: Record<string, unknown>,
   profiles: Record<string, unknown>,
   index: number,
-): Falsum => {
+): FalsumContainer => {
   const falsum: Falsum = {};
 
   for (const field of Object.keys(schema.fields)) {
@@ -68,5 +71,23 @@ export const generateFalsum = (
     falsum[field] = valueGenerator(fullContext);
   }
 
-  return falsum;
+  const postprocessed: Record<string, unknown> = {};
+
+  for (const branch of Object.keys(schema.postprocessing)) {
+    const branchPipeline = schema.postprocessing[
+      branch
+    ] as PostprocessingPipeline;
+    postprocessed[branch] = branchPipeline(deepCopy(falsum));
+  }
+
+  return {
+    context: {
+      index,
+      clientContext: deepCopy(context),
+      profiles: deepCopy(profiles),
+    },
+    schema: schema.input,
+    original: falsum,
+    postprocessed,
+  };
 };
