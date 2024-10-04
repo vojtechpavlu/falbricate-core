@@ -34,7 +34,7 @@ import {
   xorGenerator,
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
-import { orderKeysPipe, stringifyPipe } from '../core-pipes';
+import { orderKeysPipe, snakeCasePipe, stringifyPipe } from '../core-pipes';
 
 export const CorePlugin: Plugin = {
   randomizers: {
@@ -168,6 +168,7 @@ export const CorePlugin: Plugin = {
   pipes: {
     stringify: stringifyPipe,
     orderKeys: orderKeysPipe,
+    snakeCase: snakeCasePipe,
   },
 };
 
