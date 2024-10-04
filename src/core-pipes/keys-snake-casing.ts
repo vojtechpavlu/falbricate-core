@@ -32,7 +32,7 @@ export const snakeCasePipe: PipeFactory = (): Pipe => {
       const snakeKey = camelToSnake(key);
 
       // Process the value recursively
-      result[snakeKey] = internalPipe(casedInput[key])
+      result[snakeKey] = internalPipe(casedInput[key]);
     }
 
     return result;
