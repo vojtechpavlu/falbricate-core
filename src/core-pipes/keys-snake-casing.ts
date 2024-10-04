@@ -11,7 +11,6 @@ const camelToSnake = (value: string): string => {
   return value.replaceAll(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 };
 
-
 /**
  * This {@link PipeFactory} creates a {@link Pipe} function being
  * able to turn the keys of the input object into snake-case format

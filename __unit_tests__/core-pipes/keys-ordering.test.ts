@@ -5,7 +5,7 @@ describe('Object keys ordering', () => {
     it('should throw on unexpected order type', () => {
       expect(() => orderKeysPipe({ order: 'unrecognized' })).toThrow(
         `Can't order object keys - unexpected ordering: 'unrecognized', ` +
-        `allowed options: asc,desc`
+          `allowed options: asc,desc`,
       );
     });
   });
@@ -28,11 +28,11 @@ describe('Object keys ordering', () => {
     });
 
     it('should throw on not object', () => {
-      const testObject = "not-object";
+      const testObject = 'not-object';
       const pipe = orderKeysPipe({ order: 'asc' });
 
       expect(() => pipe(testObject)).toThrow(
-        `Can't order object keys - plain object (not array) is expected`
+        `Can't order object keys - plain object (not array) is expected`,
       );
     });
 
@@ -41,7 +41,7 @@ describe('Object keys ordering', () => {
       const pipe = orderKeysPipe({ order: 'asc' });
 
       expect(() => pipe(testObject)).toThrow(
-        `Can't order object keys - plain object (not array) is expected`
+        `Can't order object keys - plain object (not array) is expected`,
       );
     });
   });
