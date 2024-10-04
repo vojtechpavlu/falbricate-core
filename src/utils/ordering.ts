@@ -8,6 +8,19 @@ export const orderItems = <T extends string | number>(
     throw new TypeError(`Can't order - array is expected`);
   }
 
+  if (!['asc', 'desc'].includes(order)) {
+    throw new Error(`Can't order - unrecognized order: '${order}'`);
+  }
+
+  // Check all the items are either strings or numbers
+  for (const item of array) {
+    if (typeof item !== 'string' && typeof item !== 'number') {
+      throw new TypeError(
+        `Can't order - only strings and numbers are expected (${typeof item})`,
+      );
+    }
+  }
+
   return array.sort((a, b) => {
     const isANumber = typeof a === 'number';
     const isBNumber = typeof b === 'number';
