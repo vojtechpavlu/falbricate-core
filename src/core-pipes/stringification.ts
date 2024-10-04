@@ -1,5 +1,19 @@
 import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
 
+/**
+ * This {@link PipeFactory} creates a {@link Pipe} function being able to
+ * turn the given value into it's stringified form.
+ *
+ * @param {PipeConfiguration} config Configuration consisting of an optional
+ * `indent` property specifying the indentation within the result string
+ * (equivalent to `JSON.stringify(object, undefined, indent)`; applied on
+ * object only). When `0`, no indentation is applied.
+ *
+ * @returns {Pipe} Pipe function being able to turn the given values into string
+ *
+ * @throws {TypeError} When the specified `indent` property is not a number
+ * @throws {Error} When the specified `indent` value is less than `0`
+ */
 export const stringifyPipe: PipeFactory = (config: PipeConfiguration): Pipe => {
   const indent = config.indent ?? 0;
 
