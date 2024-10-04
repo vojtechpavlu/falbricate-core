@@ -10,7 +10,7 @@ export const orderKeysPipe: PipeFactory = (config: PipeConfiguration): Pipe => {
   if (!AVAILABLE_ORDERING.includes(order)) {
     throw new Error(
       `Can't order object keys - unexpected ordering: '${order}', ` +
-        `Allowed options: ${AVAILABLE_ORDERING}`,
+        `allowed options: ${AVAILABLE_ORDERING}`,
     );
   }
 
