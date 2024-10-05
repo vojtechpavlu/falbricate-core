@@ -21,6 +21,12 @@ const PRECONFIGURATION_PREFIX = '!conf-';
 
 /** Schema defined by the client - plain JSON-like object is expected */
 export interface SchemaInput {
+  /** Optional name of the schema */
+  name?: string;
+
+  /** Optional description of the schema */
+  description?: string;
+
   /**
    * Optional randomizer configuration. When not provided, the default one
    * will be used.
@@ -48,6 +54,12 @@ export interface SchemaInput {
     [name: string]: FieldDefinition;
   };
 
+  /**
+   * Definition of post-processing pipelines.
+   *
+   * Each of these branches defines a postprocessing pipeline as an array of
+   * steps to modify the generated Falsum object.
+   */
   postprocess?: {
     [name: string]: PipelineDefinition;
   };
@@ -58,6 +70,8 @@ export interface SchemaInput {
  * object definition being able to handle Falsum fabrication.
  */
 export interface Schema {
+  name?: string;
+  description?: string;
   input: SchemaInput;
   randomizerFactory: RandomizerFactory;
   randomizerConfig: Record<string, unknown>;
@@ -325,5 +339,7 @@ export const compileSchemaInput = (
     profiles,
     fields,
     postprocessing,
+    name: input.name,
+    description: input.description,
   };
 };
