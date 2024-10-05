@@ -15,6 +15,8 @@ describe('randomFloat function', () => {
     const value = randomFloat(randomizer, 0, 1);
 
     expect(typeof value).toBe('number');
+
+    // In VERY rare cases, 0 might occur -> this test fails
     expect(Number.isInteger(value)).toBe(false);
   });
 });
