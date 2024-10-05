@@ -18,4 +18,4 @@ export const stringToHashNumber = (inputString: string): number => {
 
   // Turn the hash number into an absolute value for convenience
   return Math.abs(hash);
-}
+};

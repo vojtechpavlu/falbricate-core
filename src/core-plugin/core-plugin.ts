@@ -1,9 +1,10 @@
 import { Plugin } from '../plugin';
 import {
   basicRandomizer,
-  constantRandomizer, contextDependentRandomizer,
+  constantRandomizer,
+  contextDependentRandomizer,
   contextuallySeededRandomizer,
-  seededRandomizer
+  seededRandomizer,
 } from '../randomizer';
 import {
   constantFalse,

@@ -21,7 +21,8 @@ export const contextDependentRandomizer: RandomizerFactory = (
   config?: RandomizerConfiguration,
 ): Randomizer => {
   let currentValue = 0;
-  const modulo = config && config.modulo !== undefined ? config.modulo : 233_280;
+  const modulo =
+    config && config.modulo !== undefined ? config.modulo : 233_280;
 
   if (typeof modulo !== 'number') {
     throw new TypeError(
