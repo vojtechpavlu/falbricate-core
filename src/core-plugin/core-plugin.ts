@@ -2,6 +2,7 @@ import { Plugin } from '../plugin';
 import {
   basicRandomizer,
   constantRandomizer,
+  contextuallySeededRandomizer,
   seededRandomizer,
 } from '../randomizer';
 import {
@@ -41,6 +42,7 @@ export const CorePlugin: Plugin = {
     basic: basicRandomizer,
     constant: constantRandomizer,
     seeded: seededRandomizer,
+    contextuallySeeded: contextuallySeededRandomizer,
   },
   charsets: {
     lowercases: [...'abcdefghijklmnopqrstuvwxyz'],

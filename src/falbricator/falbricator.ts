@@ -20,13 +20,23 @@ export const generateProfiles = (
 ): Record<string, unknown> => {
   const profiles: Record<string, unknown> = {};
 
+  const clientContext = deepCopy(context);
+  const currentFalsum = deepCopy(profiles);
+
   for (const field of Object.keys(schema.profiles)) {
     const fullContext: GenerationContext = {
       index,
-      randomizer: randomizer,
       currentField: field,
-      clientContext: deepCopy(context),
-      currentFalsum: deepCopy(profiles),
+      clientContext,
+      currentFalsum,
+      randomizer: () =>
+        randomizer({
+          index,
+          profiles,
+          currentField: field,
+          clientContext,
+          currentFalsum,
+        }),
     };
 
     const valueGenerator = schema.profiles[field] as ValueGenerator;
@@ -57,14 +67,24 @@ export const generateFalsum = (
 ): FalsumContainer => {
   const falsum: Falsum = {};
 
+  const clientContext = deepCopy(context);
+  const currentFalsum = deepCopy(falsum);
+
   for (const field of Object.keys(schema.fields)) {
     const fullContext: GenerationContext = {
       index,
       profiles,
-      randomizer: randomizer,
       currentField: field,
-      clientContext: deepCopy(context),
-      currentFalsum: deepCopy(falsum),
+      clientContext,
+      currentFalsum,
+      randomizer: () =>
+        randomizer({
+          index,
+          profiles,
+          currentField: field,
+          clientContext,
+          currentFalsum,
+        }),
     };
 
     const valueGenerator = schema.fields[field] as ValueGenerator;
