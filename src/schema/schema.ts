@@ -147,8 +147,10 @@ const compileStandard = (
     const configuration = parseConfigString(configurationString);
 
     // Standard returning a standard type of value
-    const valueGeneratorFactory =
-      ecosystem.get('valueGenerators', valueGeneratorName);
+    const valueGeneratorFactory = ecosystem.get(
+      'valueGenerators',
+      valueGeneratorName,
+    );
     return valueGeneratorFactory({ ...configuration, ecosystem });
   }
 
@@ -208,10 +210,7 @@ export const compileFieldDefinition = (
 
     return compileStandard(ecosystem, field);
   } else if (typeof field === 'object') {
-    const valueGeneratorFactory = ecosystem.get(
-      'valueGenerators',
-      field.type,
-    );
+    const valueGeneratorFactory = ecosystem.get('valueGenerators', field.type);
 
     const config: ValueGeneratorConfiguration = {
       ...field.config,

@@ -30,10 +30,7 @@ describe('Ecosystem post-initialization processes', () => {
     it('should return expected randomizer', () => {
       const ecosystem = new Ecosystem(plugin);
 
-      const randomizerFactory = ecosystem.get(
-        'randomizers',
-        'test-randomizer'
-      );
+      const randomizerFactory = ecosystem.get('randomizers', 'test-randomizer');
 
       const randomizer = randomizerFactory();
 
@@ -68,7 +65,9 @@ describe('Ecosystem post-initialization processes', () => {
       // Initial test whether it's not registered
       expect(ecosystem.has('randomizers', 'non-existing')).toBe(false);
 
-      expect(() => ecosystem.remove('randomizers', 'non-existing')).not.toThrow();
+      expect(() =>
+        ecosystem.remove('randomizers', 'non-existing'),
+      ).not.toThrow();
     });
   });
 
