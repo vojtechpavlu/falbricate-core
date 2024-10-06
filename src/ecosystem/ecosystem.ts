@@ -15,6 +15,13 @@ type EcosystemRegistryType =
   | 'preconfigurations'
   | 'pipes';
 
+type Registrable =
+  | RandomizerFactory
+  | Charset
+  | ValueGeneratorFactory
+  | ObjectDefinition
+  | PipeFactory;
+
 export class Ecosystem {
   private randomizers = new Registry<RandomizerFactory>('randomizers');
   private charsets = new Registry<Charset>('charsets');
@@ -75,6 +82,14 @@ export class Ecosystem {
     this.getRegistry(type).registerAll(items ?? {});
   };
 
+  /**
+   * Returns whether it has or has not the resource within the specified registry.
+   *
+   * @param {EcosystemRegistryType} type Registry type
+   * @param {string} name Name of the resource
+   *
+   * @returns {boolean} Whether the resource is present or not.
+   */
   public has = (type: EcosystemRegistryType, name: string): boolean => {
     return this.getRegistry(type).has(name);
   };
@@ -84,19 +99,26 @@ export class Ecosystem {
   public get(type: 'valueGenerators', name: string): ValueGeneratorFactory;
   public get(type: 'preconfigurations', name: string): ObjectDefinition;
   public get(type: 'pipes', name: string): PipeFactory;
-  public get(
-    type: EcosystemRegistryType,
-    name: string,
-  ):
-    | RandomizerFactory
-    | Charset
-    | ValueGeneratorFactory
-    | ObjectDefinition
-    | PipeFactory {
+
+  /**
+   * Tries to retrieve the resource from the specified registry.
+   *
+   * @param {EcosystemRegistryType} type Registry the resource shall be taken from
+   * @param {string} name Name of the resource to be retrieved
+   *
+   * @returns {Registrable} Found resource
+   */
+  public get(type: EcosystemRegistryType, name: string): Registrable {
     return this.getRegistry(type).get(name);
   }
 
-  public remove(type: EcosystemRegistryType, name: string): void {
+  /**
+   * Removes the registered resource from the specified registry.
+   *
+   * @param {EcosystemRegistryType} type Registry type
+   * @param {string} name Name of the resource to be removed
+   */
+  public remove(type: EcosystemRegistryType, name: string) {
     this.getRegistry(type).remove(name);
   }
 
