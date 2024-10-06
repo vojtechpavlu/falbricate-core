@@ -13,7 +13,7 @@ describe('Importing a custom plugin into Ecosystem', () => {
     const ecosystem = new Ecosystem();
     ecosystem.register(plugin);
 
-    expect(ecosystem.hasValueGeneratorFactory('test-value-generator')).toBe(
+    expect(ecosystem.has('valueGenerators', 'test-value-generator')).toBe(
       true,
     );
   });
