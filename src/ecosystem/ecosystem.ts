@@ -1,4 +1,4 @@
-import { Randomizer, RandomizerFactory } from '../randomizer';
+import { RandomizerFactory } from '../randomizer';
 import { Plugin } from '../plugin';
 import { Registry } from './registry';
 import { ValueGeneratorFactory } from '../generators';
@@ -8,11 +8,25 @@ import { Falsum } from '../falsum';
 import { Charset } from '../utils';
 import { PipeFactory } from '../pipes';
 
+type EcosystemRegistryType =
+  | 'randomizers'
+  | 'charsets'
+  | 'valueGenerators'
+  | 'preconfigurations'
+  | 'pipes';
+
+type Registrable =
+  | RandomizerFactory
+  | Charset
+  | ValueGeneratorFactory
+  | ObjectDefinition
+  | PipeFactory;
+
 export class Ecosystem {
-  private randomizers = new Registry<RandomizerFactory>('randomizer');
-  private charsets = new Registry<Charset>('charset');
+  private randomizers = new Registry<RandomizerFactory>('randomizers');
+  private charsets = new Registry<Charset>('charsets');
   private valueGenerators = new Registry<ValueGeneratorFactory>(
-    'value-generator',
+    'valueGenerators',
   );
   private preconfigurations = new Registry<ObjectDefinition>(
     'preconfigurations',
@@ -31,57 +45,82 @@ export class Ecosystem {
   }
 
   /**
-   * Registers all the records from the given map of randomizer factories.
+   * Returns a registry by its specified name.
    *
-   * @param {Record<string, RandomizerFactory>} records Map of randomizer factories.
+   * @param {string} name Name of the registry type.
+   *
+   * @returns {Registry<unknown>} Registry of the specified type.
    */
-  private registerRandomizers = (
-    records: Record<string, RandomizerFactory>,
-  ): void => {
-    this.randomizers.registerAll(records);
+  private getRegistry = (name: EcosystemRegistryType) => {
+    switch (name) {
+      case 'randomizers': {
+        return this.randomizers;
+      }
+      case 'charsets': {
+        return this.charsets;
+      }
+      case 'valueGenerators': {
+        return this.valueGenerators;
+      }
+      case 'preconfigurations': {
+        return this.preconfigurations;
+      }
+      case 'pipes': {
+        return this.pipes;
+      }
+      default: {
+        throw new Error(`Unrecognized registry type: '${name}'`);
+      }
+    }
+  };
+
+  private registerItems = (
+    type: EcosystemRegistryType,
+    items?: Record<string, unknown>,
+  ) => {
+    // @ts-expect-error Make the declaration rather simpler without TS than making it correct but unreadable
+    this.getRegistry(type).registerAll(items ?? {});
   };
 
   /**
-   * Registers all the records from the given map of Value Generator factories.
+   * Returns whether it has or has not the resource within the specified registry.
    *
-   * @param {Record<string, ValueGeneratorFactory>} records Map of Value Generator factories.
+   * @param {EcosystemRegistryType} type Registry type
+   * @param {string} name Name of the resource
+   *
+   * @returns {boolean} Whether the resource is present or not.
    */
-  private registerValueGeneratorFactories = (
-    records: Record<string, ValueGeneratorFactory>,
-  ): void => {
-    this.valueGenerators.registerAll(records);
+  public has = (type: EcosystemRegistryType, name: string): boolean => {
+    return this.getRegistry(type).has(name);
   };
 
-  /**
-   * Registers all the records from the given map of {@link Charset}s.
-   *
-   * @param {Record<string, Charset>} records Map of charsets.
-   */
-  private registerCharsets = (records: Record<string, Charset>): void => {
-    this.charsets.registerAll(records);
-  };
+  public get(type: 'randomizers', name: string): RandomizerFactory;
+  public get(type: 'charsets', name: string): Charset;
+  public get(type: 'valueGenerators', name: string): ValueGeneratorFactory;
+  public get(type: 'preconfigurations', name: string): ObjectDefinition;
+  public get(type: 'pipes', name: string): PipeFactory;
 
   /**
-   * Registers all the given preconfigurations ({@link ObjectDefinition}s).
+   * Tries to retrieve the resource from the specified registry.
    *
-   * @param {Record<string, ObjectDefinition>} records Map of preconfigured fields.
+   * @param {EcosystemRegistryType} type Registry the resource shall be taken from
+   * @param {string} name Name of the resource to be retrieved
+   *
+   * @returns {Registrable} Found resource
    */
-  private registerPreconfigurations = (
-    records: Record<string, ObjectDefinition>,
-  ): void => {
-    this.preconfigurations.registerAll(records);
-  };
+  public get(type: EcosystemRegistryType, name: string): Registrable {
+    return this.getRegistry(type).get(name);
+  }
 
   /**
-   * Registers all the given pipes ({@link PipeFactory} functions).
+   * Removes the registered resource from the specified registry.
    *
-   * @param {Record<string, PipeFactory>} records Map of pipes for processing values.
+   * @param {EcosystemRegistryType} type Registry type
+   * @param {string} name Name of the resource to be removed
    */
-  private registerPostprocessingPipes = (
-    records: Record<string, PipeFactory>,
-  ): void => {
-    this.pipes.registerAll(records);
-  };
+  public remove(type: EcosystemRegistryType, name: string) {
+    this.getRegistry(type).remove(name);
+  }
 
   /**
    * Registers the given plugin into this ecosystem.
@@ -89,36 +128,11 @@ export class Ecosystem {
    * @param {Plugin} plugin Plugin enriching the functionality to be registered.
    */
   public register = (plugin: Plugin): void => {
-    this.registerRandomizers(plugin.randomizers ?? {});
-    this.registerValueGeneratorFactories(plugin.valueGenerators ?? {});
-    this.registerCharsets(plugin.charsets ?? {});
-    this.registerPreconfigurations(plugin.preconfigurations ?? {});
-    this.registerPostprocessingPipes(plugin.pipes ?? {});
-  };
-
-  /**
-   * Returns whether the Ecosystem has a {@link Randomizer} of the given name
-   *
-   * @param {string} name Name by which the randomizer should be searched for
-   *
-   * @returns {boolean} Whether there is or is not a randomizer with
-   * the given name registered.
-   */
-  public hasRandomizerFactory = (name: string): boolean => {
-    return this.randomizers.has(name);
-  };
-
-  /**
-   * Retrieves the {@link RandomizerFactory} from the Ecosystem.
-   *
-   * @param {string} name the {@link Randomizer} has
-   *
-   * @returns {RandomizerFactory} Factory for a randomizer
-   *
-   * @throws {Error} When no such randomizer factory is found
-   */
-  public getRandomizerFactory = (name: string): RandomizerFactory => {
-    return this.randomizers.get(name);
+    this.registerItems('randomizers', plugin.randomizers);
+    this.registerItems('valueGenerators', plugin.valueGenerators);
+    this.registerItems('charsets', plugin.charsets);
+    this.registerItems('preconfigurations', plugin.preconfigurations);
+    this.registerItems('pipes', plugin.pipes);
   };
 
   /**
@@ -130,157 +144,6 @@ export class Ecosystem {
    */
   public getDefaultRandomizer = (): RandomizerFactory => {
     return this.randomizers.getFirst();
-  };
-
-  /**
-   * Removes a {@link Randomizer} with the given name. When no such found,
-   * it simply skips it.
-   *
-   * @param {string} name Name under which the randomizer is being stored
-   */
-  public removeRandomizer = (name: string): void => {
-    this.randomizers.remove(name);
-  };
-
-  /**
-   * Returns whether the Ecosystem has a {@link ValueGeneratorFactory} of the given name
-   *
-   * @param {string} name Name by which the Value Generator factory should be searched for
-   *
-   * @returns {boolean} Whether there is or is not a Value Generator factory with
-   * the given name registered.
-   */
-  public hasValueGeneratorFactory = (name: string): boolean => {
-    return this.valueGenerators.has(name);
-  };
-
-  /**
-   * Retrieves the {@link ValueGeneratorFactory} from the Ecosystem.
-   *
-   * @param {string} name the {@link ValueGeneratorFactory} has
-   *
-   * @returns {ValueGeneratorFactory} Factory for a Value Generator
-   *
-   * @throws {Error} When no such Value Generator factory is found
-   */
-  public getValueGeneratorFactory = (name: string): ValueGeneratorFactory => {
-    return this.valueGenerators.get(name);
-  };
-
-  /**
-   * Removes a {@link ValueGeneratorFactory} with the given name. When no such found,
-   * it simply skips it.
-   *
-   * @param {string} name Name under which the Value Generator factory is being stored
-   */
-  public removeValueGeneratorFactory = (name: string): void => {
-    this.valueGenerators.remove(name);
-  };
-
-  /**
-   * Returns whether the Ecosystem has a {@link Charset} of the given name
-   *
-   * @param {string} name Name by which the Charset should be searched for
-   *
-   * @returns {boolean} Whether there is or is not a Charset with
-   * the given name registered.
-   */
-  public hasCharset = (name: string): boolean => {
-    return this.charsets.has(name);
-  };
-
-  /**
-   * Retrieves the {@link Charset} from the Ecosystem.
-   *
-   * @param {string} name the {@link Charset} has
-   *
-   * @returns {Charset} Registered Charset with such name
-   *
-   * @throws {Error} When no such Charset is found
-   */
-  public getCharset = (name: string): Charset => {
-    return this.charsets.get(name);
-  };
-
-  /**
-   * Removes a {@link Charset} with the given name. When no such found,
-   * it simply skips it.
-   *
-   * @param {string} name Name under which the Charset is being stored
-   */
-  public removeCharset = (name: string): void => {
-    this.charsets.remove(name);
-  };
-
-  /**
-   * Returns whether the Ecosystem has a {@link ObjectDefinition} of the given name
-   *
-   * @param {string} name Name by which the ObjectDefinition should be searched for
-   *
-   * @returns {boolean} Whether there is or is not a ObjectDefinition with
-   * the given name registered.
-   */
-  public hasPreconfiguration = (name: string): boolean => {
-    return this.preconfigurations.has(name);
-  };
-
-  /**
-   * Retrieves the {@link ObjectDefinition} from the Ecosystem.
-   *
-   * @param {string} name the {@link ObjectDefinition} has
-   *
-   * @returns {ObjectDefinition} Registered field preconfiguration with such name
-   *
-   * @throws {Error} When no such ObjectDefinition is found
-   */
-  public getPreconfiguration = (name: string): ObjectDefinition => {
-    return this.preconfigurations.get(name);
-  };
-
-  /**
-   * Removes a {@link ObjectDefinition} with the given name. When no such found,
-   * it simply skips it.
-   *
-   * @param {string} name Name under which the field preconfiguration is being stored
-   */
-  public removePreconfiguration = (name: string): void => {
-    this.preconfigurations.remove(name);
-  };
-
-  /**
-   * Returns whether the Ecosystem has a {@link PipeFactory} of the given name
-   *
-   * @param {string} name Name by which the processing pipe factory should be
-   * searched for
-   *
-   * @returns {boolean} Whether there is or is not a randomizer with
-   * the given name registered.
-   */
-  public hasPipe = (name: string): boolean => {
-    return this.pipes.has(name);
-  };
-
-  /**
-   * Retrieves the {@link PipeFactory} from the Ecosystem.
-   *
-   * @param {string} name the {@link PipeFactory} has
-   *
-   * @returns {PipeFactory} Factory for a processing pipe
-   *
-   * @throws {Error} When no such processing pipe factory is found
-   */
-  public getPipe = (name: string): PipeFactory => {
-    return this.pipes.get(name);
-  };
-
-  /**
-   * Removes a {@link PipeFactory} with the given name. When no such found,
-   * it simply skips it.
-   *
-   * @param {string} name Name under which the processing pipe factory is being stored
-   */
-  public removePipe = (name: string): void => {
-    this.pipes.remove(name);
   };
 
   /**

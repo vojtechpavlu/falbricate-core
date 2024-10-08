@@ -100,7 +100,7 @@ const compileRandomizerFactory = (
   name?: string,
 ): RandomizerFactory => {
   return name
-    ? ecosystem.getRandomizerFactory(name)
+    ? ecosystem.get('randomizers', name)
     : ecosystem.getDefaultRandomizer();
 };
 
@@ -120,7 +120,7 @@ const compileStandard = (
   if (field.startsWith(REFERENCE_PREFIX)) {
     // Standard referencing to context
     const path = field.slice(REFERENCE_PREFIX.length);
-    const factory = ecosystem.getValueGeneratorFactory('reference');
+    const factory = ecosystem.get('valueGenerators', 'reference');
     return factory({ ecosystem, path });
   } else if (field.startsWith(CONSTANT_PREFIX)) {
     // Standard providing a constant value
@@ -133,7 +133,7 @@ const compileStandard = (
       /* intentionally empty */
     }
 
-    const factory = ecosystem.getValueGeneratorFactory('constant');
+    const factory = ecosystem.get('valueGenerators', 'constant');
     return factory({ ecosystem, value });
   } else if (field.includes('?')) {
     // When the field definition is an inline configuration
@@ -147,13 +147,15 @@ const compileStandard = (
     const configuration = parseConfigString(configurationString);
 
     // Standard returning a standard type of value
-    const valueGeneratorFactory =
-      ecosystem.getValueGeneratorFactory(valueGeneratorName);
+    const valueGeneratorFactory = ecosystem.get(
+      'valueGenerators',
+      valueGeneratorName,
+    );
     return valueGeneratorFactory({ ...configuration, ecosystem });
   }
 
   // Standard returning a standard type of value
-  const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(field);
+  const valueGeneratorFactory = ecosystem.get('valueGenerators', field);
   return valueGeneratorFactory({ ecosystem });
 };
 
@@ -202,15 +204,13 @@ export const compileFieldDefinition = (
     // When preconfigured
     if (field.startsWith(PRECONFIGURATION_PREFIX)) {
       const configName = field.slice(PRECONFIGURATION_PREFIX.length);
-      const objectDefinition = ecosystem.getPreconfiguration(configName);
+      const objectDefinition = ecosystem.get('preconfigurations', configName);
       return compileFieldDefinition(ecosystem, objectDefinition);
     }
 
     return compileStandard(ecosystem, field);
   } else if (typeof field === 'object') {
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
-      field.type,
-    );
+    const valueGeneratorFactory = ecosystem.get('valueGenerators', field.type);
 
     const config: ValueGeneratorConfiguration = {
       ...field.config,
@@ -279,7 +279,7 @@ const compilePostprocessors = (
         }
 
         // Parse the configuration string into an object
-        const pipeFactory: PipeFactory = ecosystem.getPipe(pipeName);
+        const pipeFactory: PipeFactory = ecosystem.get('pipes', pipeName);
 
         // Compile Pipe Factory into Pipe
         return pipeFactory(configuration);

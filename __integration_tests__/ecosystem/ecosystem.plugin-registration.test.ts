@@ -13,13 +13,14 @@ describe('Ecosystem handling Plugin registration', () => {
 
     ecosystem.register(plugin);
 
-    expect(ecosystem.hasRandomizerFactory('custom-test-randomizer')).toBe(true);
+    expect(ecosystem.has('randomizers', 'custom-test-randomizer')).toBe(true);
 
     expect(() =>
-      ecosystem.getRandomizerFactory('custom-test-randomizer'),
+      ecosystem.get('randomizers', 'custom-test-randomizer'),
     ).not.toThrow();
 
-    const randomizerFactory = ecosystem.getRandomizerFactory(
+    const randomizerFactory = ecosystem.get(
+      'randomizers',
       'custom-test-randomizer',
     );
 
@@ -41,14 +42,15 @@ describe('Ecosystem handling Plugin registration', () => {
     ecosystem.register(plugin);
 
     expect(
-      ecosystem.hasValueGeneratorFactory('custom-test-value-generator'),
+      ecosystem.has('valueGenerators', 'custom-test-value-generator'),
     ).toBe(true);
 
     expect(() =>
-      ecosystem.getValueGeneratorFactory('custom-test-value-generator'),
+      ecosystem.get('valueGenerators', 'custom-test-value-generator'),
     ).not.toThrow();
 
-    const valueGeneratorFactory = ecosystem.getValueGeneratorFactory(
+    const valueGeneratorFactory = ecosystem.get(
+      'valueGenerators',
       'custom-test-value-generator',
     );
 

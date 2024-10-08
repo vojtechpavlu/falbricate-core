@@ -18,7 +18,7 @@ describe('Preconfigurations standards', () => {
 
     ecosystem.register(testPlugin);
 
-    expect(ecosystem.hasPreconfiguration('myPreconfiguration')).toBe(true);
+    expect(ecosystem.has('preconfigurations', 'myPreconfiguration')).toBe(true);
   });
 
   it('should be able to use it', () => {

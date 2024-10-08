@@ -31,8 +31,8 @@ const ensureCharset = (
       throw new Error(
         `Can't generate a random string - Charset is defined by its name ('${possibleCharset}') but ecosystem is not defined`,
       );
-    } else if (ecosystem?.hasCharset(possibleCharset)) {
-      return ecosystem?.getCharset(possibleCharset) as Charset;
+    } else if (ecosystem?.has('charsets', possibleCharset)) {
+      return ecosystem?.get('charsets', possibleCharset) as Charset;
     } else {
       throw new Error(
         `Can't generate a random string - Charset called '${possibleCharset}' not found`,
