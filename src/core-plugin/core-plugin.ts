@@ -37,6 +37,7 @@ import {
 } from '../core-generators';
 import { Ecosystem } from '../ecosystem';
 import {
+  dropFieldPipe,
   orderKeysPipe,
   renameFieldPipe,
   snakeCasePipe,
@@ -179,6 +180,7 @@ export const CorePlugin: Plugin = {
     orderKeys: orderKeysPipe,
     snakeCase: snakeCasePipe,
     renameField: renameFieldPipe,
+    dropField: dropFieldPipe,
   },
 };
 
