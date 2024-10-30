@@ -1,8 +1,8 @@
 import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
-import { dropField } from '../utils/drop-field';
+import { dropField } from '../utils';
 
 export const dropFieldPipe: PipeFactory = (config: PipeConfiguration): Pipe => {
-  const field = config.field as (string | string[]);
+  const field = config.field as (string | string[] | unknown);
 
   if (!field) {
     throw new Error(`Can't drop a field - not specified field to be dropped`);
@@ -12,10 +12,10 @@ export const dropFieldPipe: PipeFactory = (config: PipeConfiguration): Pipe => {
 
   if (Array.isArray(field)) {
     toDrop = [...field]
-  }
-
-  if (typeof field === 'string') {
+  } else if (typeof field === 'string') {
     toDrop = [field]
+  } else {
+    throw new TypeError(`Can't drop a field - unrecognized type '${typeof field}'`);
   }
 
   return (input: unknown) => {

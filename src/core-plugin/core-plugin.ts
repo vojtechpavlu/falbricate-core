@@ -39,6 +39,7 @@ import { Ecosystem } from '../ecosystem';
 import {
   dropFieldPipe,
   orderKeysPipe,
+  pickFieldPipe,
   renameFieldPipe,
   snakeCasePipe,
   stringifyPipe,
@@ -181,6 +182,7 @@ export const CorePlugin: Plugin = {
     snakeCase: snakeCasePipe,
     renameField: renameFieldPipe,
     dropField: dropFieldPipe,
+    pickField: pickFieldPipe,
   },
 };
 
