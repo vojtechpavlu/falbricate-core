@@ -24,7 +24,7 @@ export const pickField = (
     for (const fieldName of field) {
       if (!Object.keys(object).includes(fieldName)) {
         throw new Error(
-          `Can't pick a field - field '${field}' is not present in the object`,
+          `Can't pick a field - field '${fieldName}' is not present in the object`,
         );
       }
     }
