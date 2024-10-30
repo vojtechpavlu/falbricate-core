@@ -1,6 +1,6 @@
 {
   "name": "@falbricate/core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Core framework for Falbricate - tool for Falsa fabrication",
   "keywords": [
     "mocking",
@@ -44,7 +44,7 @@
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
-    "rollup": "^4.21.0",
+    "rollup": "4.22.4",
     "ts-jest": "^29.2.4",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
