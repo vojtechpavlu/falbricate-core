@@ -1,4 +1,8 @@
-import { Randomizer, RandomizerConfiguration, RandomizerFactory } from './base';
+import {
+  Randomizer,
+  RandomizerConfiguration,
+  RandomizerFactory,
+} from '@falbricate/fw';
 
 /**
  * Returns a specific constant value within a range of `[0, 1]`.

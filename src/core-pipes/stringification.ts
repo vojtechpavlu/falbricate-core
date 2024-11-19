@@ -1,4 +1,4 @@
-import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
+import { Pipe, PipeConfiguration, PipeFactory } from '@falbricate/fw';
 
 /**
  * This {@link PipeFactory} creates a {@link Pipe} function being able to

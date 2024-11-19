@@ -1,6 +1,5 @@
-import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
+import { Pipe, PipeConfiguration, PipeFactory, deepCopy } from '@falbricate/fw';
 import { Order, orderItems } from '../utils';
-import { deepCopy } from '../utils/deep-copy';
 
 const AVAILABLE_ORDERING = ['asc', 'desc'];
 

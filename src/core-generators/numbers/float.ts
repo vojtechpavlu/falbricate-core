@@ -2,9 +2,9 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { GenerationContext } from '../../generators';
-import { randomFloat } from '../../utils';
+  GenerationContext,
+  randomFloat,
+} from '@falbricate/fw';
 
 export const floatGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,

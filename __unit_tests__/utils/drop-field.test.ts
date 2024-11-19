@@ -1,4 +1,4 @@
-import { dropField } from '../../src/utils/drop-field';
+import { dropField } from '../../src';
 
 const original = { key1: 1, key2: 2, key3: 3 };
 

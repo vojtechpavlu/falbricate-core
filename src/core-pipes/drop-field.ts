@@ -1,4 +1,4 @@
-import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
+import { Pipe, PipeConfiguration, PipeFactory } from '@falbricate/fw';
 import { dropField } from '../utils';
 
 export const dropFieldPipe: PipeFactory = (config: PipeConfiguration): Pipe => {

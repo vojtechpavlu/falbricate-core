@@ -1,14 +1,12 @@
-import { Plugin } from '../plugin';
+import { Plugin, Ecosystem } from '@falbricate/fw';
 import {
-  basicRandomizer,
   constantRandomizer,
   contextDependentRandomizer,
   contextuallySeededRandomizer,
   seededRandomizer,
-} from '../randomizer';
+} from '../core-randomizers';
 import {
   constantFalse,
-  constantGenerator,
   constantTrue,
   floatGenerator,
   genericGenerator,
@@ -22,7 +20,6 @@ import {
   randomBoolean,
   randomStringGenerator,
   randomStringGeneratorOfRandomLength,
-  referencerGenerator,
   relativeTimestampWithMargin,
   samplingGenerator,
   stringSwitchExpression,
@@ -35,7 +32,6 @@ import {
   uuidGenerator,
   xorGenerator,
 } from '../core-generators';
-import { Ecosystem } from '../ecosystem';
 import {
   dropFieldPipe,
   orderKeysPipe,
@@ -47,7 +43,6 @@ import {
 
 export const CorePlugin: Plugin = {
   randomizers: {
-    basic: basicRandomizer,
     constant: constantRandomizer,
     seeded: seededRandomizer,
     contextuallySeeded: contextuallySeededRandomizer,
@@ -75,9 +70,6 @@ export const CorePlugin: Plugin = {
     // Empty values
     undefined: undefinedGenerator,
     null: nullGenerator,
-
-    // Constant value
-    constant: constantGenerator,
 
     // Booleans
     boolean: randomBoolean,
@@ -172,7 +164,6 @@ export const CorePlugin: Plugin = {
     stringSwitch: stringSwitchExpression,
 
     // Misc
-    reference: referencerGenerator,
     uuid: uuidGenerator,
     xor: xorGenerator,
   },

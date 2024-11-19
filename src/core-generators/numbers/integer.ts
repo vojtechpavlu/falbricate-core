@@ -1,10 +1,10 @@
-import { GenerationContext } from '../../generators';
 import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { randomInteger } from '../../utils';
+  GenerationContext,
+  randomInteger,
+} from '@falbricate/fw';
 
 /**
  * Generates a random integer within a configured range.

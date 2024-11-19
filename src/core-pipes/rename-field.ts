@@ -1,4 +1,4 @@
-import { Pipe, PipeConfiguration, PipeFactory } from '../pipes';
+import { Pipe, PipeConfiguration, PipeFactory } from '@falbricate/fw';
 import { renameField } from '../utils';
 
 export const renameFieldPipe: PipeFactory = (

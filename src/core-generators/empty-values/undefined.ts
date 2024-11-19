@@ -1,4 +1,4 @@
-import { ValueGenerator, ValueGeneratorFactory } from '../../generators';
+import { ValueGenerator, ValueGeneratorFactory } from '@falbricate/fw';
 
 /**
  * Generator providing a constant `undefined` value.

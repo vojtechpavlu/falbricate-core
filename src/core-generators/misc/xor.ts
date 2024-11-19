@@ -1,12 +1,13 @@
 import {
-  GenerationContext,
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { Ecosystem } from '../../ecosystem';
-import { compileFieldDefinition, FieldDefinition } from '../../schema';
-import { pickRandomItem } from '../../utils';
+  GenerationContext,
+  Ecosystem,
+  compileFieldDefinition,
+  FieldDefinition,
+  pickRandomItem,
+} from '@falbricate/fw';
 
 /**
  * XOR generator enables the possibility to automatically choose between

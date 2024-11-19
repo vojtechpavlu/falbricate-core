@@ -1,4 +1,4 @@
-import { deepCopy } from './deep-copy';
+import { deepCopy } from '@falbricate/fw';
 
 export const dropField = (
   object: Record<string, unknown>,

@@ -2,15 +2,13 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import {
+  GenerationContext,
   Charset,
   isCharset,
   randomString,
   randomStringOfRandomLength,
-} from '../../utils';
-import { GenerationContext } from '../../generators';
-import { Ecosystem } from '../../ecosystem';
+  Ecosystem,
+} from '@falbricate/fw';
 
 /**
  * Tries to retrieve a {@link Charset} from other possible forms.

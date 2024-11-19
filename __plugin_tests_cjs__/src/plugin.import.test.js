@@ -1,4 +1,5 @@
-const { Ecosystem, getDefaultEcosystem } = require('@falbricate/core');
+const { Ecosystem } = require('@falbricate/fw');
+const { getDefaultEcosystem } = require('@falbricate/core');
 
 describe('Importing a custom plugin into Ecosystem', () => {
   it('should include the given plugin', () => {

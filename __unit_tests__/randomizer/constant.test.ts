@@ -1,4 +1,5 @@
-import { constantRandomizer, RandomizerConfiguration } from '../../src';
+import { constantRandomizer } from '../../src';
+import { RandomizerConfiguration } from '@falbricate/fw';
 
 describe('Constant randomizer', () => {
   it('should return a given number', () => {

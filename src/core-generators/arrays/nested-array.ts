@@ -2,11 +2,12 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { compileFieldDefinition, FieldDefinition } from '../../schema';
-import { Ecosystem } from '../../ecosystem';
-import { GenerationContext } from '../../generators';
-import { randomInteger } from '../../utils';
+  compileFieldDefinition,
+  FieldDefinition,
+  Ecosystem,
+  GenerationContext,
+  randomInteger,
+} from '@falbricate/fw';
 
 export const nestedArrayGenerator: ValueGeneratorFactory = (
   config: ValueGeneratorConfiguration,

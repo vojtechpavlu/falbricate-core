@@ -3,7 +3,7 @@ import {
   RandomizerConfiguration,
   RandomizerContext,
   RandomizerFactory,
-} from './base';
+} from '@falbricate/fw';
 import { stringToHashNumber } from '../utils';
 
 /**

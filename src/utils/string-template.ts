@@ -1,5 +1,4 @@
-import { Randomizer } from '../randomizer';
-import { pickRandomItem } from './random';
+import { Randomizer, pickRandomItem } from '@falbricate/fw';
 
 type DefaultSubstitute = (randomizer: Randomizer) => string;
 type Variables = { [key: string]: () => unknown };
