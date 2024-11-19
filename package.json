@@ -52,6 +52,6 @@
     "typescript-eslint": "^8.1.0"
   },
   "dependencies": {
-    "@falbricate/fw": "^1.1.1"
+    "@falbricate/fw": "^1.1.2"
   }
 }
