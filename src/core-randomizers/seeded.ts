@@ -1,4 +1,8 @@
-import { Randomizer, RandomizerConfiguration, RandomizerFactory } from './base';
+import {
+  Randomizer,
+  RandomizerConfiguration,
+  RandomizerFactory,
+} from '@falbricate/fw';
 
 /**
  * Generates a seeded (deterministic) pseudo-randomizer. This implementation

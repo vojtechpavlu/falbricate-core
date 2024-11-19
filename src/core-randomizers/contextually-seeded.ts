@@ -1,4 +1,4 @@
-import { RandomizerContext, RandomizerFactory } from './base';
+import { RandomizerContext, RandomizerFactory } from '@falbricate/fw';
 
 export const contextuallySeededRandomizer: RandomizerFactory = () => {
   return (context?: RandomizerContext) => {
