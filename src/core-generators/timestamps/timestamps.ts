@@ -2,8 +2,9 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { GenerationContext } from '../../generators';
+  GenerationContext,
+  randomInteger,
+} from '@falbricate/fw';
 import {
   As,
   availableTimestampProcessors,
@@ -11,7 +12,6 @@ import {
   getTimeConversion,
   parseToDate,
   parseToDesiredFormat,
-  randomInteger,
   TimeDirection,
   TimeUnit,
 } from '../../utils';

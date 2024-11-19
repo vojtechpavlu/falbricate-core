@@ -2,12 +2,12 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { SchemaInput } from '../../schema';
-import { Ecosystem } from '../../ecosystem';
-import { GenerationContext } from '../../generators';
-import { reference } from '../../utils';
-import { FalsumContainer } from '../../falsum';
+  GenerationContext,
+  SchemaInput,
+  Ecosystem,
+  reference,
+  FalsumContainer,
+} from '@falbricate/fw';
 
 /**
  * Value generator for creating a nested object from the configured schema.

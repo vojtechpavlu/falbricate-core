@@ -1,11 +1,12 @@
 import {
-  GenerationContext,
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { compileFieldDefinition, FieldDefinition } from '../../schema';
-import { Ecosystem } from '../../ecosystem';
+  GenerationContext,
+  FieldDefinition,
+  Ecosystem,
+  compileFieldDefinition
+} from '@falbricate/fw';
 
 /**
  * This switch expression is comparing a value provided by a defined

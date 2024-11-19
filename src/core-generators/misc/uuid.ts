@@ -1,9 +1,9 @@
 import {
-  GenerationContext,
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
+  GenerationContext,
+} from '@falbricate/fw';
 import { stringTemplate } from '../../utils';
 
 /** Lowercase template */

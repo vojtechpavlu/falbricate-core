@@ -1,4 +1,4 @@
-import { Pipe, PipeFactory } from '../pipes';
+import { Pipe, PipeFactory } from '@falbricate/fw';
 
 /**
  * Helper function to turn a camel-case string into snake-cased one.

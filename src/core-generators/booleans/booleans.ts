@@ -2,8 +2,8 @@ import {
   ValueGenerator,
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
-} from '../../generators';
-import { GenerationContext } from '../../generators';
+  GenerationContext,
+} from '@falbricate/fw';
 
 /**
  * Creates a Value Generator fabricating a random boolean value based on
