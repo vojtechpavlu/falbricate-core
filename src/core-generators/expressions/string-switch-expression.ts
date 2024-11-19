@@ -5,7 +5,7 @@ import {
   GenerationContext,
   FieldDefinition,
   Ecosystem,
-  compileFieldDefinition
+  compileFieldDefinition,
 } from '@falbricate/fw';
 
 /**

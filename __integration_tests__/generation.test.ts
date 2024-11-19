@@ -7,12 +7,12 @@ describe('Generation of an object', () => {
       integer: 'integer?min=0&max=10',
       true: 'true',
       undefined: 'undefined',
-      pastMinute: 'pastMinute'
-    }
-  }
+      pastMinute: 'pastMinute',
+    },
+  };
 
   it('should compile the schema without any problem', () => {
-    expect(() => getDefaultEcosystem().compile(schema)).not.toThrow()
+    expect(() => getDefaultEcosystem().compile(schema)).not.toThrow();
   });
 
   it('should generate an expected original object shape', () => {
@@ -23,7 +23,7 @@ describe('Generation of an object', () => {
       'integer',
       'true',
       'undefined',
-      'pastMinute'
+      'pastMinute',
     ]);
   });
 
@@ -34,7 +34,9 @@ describe('Generation of an object', () => {
     const generated = falbricator.generate();
 
     const integer = generated.original.integer as number;
-    const pastMinute = new Date(generated.original.pastMinute as string).getTime();
+    const pastMinute = new Date(
+      generated.original.pastMinute as string,
+    ).getTime();
 
     expect(generated.original.true).toBe(true);
     expect(generated.original.undefined).toBe(undefined);

@@ -3,7 +3,7 @@ import {
   ValueGeneratorConfiguration,
   ValueGeneratorFactory,
   GenerationContext,
-  randomFloat
+  randomFloat,
 } from '@falbricate/fw';
 
 export const floatGenerator: ValueGeneratorFactory = (
