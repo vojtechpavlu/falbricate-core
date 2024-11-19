@@ -1,4 +1,5 @@
-import { Falbricator, getDefaultEcosystem, SchemaInput } from '../../../../src';
+import { getDefaultEcosystem } from '../../../../src';
+import { Falbricator, SchemaInput } from '@falbricate/fw';
 
 describe('Nested object Value Generator', () => {
   it('should generate Falsum with the expected nested object', () => {
